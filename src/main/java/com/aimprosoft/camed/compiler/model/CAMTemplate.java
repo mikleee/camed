@@ -57,7 +57,7 @@ public class CAMTemplate {
     }
 
     public void setTemplateDocument(Document templateDocument) {
-        if (namespacesMap.size() == 0) {
+        if (namespacesMap.isEmpty()) {
             try {
                 Xpath xpath = new Xpath();
                 xpath.setUpXPath(templateDocument, "*");

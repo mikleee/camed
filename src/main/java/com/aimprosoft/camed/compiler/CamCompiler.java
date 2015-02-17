@@ -15,6 +15,9 @@ import java.io.*;
 
 public class CamCompiler {
 
+    private final static Logger LOGGER = Logger.getLogger(CamCompiler.class);
+    private final static String ENCODING = "UTF-8";
+
     private String tempFilesDirPath;
     private String compilePath;
 
@@ -23,13 +26,12 @@ public class CamCompiler {
         this.compilePath = compilePath;
     }
 
-    private final static Logger LOGGER = Logger.getLogger(CamCompiler.class);
-    private final static String ENCODING = "UTF-8";
-
 
     public void compile(File inputFile) throws Exception {
         CAMTemplate template = prepareTemplate(inputFile);
         Element element = template.toDoc(false);
+//        Document doc = new DocumentFactory().createDocument(inputFile);
+//        Element element = doc.getRootElement();
         writePretty(new File(compilePath), element);
     }
 

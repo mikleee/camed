@@ -28,7 +28,6 @@ public class S9APIXpath {
     private XdmNode xdmDoc;
 
     public S9APIXpath(Document doc, String baseURI) {
-        super();
         proc = new Processor(false);
         saxonDoc = new DocumentWrapper(doc, doc.getBaseURI(), proc.getUnderlyingConfiguration());
         db = proc.newDocumentBuilder();

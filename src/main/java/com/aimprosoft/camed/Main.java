@@ -8,8 +8,8 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        File input = new File("C:\\Users\\Мишаня\\Desktop\\cam\\UDB-cam.txt");
-        new CamCompiler("C:\\Users\\Мишаня\\Desktop\\cam", "C:\\Users\\Мишаня\\Desktop\\cam\\result.cxx").compile(input);
+        File input = new File("/home/misha/Work/Projects/camed/resorces/input/UDB-cam.cam");
+        new CamCompiler("/home/misha/Work/Projects/camed/resorces/output", "/home/misha/Work/Projects/camed/resorces/output/result.cxx").compile(input);
     }
 
 }

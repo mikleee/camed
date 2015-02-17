@@ -59,10 +59,8 @@ public class CAMTemplate {
     public void setTemplateDocument(Document templateDocument) {
         if (namespacesMap.isEmpty()) {
             try {
-                Xpath xpath = new Xpath();
-                xpath.setUpXPath(templateDocument, "*");
-                Namespaces nss = xpath.getNamespaces();
-                for (Namespace ns : nss.getNamespaceList()) {
+                Set<Namespace> namespaces = CommonUtils.retrieveNamespaces(templateDocument);
+                for (Namespace ns : namespaces) {
                     namespacesMap.put(ns.getPrefix(), ns);
                 }
             } catch (Exception e) {

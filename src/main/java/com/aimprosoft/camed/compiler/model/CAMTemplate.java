@@ -441,29 +441,32 @@ public class CAMTemplate {
     //
     public void toCXF(Writer out, boolean full) throws Exception {
         out.write("<as:CAM ");
-        Map<String, Namespace> namespacesMap = getNamespacesMap();
-        if (namespacesMap.size() != 0) {
+        if (!namespacesMap.isEmpty()) {
             for (Namespace ns : namespacesMap.values()) {
-                out.write(" xmlns:" + ns.getPrefix() + "=\"" + ns.getURI()
-                        + "\" ");
+                out.write(" xmlns:" + ns.getPrefix() + "=\"" + ns.getURI() + "\" ");
             }
         }
 
-        if (!full)
+        if (!full) {
             out.write(" compiled=\"true\"");
+        }
         out.write(" CAMlevel=\"" + CAMLevel.toString() + "\" ");
         out.write(" version=\"" + version + "\">\n");
 
         out.write("<as:Header>\n");
-        if (Description != null && Description.length() != 0)
+        if (Description != null && Description.length() != 0) {
             out.write("<as:Description>" + Description + "</as:Description>\n");
-        if (Owner != null && Owner.length() != 0)
+        }
+        if (Owner != null && Owner.length() != 0) {
             out.write("<as:Owner>" + Owner + "</as:Owner>\n");
-        if (templateVersion != null && templateVersion.length() != 0)
+        }
+        if (templateVersion != null && templateVersion.length() != 0) {
             out.write("<as:Version>" + templateVersion + "</as:Version>\n");
+        }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         out.write("<as:DateTime>" + df.format(new Date()) + "</as:DateTime>\n");
         out.write("</as:Header>\n");
+
         namespacesToCXF(out);
         parametersToCXF(out);
         assemblyStructureToCXF(out, full);
@@ -472,8 +475,7 @@ public class CAMTemplate {
         out.write("</as:CAM>\n");
     }
 
-    private void assemblyStructureToCXF(Writer out, boolean full)
-            throws Exception {
+    private void assemblyStructureToCXF(Writer out, boolean full) throws Exception {
         out.write("<as:AssemblyStructure>\n");
         if (Structures.size() > 0) {
             for (Structure struct : Structures.values()) {
@@ -510,17 +512,14 @@ public class CAMTemplate {
 
     public Element toDoc(boolean full) throws Exception {
         Element elem = null;
-        Random generator = new Random(System.currentTimeMillis());
-        int rand = generator.nextInt();
-        String filename = tempFilesDirPath + System.getProperty("file.separator") + "temp_cxf_output_" + rand + ".xml";
-        File file = new File(filename);
+        String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
+        File file = new File(fileName);
         if (file.createNewFile()) {
-            OutputStreamWriter bw = new OutputStreamWriter(
-                    new FileOutputStream(file));
+            OutputStreamWriter bw = new OutputStreamWriter(new FileOutputStream(file));
             toCXF(bw, full);
             bw.close();
             DocumentFactory df = new DocumentFactory(this);
-            Document results = df.createDocument(filename);
+            Document results = df.createDocument(fileName);
             elem = results.getRootElement();
             elem.detach();
         }

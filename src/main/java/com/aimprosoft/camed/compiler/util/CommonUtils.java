@@ -4,17 +4,16 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * @author mtkachenko.
  */
 public class CommonUtils {
 
-    public static String getFileSeparator(){
+    public static String getFileSeparator() {
         return System.getProperty("file.separator");
     }
 
@@ -30,13 +29,13 @@ public class CommonUtils {
         }
     }
 
-    public static Set<Namespace> retrieveNamespaces(Element element){
+    public static Set<Namespace> retrieveNamespaces(Element element) {
         Set<Namespace> result = new HashSet<Namespace>();
         populateNamespaceList(element, result);
         return result;
     }
 
-    public static Set<Namespace> retrieveNamespaces(Document document){
+    public static Set<Namespace> retrieveNamespaces(Document document) {
         return retrieveNamespaces(document.getRootElement());
     }
 
@@ -51,6 +50,12 @@ public class CommonUtils {
                 populateNamespaceList(child, result);
             }
         }
+    }
+
+    public static String generateTempFileName(String root) {
+        Random generator = new Random(System.currentTimeMillis());
+        int rand = generator.nextInt();
+        return root + System.getProperty("file.separator") + "temp_cxf_output_" + rand + ".xml";
     }
 
 }

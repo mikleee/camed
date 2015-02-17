@@ -394,8 +394,7 @@ public class Structure {
     }
 
     @SuppressWarnings({"unchecked"})
-    public void toCXF(Writer out, Element elem, String applyTemplate,
-                      boolean full) throws Exception {
+    public void toCXF(Writer out, Element elem, String applyTemplate, boolean full) throws Exception {
 
         if (elem.getQualifiedName().endsWith("as:Structure")
                 && applyTemplate == null) {

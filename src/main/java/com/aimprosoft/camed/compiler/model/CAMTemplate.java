@@ -443,16 +443,28 @@ public class CAMTemplate {
         }
     }
 
-    public void toCXF(Writer out, boolean full) throws Exception {
-        openRootTag(out, full);
+    public void writeToCXF(String fileName, boolean full) {
+        OutputStreamWriter writer = null;
+        try {
+            writer = new OutputStreamWriter(new FileOutputStream(fileName));
 
-        headerToCXF(out);
-        namespacesToCXF(out);
-        parametersToCXF(out);
-        assemblyStructureToCXF(out, full);
+            openRootTag(writer, full);
 
-        extensionsToCXF(out);
-        closeRootTag(out);
+            headerToCXF(writer);
+            namespacesToCXF(writer);
+            parametersToCXF(writer);
+            assemblyStructureToCXF(writer, full);
+
+            extensionsToCXF(writer);
+            closeRootTag(writer);
+
+        } catch (Exception e) {
+            e.printStackTrace(); //todo
+        } finally {
+            CommonUtils.closeQuietly(writer);
+        }
+
+
     }
 
     private void openRootTag(Writer out, boolean full) throws IOException {
@@ -527,11 +539,7 @@ public class CAMTemplate {
 
         String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
 
-        OutputStreamWriter bw = new OutputStreamWriter(new FileOutputStream(fileName));
-
-        toCXF(bw, full);
-
-        bw.close();
+        writeToCXF(fileName, full);
 
         DocumentFactory df = new DocumentFactory(this);
         Document results = df.createDocument(fileName);

@@ -41,7 +41,10 @@ public class CommonUtils {
 
     private static void populateNamespaceList(Element element, Set<Namespace> result) {
         Namespace namespace = element.getNamespace();
-        result.add(namespace);
+
+        if (!namespace.getPrefix().isEmpty()) {
+            result.add(namespace);
+        }
 
         List children = element.getChildren();
 
@@ -55,7 +58,16 @@ public class CommonUtils {
     public static String generateTempFileName(String root) {
         Random generator = new Random(System.currentTimeMillis());
         int rand = generator.nextInt();
-        return root + System.getProperty("file.separator") + "temp_cxf_output_" + rand + ".xml";
+//        return root + getFileSeparator() + "temp_cxf_output_" + rand + ".xml"; todo uncomment later
+        return root + getFileSeparator() + "temp_cxf_output_" + ".xml";
+    }
+
+    public static boolean isEmpty(String s) {
+        return s != null && s.isEmpty();
+    }
+
+    public static boolean isNotEmpty(String s) {
+        return !isEmpty(s);
     }
 
 }

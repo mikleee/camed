@@ -2,34 +2,34 @@ package com.aimprosoft.camed.compiler.model;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
+import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
+import com.aimprosoft.camed.compiler.util.*;
+import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
+import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import com.aimprosoft.camed.compiler.util.RuleManager;
-
-import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
-import com.aimprosoft.camed.compiler.extensions.IExtension;
 import org.jdom.output.XMLOutputter;
-import com.aimprosoft.camed.compiler.util.*;
-import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
-import com.aimprosoft.camed.compiler.xpath.Xpath;
-import org.jaxen.SimpleNamespaceContext;
-import com.aimprosoft.camed.compiler.util.IncludeHandlers;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
+
 public class CAMTemplate {
 
     private String version = "1.1";
-    private Integer CAMLevel;
-    private String Description;
-    private String Owner;
+    private Integer camLevel = 1;
+
+    private String description;
+    private String owner;
     private String templateVersion;
+
     private Date dateTime;
 
     private Map<String, Parameter> Parameters;
@@ -56,18 +56,19 @@ public class CAMTemplate {
         return templateDocument;
     }
 
-    public void setTemplateDocument(Document templateDocument) {
-        if (namespacesMap.isEmpty()) {
-            try {
-                Set<Namespace> namespaces = CommonUtils.retrieveNamespaces(templateDocument);
-                for (Namespace ns : namespaces) {
-                    namespacesMap.put(ns.getPrefix(), ns);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void initNamespaces() {
+        for (Namespace ns : CommonUtils.retrieveNamespaces(templateDocument)) {
+            namespacesMap.put(ns.getPrefix(), ns);
         }
-        this.templateDocument = templateDocument;
+    }
+
+    private void initHeader() {
+        final Namespace as = namespacesMap.get("as");
+        Element header = templateDocument.getRootElement().getChild("Header", as);
+
+        description = header.getChildText("Description", as);
+        owner = header.getChildText("Owner", as);
+        templateVersion = header.getChildText("Version", as);
     }
 
     public Map<String, Namespace> getNamespacesMap() {
@@ -79,8 +80,17 @@ public class CAMTemplate {
     }
 
     public CAMTemplate(Document doc, String tempFilesDirPath) {
-        initialise(tempFilesDirPath);
-        setTemplateDocument(doc);
+        this.version = "0.1";
+        this.Parameters = new HashMap<String, Parameter>();
+        this.Imports = new HashMap<String, Import>();
+        this.Properties = new HashMap<String, Property>();
+        this.Structures = new HashMap<String, Structure>();
+        //this.Includes = new HashMap<String, Include>();
+        this.ruleManager = new RuleManager(this);
+        this.tempFilesDirPath = tempFilesDirPath;
+        this.templateDocument = doc;
+        initNamespaces();
+        initHeader();
     }
 
     public CAMTemplate(Document doc) {
@@ -90,12 +100,10 @@ public class CAMTemplate {
 
     private void initialise(String tempFilesDirPath) {
         this.version = "0.1";
-        this.CAMLevel = 1;
         this.Parameters = new HashMap<String, Parameter>();
         this.Imports = new HashMap<String, Import>();
         this.Properties = new HashMap<String, Property>();
         this.Structures = new HashMap<String, Structure>();
-        this.namespacesMap = new HashMap<String, Namespace>();
 //        this.Includes = new HashMap<String, Include>();
         this.ruleManager = new RuleManager(this);
         this.tempFilesDirPath = tempFilesDirPath;
@@ -149,7 +157,7 @@ public class CAMTemplate {
 //     * @return Returns the cAMLevel.
 //     */
     public Integer getCAMLevel() {
-        return CAMLevel;
+        return camLevel;
     }
 
     //
@@ -164,9 +172,7 @@ public class CAMTemplate {
 //     * @return Returns the description.
 //     */
 //    public String getDescription() {
-//        return Description;
-//    }
-//
+//        return Description;description
 //    public Collection<Import> getImports() {
 //        return Imports.values();
 //    }
@@ -175,7 +181,7 @@ public class CAMTemplate {
 //     * @return Returns the owner.
 //     */
 //    public String getOwner() {
-//        return Owner;
+//        return owner;
 //    }
 //
     public Collection<Parameter> getParameters() {
@@ -302,7 +308,7 @@ public class CAMTemplate {
      * @param level The cAMLevel to set.
      */
     public void setCAMLevel(Integer level) {
-        CAMLevel = level;
+        camLevel = level;
     }
 
     /**
@@ -316,14 +322,14 @@ public class CAMTemplate {
      * @param description The description to set.
      */
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     /**
      * @param owner The owner to set.
      */
     public void setOwner(String owner) {
-        Owner = owner;
+        this.owner = owner;
     }
 
     /**
@@ -392,10 +398,9 @@ public class CAMTemplate {
 //        }
 //        Element header = new Element("Header", CAMEditor.CAMNamespace);
 //        if (getDescription() != null && getDescription().length() != 0)
-//            header.addContent(new Element("Description", CAMEditor.CAMNamespace)
-//                    .setText(getDescription()));
+//            header.addContent(new Element("Description", CAMEditor.CAMNamespace)description            .setText(getDescription()));
 //        if (getOwner() != null && getOwner().length() != 0)
-//            header.addContent(new Element("Owner", CAMEditor.CAMNamespace)
+//            header.addContent(new ElemownerOwner", CAMEditor.CAMNamespace)
 //                    .setText(getOwner()));
 //        if (getTemplateVersion() != null && getTemplateVersion().length() != 0)
 //            header.addContent(new Element("Version", CAMEditor.CAMNamespace)
@@ -438,8 +443,19 @@ public class CAMTemplate {
         }
     }
 
-    //
     public void toCXF(Writer out, boolean full) throws Exception {
+        openRootTag(out, full);
+
+        headerToCXF(out);
+        namespacesToCXF(out);
+        parametersToCXF(out);
+        assemblyStructureToCXF(out, full);
+
+        extensionsToCXF(out);
+        closeRootTag(out);
+    }
+
+    private void openRootTag(Writer out, boolean full) throws IOException {
         out.write("<as:CAM ");
         if (!namespacesMap.isEmpty()) {
             for (Namespace ns : namespacesMap.values()) {
@@ -450,29 +466,28 @@ public class CAMTemplate {
         if (!full) {
             out.write(" compiled=\"true\"");
         }
-        out.write(" CAMlevel=\"" + CAMLevel.toString() + "\" ");
+        out.write(" CAMlevel=\"" + camLevel.toString() + "\" ");
         out.write(" version=\"" + version + "\">\n");
+    }
 
+    private void closeRootTag(Writer out) throws IOException {
+        out.write("</as:CAM>\n");
+    }
+
+    private void headerToCXF(Writer out) throws IOException {
         out.write("<as:Header>\n");
-        if (Description != null && Description.length() != 0) {
-            out.write("<as:Description>" + Description + "</as:Description>\n");
+        if (isNotEmpty(description)) {
+            out.write("<as:Description>" + description + "</as:Description>\n");
         }
-        if (Owner != null && Owner.length() != 0) {
-            out.write("<as:Owner>" + Owner + "</as:Owner>\n");
+        if (isNotEmpty(owner)) {
+            out.write("<as:Owner>" + owner + "</as:Owner>\n");
         }
-        if (templateVersion != null && templateVersion.length() != 0) {
+        if (isNotEmpty(templateVersion)) {
             out.write("<as:Version>" + templateVersion + "</as:Version>\n");
         }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         out.write("<as:DateTime>" + df.format(new Date()) + "</as:DateTime>\n");
         out.write("</as:Header>\n");
-
-        namespacesToCXF(out);
-        parametersToCXF(out);
-        assemblyStructureToCXF(out, full);
-
-        extensionsToCXF(out);
-        out.write("</as:CAM>\n");
     }
 
     private void assemblyStructureToCXF(Writer out, boolean full) throws Exception {
@@ -487,13 +502,11 @@ public class CAMTemplate {
 
     private void parametersToCXF(Writer out) throws IOException {
         if (Parameters.size() > 0) {
-            out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                    + "Parameters" + ">\n");
+            out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");
             for (Parameter param : Parameters.values()) {
                 param.toCXF(out);
             }
-            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                    + "Parameters" + ">\n");
+            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");
         }
     }
 
@@ -511,18 +524,21 @@ public class CAMTemplate {
     }
 
     public Element toDoc(boolean full) throws Exception {
-        Element elem = null;
+
         String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
-        File file = new File(fileName);
-        if (file.createNewFile()) {
-            OutputStreamWriter bw = new OutputStreamWriter(new FileOutputStream(file));
-            toCXF(bw, full);
-            bw.close();
-            DocumentFactory df = new DocumentFactory(this);
-            Document results = df.createDocument(fileName);
-            elem = results.getRootElement();
-            elem.detach();
-        }
+
+        OutputStreamWriter bw = new OutputStreamWriter(new FileOutputStream(fileName));
+
+        toCXF(bw, full);
+
+        bw.close();
+
+        DocumentFactory df = new DocumentFactory(this);
+        Document results = df.createDocument(fileName);
+
+        Element elem = results.getRootElement();
+        elem.detach();
+
         return elem;
     }
 

@@ -7,11 +7,11 @@ import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
+import com.aimprosoft.camed.compiler.xpath.Xpath;
+import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jaxen.jdom.JDOMXPath;
+import org.jdom.*;
 import org.jdom.output.XMLOutputter;
 
 import java.io.*;
@@ -32,11 +32,11 @@ public class CAMTemplate {
 
     private Date dateTime;
 
-    private Map<String, Parameter> parameters;
-    private Map<String, Property> Properties;
-    private Map<String, Import> Imports;
-    private Map<String, Structure> Structures;
-    private Map<String, Include> Includes;
+    private Map<String, Parameter> parameters = new HashMap<String, Parameter>();
+    private Map<String, Property> Properties = new HashMap<String, Property>();
+    private Map<String, Import> Imports = new HashMap<String, Import>();
+    private Map<String, Structure> Structures = new HashMap<String, Structure>();
+    private Map<String, Include> Includes = new HashMap<String, Include>();
     private RuleManager ruleManager;
 
     private Map<String, Namespace> namespacesMap = new HashMap<String, Namespace>();
@@ -71,6 +71,49 @@ public class CAMTemplate {
         templateVersion = header.getChildText("Version", as);
     }
 
+    private void initStructures() {
+        try {
+            JDOMXPath assemblyStructurePath = new JDOMXPath("/as:CAM/as:AssemblyStructure/as:Structure");
+            List<Element> structures = (List<Element>) assemblyStructurePath.selectNodes(templateDocument);
+            for (Element structure : structures) {
+                //AddStructureToTemplate(structure, template);
+            }
+        } catch (JaxenException e) {
+            //todo
+        }
+    }
+
+
+//    private void initStructures(Element structure) throws JDOMException {
+//        String taxonomy = structure.getAttributeValue("taxonomy");
+//        String taxonomyOther = "";
+//
+//        if (taxonomy.equals(Structure.TaxonomyType.OTHER.toString())) {
+//            taxonomyOther = structure.getAttributeValue("taxonomyOther");
+//            if (taxonomyOther.equals("")) {
+//                throw new JDOMException("taxonomyOther should be populated if taxonomy = OTHER");
+//            }
+//        }
+//        String ID = structure.getAttributeValue("ID");
+//        if (ID == null || ID.equals("")) {
+//            ID = "default";
+//        }
+//        String reference = structure.getAttributeValue("reference");
+//        if (reference == null)
+//            reference = "";
+//        if (structure.getChildren().size() > 1) {
+//            throw new JDOMException("Structure should only have one root node");
+//        }
+//        Structure struct = new Structure(structure, Structure.TaxonomyType.valueOf(taxonomy), taxonomyOther);
+//        struct.setID(ID);
+//        struct.setReference(reference);
+//        struct.setTemplate(this);
+//
+//        putStructure(ID, struct);
+//
+//
+//    }
+
     public Map<String, Namespace> getNamespacesMap() {
         return namespacesMap;
     }
@@ -81,17 +124,12 @@ public class CAMTemplate {
 
     public CAMTemplate(Document doc, String tempFilesDirPath) {
         this.version = "0.1";
-        this.parameters = new HashMap<String, Parameter>();
-        this.Imports = new HashMap<String, Import>();
-        this.Properties = new HashMap<String, Property>();
-        this.Structures = new HashMap<String, Structure>();
-        //this.Includes = new HashMap<String, Include>();
         this.ruleManager = new RuleManager(this);
         this.tempFilesDirPath = tempFilesDirPath;
         this.templateDocument = doc;
         initNamespaces();
         initHeader();
-
+        initStructures();
     }
 
     public CAMTemplate(Document doc) {
@@ -447,7 +485,8 @@ public class CAMTemplate {
     public void writeToCXF(String fileName, boolean full) {
         OutputStreamWriter writer = null;
         try {
-            writer = new OutputStreamWriter(new FileOutputStream(fileName));
+            File file = CommonUtils.findFile(fileName);
+            writer = new OutputStreamWriter(new FileOutputStream(file));
 
             openRootTag(writer, full);
 
@@ -960,4 +999,6 @@ public class CAMTemplate {
     public void setTemplatePath(String templatePath) {
         this.templatePath = templatePath;
     }
+
+
 }

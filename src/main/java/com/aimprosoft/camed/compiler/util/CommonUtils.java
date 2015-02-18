@@ -5,6 +5,7 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -68,6 +69,16 @@ public class CommonUtils {
 
     public static boolean isNotEmpty(String s) {
         return !isEmpty(s);
+    }
+
+    public static File findFile(String path) throws IOException {
+        File file = new File(path);
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        return file;
     }
 
 }

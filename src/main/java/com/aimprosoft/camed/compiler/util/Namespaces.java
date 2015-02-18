@@ -7,6 +7,7 @@ import net.sf.saxon.s9api.SaxonApiException;
 
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +22,13 @@ public class Namespaces implements Cloneable{
 	
 	S9APIXpath xpath = null;
 
-	public Namespaces(Document doc){
+	public Namespaces(Document doc) throws JDOMException {
 		xpath = new S9APIXpath(doc,"");
 		
 		extractNamespaces(doc.getRootElement());
 	}
 	
-	public Namespaces(Element elem){
+	public Namespaces(Element elem) throws JDOMException {
 		xpath = new S9APIXpath(elem.getDocument(),"");
 		extractNamespaces(elem);
 	}

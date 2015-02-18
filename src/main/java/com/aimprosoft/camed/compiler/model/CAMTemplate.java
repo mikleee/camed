@@ -91,6 +91,7 @@ public class CAMTemplate {
         this.templateDocument = doc;
         initNamespaces();
         initHeader();
+
     }
 
     public CAMTemplate(Document doc) {
@@ -141,7 +142,7 @@ public class CAMTemplate {
 //    }
 //
     public Structure getFirstStructure() {
-        if (Structures.size() > 0) {
+        if (!Structures.isEmpty()) {
             for (Structure str : getStructures().values()) {
                 return str;
             }
@@ -348,7 +349,7 @@ public class CAMTemplate {
 
     private void structuresToXML(Element cam) {
         Element ass = new Element("AssemblyStructure", CAMConstants.CAMNamespace);
-        if (Structures.size() > 0) {
+        if (!Structures.isEmpty()) {
             for (Structure struct : Structures.values()) {
                 Element elem = struct.toXML();
                 Element output = includesToXML(elem);
@@ -453,6 +454,7 @@ public class CAMTemplate {
             headerToCXF(writer);
             namespacesToCXF(writer);
             parametersToCXF(writer);
+
             assemblyStructureToCXF(writer, full);
 
             extensionsToCXF(writer);
@@ -504,7 +506,7 @@ public class CAMTemplate {
 
     private void assemblyStructureToCXF(Writer out, boolean full) throws Exception {
         out.write("<as:AssemblyStructure>\n");
-        if (Structures.size() > 0) {
+        if (!Structures.isEmpty()) {
             for (Structure struct : Structures.values()) {
                 struct.toCXF(out, full);
             }

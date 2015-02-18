@@ -5,6 +5,7 @@ import org.jaxen.SimpleVariableContext;
 import org.jaxen.jdom.JDOMXPath;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +74,7 @@ public class Xpath {
         }
     }
 
-    private void setNamespaceContext(Element elem) {
+    private void setNamespaceContext(Element elem) throws JDOMException {
         namespaces = new Namespaces(elem);
         if (!namespaces.getNamespaceList().isEmpty()){
             namespacesExist = true;

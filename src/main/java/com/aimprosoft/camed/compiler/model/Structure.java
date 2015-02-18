@@ -24,10 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
+
 
 public class Structure {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    //Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public enum TaxonomyType {XML, XSD, DTD, RNG, EDI, HTML, MERGE, OTHER}
 
@@ -105,8 +107,8 @@ public class Structure {
         } else {
             structure.setAttribute("ID", "NewStructure");
         }
-        if (getReference().length() > 0) {
-            structure.setAttribute("reference", getReference());
+        if (isNotEmpty(reference)) {
+            structure.setAttribute("reference", reference);
         }
         if (getTaxonomy() != null) {
             structure.setAttribute("taxonomy", getTaxonomy().toString());
@@ -139,7 +141,7 @@ public class Structure {
                 }
                 output.addContent(paramsElem);
             } else if (template == null) {
-                logger.info("template is null");
+                //logger.info("template is null");
             }
             List<Element> children = elem.getChildren();
             for (Element child : children) {
@@ -376,14 +378,14 @@ public class Structure {
     private void getStructureXPaths(Map<String, Object> map, Element element) {
 
 
-        if (element.getAttributes().size() > 0) {
+        if (!element.getAttributes().isEmpty()) {
             List<Attribute> attrs = element.getAttributes();
             for (Attribute attribute : attrs) {
                 map.put(XPathFunctions.xpathParentAndAll(attribute), attribute);
             }
         }
 
-        if (element.getChildren().size() > 0) {
+        if (!element.getChildren().isEmpty()) {
             List<Element> children = element.getChildren();
             for (Element child : children) {
                 String path = XPathFunctions.xpathParentAndAll(child);

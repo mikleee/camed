@@ -36,10 +36,10 @@ public class CamCompiler {
         writePretty(new File(compilePath), element);
     }
 
-    private CAMTemplate prepareTemplate(File inputFile) throws JDOMException, IOException {
+    private CAMTemplate prepareTemplate(File inputFile) throws JDOMException, IOException, CAMCompilerException {
         Document doc = new DocumentFactory().createDocument(inputFile);
-        CAMTemplateBuilder builder = new CAMTemplateBuilder();
-        CAMTemplate result = builder.build(doc);
+        CAMTemplateBuilder builder = new CAMTemplateBuilder(doc);
+        CAMTemplate result = builder.build();
 
         result.setCompilePath(compilePath);
         result.setTempFilesDirPath(tempFilesDirPath);

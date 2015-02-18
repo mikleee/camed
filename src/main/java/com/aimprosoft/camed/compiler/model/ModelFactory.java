@@ -5,7 +5,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
-import com.aimprosoft.camed.compiler.model.Structure.TaxonomyType;
+import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.xpath.Xpath;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;
 

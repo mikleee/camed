@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.model;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
@@ -22,7 +23,7 @@ public class CAMTemplate implements Compilable {
 
     private Header header;
     private com.aimprosoft.camed.compiler.model.impl.Namespaces namespaces;
-    private AssemblyStructure assemblyStructure;
+    private Structure structure;
 
     private String description;
     private String owner;
@@ -187,7 +188,7 @@ public class CAMTemplate implements Compilable {
             }
             return null;
         } else {
-            Structure struct = new Structure(new Element("Structure", CAMConstants.CAMNamespace), Structure.TaxonomyType.XML, null);
+            Structure struct = new Structure(new Element("Structure", CAMConstants.CAMNamespace), TaxonomyType.XML, null);
             return struct;
         }
     }
@@ -496,7 +497,7 @@ public class CAMTemplate implements Compilable {
 
             parametersToCXF(writer);
 
-            writer.write(assemblyStructure.compile());
+            writer.write(structure.compile());
 
             extensionsToCXF(writer);
             closeRootTag(writer);
@@ -1020,12 +1021,12 @@ public class CAMTemplate implements Compilable {
         this.namespaces = namespaces;
     }
 
-    public AssemblyStructure getAssemblyStructure() {
-        return assemblyStructure;
+    public Structure getStructure() {
+        return structure;
     }
 
-    public void setAssemblyStructure(AssemblyStructure assemblyStructure) {
-        this.assemblyStructure = assemblyStructure;
+    public void setStructure(Structure structure) {
+        this.structure = structure;
     }
 
     @Override

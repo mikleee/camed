@@ -24,7 +24,7 @@ public class AssemblyStructure implements Compilable {
     @Override
     public String compile() {
 
-        StringBuilder builder = new StringBuilder("<as:Header>\n").append("<as:AssemblyStructure>\n");
+        StringBuilder builder = new StringBuilder("<as:AssemblyStructure>\n");
 
         for (Structure structure : structures) {
             //todo

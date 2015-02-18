@@ -46,4 +46,9 @@ public class JDOMXPathAdapter extends JDOMXPath {
         Document document = template.getTemplateDocument();
         return (ArrayList<Element>) super.selectNodes(document);
     }
+
+    public Element selectNode() throws JaxenException {
+        Document document = template.getTemplateDocument();
+        return (Element) super.selectSingleNode(document);
+    }
 }

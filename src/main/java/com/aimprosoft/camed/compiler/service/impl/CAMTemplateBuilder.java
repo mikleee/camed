@@ -1,11 +1,12 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.*;
-import com.aimprosoft.camed.compiler.model.impl.AssemblyStructure;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
-import com.aimprosoft.camed.compiler.service.ElementBuilder;
+import com.aimprosoft.camed.compiler.service.*;
+import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
 import org.jdom.Document;
@@ -19,6 +20,8 @@ import java.util.*;
  */
 public class CAMTemplateBuilder implements ElementBuilder {
 
+    private final static String STRUCTURE_XPATH = "//as:AssemblyStructure/as:Structure";
+
     private CAMTemplate template;
 
     public CAMTemplateBuilder(Document document) {
@@ -26,10 +29,10 @@ public class CAMTemplateBuilder implements ElementBuilder {
     }
 
     @Override
-    public CAMTemplate build() {
+    public CAMTemplate build() throws CAMCompilerException {
         initNamespaces(); //2
         initHeader(); //3
-        initStructures();
+        initStructure();
         return template;
     }
 
@@ -56,22 +59,19 @@ public class CAMTemplateBuilder implements ElementBuilder {
             map.put(ns.getPrefix(), ns);
         }
 
-        Namespaces namespaces =  new Namespaces(map);
+        Namespaces namespaces = new Namespaces(map);
         template.setNamespaces(namespaces);
     }
 
 
-    private void initStructures() {
+    private void initStructure() throws CAMCompilerException {
         try {
-            JDOMXPathAdapter assemblyStructurePath = new JDOMXPathAdapter("//as:AssemblyStructure/as:Structure", template);
-            List<Structure> list = new ArrayList<Structure>();
-            for (Element structure : assemblyStructurePath.selectNodes()) {
-                //AddStructureToTemplate(structure, template);
-            }
-            AssemblyStructure assemblyStructure = new AssemblyStructure(list);
-            template.setAssemblyStructure(assemblyStructure );
+            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(STRUCTURE_XPATH, template);
+            Element structureNode = jdomxPathAdapter.selectNode();
+            Structure structure = ModelFactory.createStructureBuilder(structureNode); //todo
+            template.setStructure(structure);
         } catch (JaxenException e) {
-            e.printStackTrace(); //todo
+            throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");
         }
     }
 

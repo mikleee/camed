@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.util.*;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -31,7 +32,7 @@ public class Structure implements Compilable {
 
     @Override
     public String compile() {
-boolean full= false;
+        boolean full = false;
 
 //        if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
 //            out.write("<" + "as:Structure" + " ");
@@ -235,19 +236,21 @@ boolean full= false;
 
     //Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public enum TaxonomyType {XML, XSD, DTD, RNG, EDI, HTML, MERGE, OTHER}
 
     private String ID = "";
     private String reference = "";
-    private TaxonomyType taxonomy = TaxonomyType.XML;
+    private String taxonomy = TaxonomyType.XML.toString();
     private String taxonomyOther = "";
     private Element structure;
     private CAMTemplate template;
 
+    public Structure() {
+    }
+
     public Structure(Element structure, TaxonomyType taxonomy, String taxonomyOther) {
         setStructure(structure);
-        setTaxonomy(taxonomy);
-        if (taxonomy.equals(TaxonomyType.OTHER))
+//        setTaxonomy(taxonomy);
+        if (taxonomy.equals(TaxonomyType.OTHER.toString()))
             setTaxonomyOther(taxonomyOther);
         reference = "";
         ID = "";
@@ -259,7 +262,7 @@ boolean full= false;
 
     public void setID(String id) {
         ID = id;
-        structure.setAttribute("ID", id);
+//        structure.setAttribute("ID", id);
     }
 
     public String getReference() {
@@ -271,7 +274,7 @@ boolean full= false;
 
     public void setReference(String reference) {
         this.reference = reference;
-        structure.setAttribute("reference", reference);
+//        structure.setAttribute("reference", reference);
     }
 
     public Element getStructure() {
@@ -286,13 +289,13 @@ boolean full= false;
         this.template = template;
     }
 
-    public TaxonomyType getTaxonomy() {
+    public String getTaxonomy() {
         return taxonomy;
     }
 
-    public void setTaxonomy(TaxonomyType taxonomy) {
+    public void setTaxonomy(String taxonomy) {
         this.taxonomy = taxonomy;
-        structure.setAttribute("taxonomy", taxonomy.toString());
+//        structure.setAttribute("taxonomy", taxonomy);
     }
 
     public String getTaxonomyOther() {
@@ -301,7 +304,7 @@ boolean full= false;
 
     public void setTaxonomyOther(String taxonomyOther) {
         this.taxonomyOther = taxonomyOther;
-        structure.setAttribute("taxonomyOther", taxonomyOther);
+//        structure.setAttribute("taxonomyOther", taxonomyOther);
     }
 
 
@@ -314,9 +317,9 @@ boolean full= false;
         if (isNotEmpty(reference)) {
             structure.setAttribute("reference", reference);
         }
-        if (getTaxonomy() != null) {
-            structure.setAttribute("taxonomy", getTaxonomy().toString());
-            if (getTaxonomy() == TaxonomyType.OTHER) {
+        if (taxonomy != null) {
+            structure.setAttribute("taxonomy", taxonomy);
+            if (taxonomy.equals(TaxonomyType.OTHER.toString())) {
                 structure.setAttribute("taxonomyOther", getTaxonomyOther());
             }
         }

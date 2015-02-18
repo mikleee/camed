@@ -8,8 +8,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotation;
@@ -33,38 +31,36 @@ public class Structure implements Compilable {
     @Override
     public String compile() {
         boolean full = false;
+        StringBuilder builder = new StringBuilder();
 
-//        if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
-//            out.write("<" + "as:Structure" + " ");
-//            String ID = elem.getAttributeValue("ID");
-//            if (ID != null) {
-//                out.write(" " + "ID" + "=\"" + StringEscapeUtils.escapeXml(ID) + "\" ");
+//        if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
+//
+//            builder.append("<" + "as:Structure" + " ");
+//            if (id != null) {
+//                builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
 //            }
-//            String ref = elem.getAttributeValue("reference");
-//            if (ref != null) {
-//                out.write(" " + "reference" + "=\""
-//                        + StringEscapeUtils.escapeXml(ref) + "\" ");
+//            if (reference != null) {
+//                builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
 //            }
-//            String tax = elem.getAttributeValue("taxonomy");
-//            if (tax != null) {
-//                out.write(" " + "taxonomy" + "=\""
-//                        + StringEscapeUtils.escapeXml(tax) + "\" ");
+//            if (taxonomy != null) {
+//                builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
 //            }
-//            out.write(">\n");
-//            if (template != null && template.getParameters().size() > 0) {
-//                out.write("<" + "as:parameters" + ">\n");
+//            builder.append(">\n");
+//
+//            if (template != null && !template.getParameters().isEmpty()) {
+//                builder.append("<" + "as:parameters" + ">\n");
 //                for (Parameter param : template.getParameters()) {
 //                    param.toCXF(out);
 //                }
-//                out.write("</" + "as:parameters" + ">\n");
+//                builder.append("</" + "as:parameters" + ">\n");
 //            }
-//            List<Element> children = elem.getChildren();
+//            List<Element> children = structure.getChildren();
 //            for (Element child : children) {
 //                toCXF(out, child, null, full);
 //            }
-//            out.write("</" + "as:Structure" + ">");
-//        } else if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate != null) {
-//            List<Element> children = elem.getChildren();
+//            builder.append("</" + "as:Structure" + ">");
+//        } else if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate != null) {
+//            List<Element> children = structure.getChildren();
 //            for (Element child : children) {
 //                toCXF(out, child, applyTemplate, full);
 //            }
@@ -72,52 +68,52 @@ public class Structure implements Compilable {
 //            Boolean ignoreChildren = false;
 //            // String itemQualifiedName =
 //            // XPathFunctions.fullXpathWithPosition(elem);
-//            out.write("<" + "as:Element" + " ");
-//            out.write(" " + "name" + "=\""
-//                    + StringEscapeUtils.escapeXml(elem.getQualifiedName())
-//                    + "\" ");
-//            // if (elem.getNamespace() != null)
-//            // out.write(" "+"namespace"+"=\""+StringEscapeUtils.escapeXml(elem.getNamespaceURI())+"\" ");
+//            builder
+//                    .append("<" + "as:Element" + " ")
+//                    .append(" " + "name" + "=\"").append(StringEscapeUtils.escapeXml(structure.getQualifiedName())).append("\" ");
+//            // if (structure.getNamespace() != null)
+//            // builder.append(" "+"namespace"+"=\""+StringEscapeUtils.escapeXml(structure.getNamespaceURI())+"\" ");
+//
 //            if (full) {
-//                out.write(" "
+//                builder.append(" "
 //                        + "path"
 //                        + "=\""
 //                        + StringEscapeUtils.escapeXml(XPathFunctions
 //                        .xpath(elem)) + "\" ");
-//                if (elem.getNamespace() != null)
-//                    out.write(" "
+//                if (structure.getNamespace() != null)
+//                    builder.append(" "
 //                            + "namespace"
 //                            + "=\""
 //                            + StringEscapeUtils.escapeXml(elem
 //                            .getNamespaceURI()) + "\" ");
-//                if (elem.getNamespacePrefix() != null)
-//                    out.write(" "
+//                if (structure.getNamespacePrefix() != null)
+//                    builder.append(" "
 //                            + "namespacePrefix"
 //                            + "=\""
 //                            + StringEscapeUtils.escapeXml(elem
 //                            .getNamespacePrefix()) + "\" ");
 //                if (IncludeHandlers.isIncluded(elem, template)) {
-//                    out.write(" " + "included" + "=\""
+//                    builder.append(" " + "included" + "=\""
 //                            + StringEscapeUtils.escapeXml("true") + "\" ");
 //                    if (IncludeHandlers.includedRootElement(elem, template)) {
-//                        out.write(" "
+//                        builder.append(" "
 //                                + "includedFile"
 //                                + "=\""
 //                                + StringEscapeUtils.escapeXml(IncludeHandlers
 //                                .getInclude(elem, template).getUri()) + "\" ");
 //                    }
 //                }
-//                if (elem.getChildren().size() == 0) {
-//                    out.write(" " + "exampleValue" + "=\""
-//                            + StringEscapeUtils.escapeXml(elem.getText())
+//                if (structure.getChildren().size() == 0) {
+//                    builder.append(" " + "exampleValue" + "=\""
+//                            + StringEscapeUtils.escapeXml(structure.getText())
 //                            + "\" ");
 //                }
 //            } else {
-//                if (elem.getChildren().size() == 0) {
-//                    if (!(elem.getTextTrim().startsWith("%") && elem
+//                if (structure.getChildren().size() == 0) {
+//                    if (!(structure.getTextTrim().startsWith("%") && elem
 //                            .getTextTrim().endsWith("%"))) {
-//                        out.write(" " + "setValue" + "=\""
-//                                + StringEscapeUtils.escapeXml(elem.getText())
+//                        builder.append(" " + "setValue" + "=\""
+//                                + StringEscapeUtils.escapeXml(structure.getText())
 //                                + "\" ");
 //                    }
 //                }
@@ -125,17 +121,17 @@ public class Structure implements Compilable {
 //
 //            if (applyTemplate != null) {
 //                if (full)
-//                    out.write(" " + "applyTemplate" + "=\""
+//                    builder.append(" " + "applyTemplate" + "=\""
 //                            + StringEscapeUtils.escapeXml(applyTemplate)
 //                            + "\" ");
 //            }
 //            if (full)
-//                out.write(">\n");
+//                builder.append(">\n");
 //            boolean finish = true;
 //            List<Rule> nodeRules = template.getRuleManager().getNodeRules(elem);
 //            if (nodeRules != null && nodeRules.size() > 0) {
 //                if (full)
-//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "Rule" + ">\n");
 //                boolean unconditional = false;
 //                int count = 0;
@@ -155,7 +151,7 @@ public class Structure implements Compilable {
 //                        }
 //                        if (cons.getFirstActionString().startsWith(ActionType.applyTemplate.toString())) {
 //                            if (full) {
-//                                // out.write(">\n");
+//                                // builder.append(">\n");
 //                                if (applyTemplate != null
 //                                        && !applyTemplate.equals(cons
 //                                        .getFirstAction()
@@ -171,33 +167,33 @@ public class Structure implements Compilable {
 //                    }
 //                }
 //                if (full && unconditional == false && count == 0) {
-//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "constraint" + " ");
-//                    out.write(" " + "action" + "=\""
+//                    builder.append(" " + "action" + "=\""
 //                            + StringEscapeUtils.escapeXml("makeMandatory()")
 //                            + "\" ");
-//                    out.write("/>\n");
+//                    builder.append("/>\n");
 //                } else if (unconditional == false && count == 0) {
-//                    out.write(" " + "makeMandatory" + "=\"true\" ");
+//                    builder.append(" " + "makeMandatory" + "=\"true\" ");
 //                }
 //                if (full)
-//                    out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "Rule" + ">");
 //
 //            } else {
 //                if (full) {
-//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "Rule" + ">\n");
-//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "constraint" + " ");
-//                    out.write(" " + "action" + "=\""
+//                    builder.append(" " + "action" + "=\""
 //                            + StringEscapeUtils.escapeXml("makeMandatory()")
 //                            + "\" ");
-//                    out.write("/>\n");
-//                    out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    builder.append("/>\n");
+//                    builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                            + "Rule" + ">\n");
 //                } else {
-//                    out.write(" " + "makeMandatory" + "=\"true\" ");
+//                    builder.append(" " + "makeMandatory" + "=\"true\" ");
 //                }
 //
 //            }
@@ -213,38 +209,39 @@ public class Structure implements Compilable {
 //                }
 //            }
 //            if (!full && finish)
-//                out.write(">\n");
+//                builder.append(">\n");
 //
 //            if (ignoreChildren) {
 //                ignoreChildren = false;
 //            } else {
-//                List<Attribute> attributes = elem.getAttributes();
+//                List<Attribute> attributes = structure.getAttributes();
 //                for (Attribute attr : attributes) {
 //                    toCXF(out, attr, full);
 //                }
-//                List<Element> children = elem.getChildren();
+//                List<Element> children = structure.getChildren();
 //                for (Element child : children) {
 //                    toCXF(out, child, null, full);
 //                }
 //            }
-//            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//            builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
 //                    + "Element" + ">\n");
 //        }
 
-        return null;
+        return builder.toString();
     }
 
     //Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    private String ID = "";
+    private String id = "";
     private String reference = "";
     private String taxonomy = TaxonomyType.XML.toString();
     private String taxonomyOther = "";
     private Element structure;
     private CAMTemplate template;
 
-    public Structure() {
+    public Structure(Element element) {
+        structure = element;
     }
 
     public Structure(Element structure, TaxonomyType taxonomy, String taxonomyOther) {
@@ -253,15 +250,15 @@ public class Structure implements Compilable {
         if (taxonomy.equals(TaxonomyType.OTHER.toString()))
             setTaxonomyOther(taxonomyOther);
         reference = "";
-        ID = "";
+        id = "";
     }
 
     public String getID() {
-        return ID;
+        return id;
     }
 
     public void setID(String id) {
-        ID = id;
+        this.id = id;
 //        structure.setAttribute("ID", id);
     }
 

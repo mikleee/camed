@@ -13,11 +13,11 @@ import org.jdom.Element;
  */
 public class ModelFactory {
 
-    public static Structure createStructureBuilder(Element element) throws CAMCompilerException {
+    public static Structure createStructure(Element element) throws CAMCompilerException {
         return new StructureBuilder(element).build();
     }
 
-    public static CAMTemplate createCAMTemplateBuilder(Document document) throws CAMCompilerException {
+    public static CAMTemplate createCAMTemplate(Document document) throws CAMCompilerException {
         return new CAMTemplateBuilder(document).build();
     }
 }

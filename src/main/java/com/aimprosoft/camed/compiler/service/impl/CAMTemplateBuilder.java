@@ -68,7 +68,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
         try {
             JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(STRUCTURE_XPATH, template);
             Element structureNode = jdomxPathAdapter.selectNode();
-            Structure structure = ModelFactory.createStructureBuilder(structureNode); //todo
+            Structure structure = ModelFactory.createStructure(structureNode); //todo
             template.setStructure(structure);
         } catch (JaxenException e) {
             throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");

@@ -37,7 +37,7 @@ public class StructureBuilder implements ElementBuilder {
         String id = defineId();
         String reference = defineReference();
 
-        Structure result = new Structure();
+        Structure result = new Structure(element);
         result.setTaxonomy(taxonomies.get(TAXONOMY));
         result.setTaxonomyOther(taxonomies.get(TAXONOMY_OTHER)); //todo
         result.setID(id);

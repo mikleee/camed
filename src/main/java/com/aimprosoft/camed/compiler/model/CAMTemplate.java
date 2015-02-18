@@ -32,7 +32,7 @@ public class CAMTemplate {
 
     private Date dateTime;
 
-    private Map<String, Parameter> Parameters;
+    private Map<String, Parameter> parameters;
     private Map<String, Property> Properties;
     private Map<String, Import> Imports;
     private Map<String, Structure> Structures;
@@ -81,7 +81,7 @@ public class CAMTemplate {
 
     public CAMTemplate(Document doc, String tempFilesDirPath) {
         this.version = "0.1";
-        this.Parameters = new HashMap<String, Parameter>();
+        this.parameters = new HashMap<String, Parameter>();
         this.Imports = new HashMap<String, Import>();
         this.Properties = new HashMap<String, Property>();
         this.Structures = new HashMap<String, Structure>();
@@ -100,7 +100,7 @@ public class CAMTemplate {
 
     private void initialise(String tempFilesDirPath) {
         this.version = "0.1";
-        this.Parameters = new HashMap<String, Parameter>();
+        this.parameters = new HashMap<String, Parameter>();
         this.Imports = new HashMap<String, Import>();
         this.Properties = new HashMap<String, Property>();
         this.Structures = new HashMap<String, Structure>();
@@ -185,7 +185,7 @@ public class CAMTemplate {
 //    }
 //
     public Collection<Parameter> getParameters() {
-        return Parameters.values();
+        return parameters.values();
     }
 
     //
@@ -250,7 +250,7 @@ public class CAMTemplate {
     }
 
     public Object putParameter(String name, Parameter param) {
-        return Parameters.put(name, param);
+        return parameters.put(name, param);
     }
 
     public Object putProperty(String name, String value) {
@@ -513,9 +513,9 @@ public class CAMTemplate {
     }
 
     private void parametersToCXF(Writer out) throws IOException {
-        if (Parameters.size() > 0) {
+        if (!parameters.isEmpty()) {
             out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");
-            for (Parameter param : Parameters.values()) {
+            for (Parameter param : parameters.values()) {
                 param.toCXF(out);
             }
             out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");

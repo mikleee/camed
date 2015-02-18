@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler;
 
-import com.aimprosoft.camed.compiler.Service.CAMTemplateBuilder;
+import com.aimprosoft.camed.compiler.service.impl.CAMTemplateBuilder;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;

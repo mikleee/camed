@@ -1,4 +1,6 @@
-package com.aimprosoft.camed.compiler.model;
+package com.aimprosoft.camed.compiler.model.impl;
+
+import com.aimprosoft.camed.compiler.model.Compilable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

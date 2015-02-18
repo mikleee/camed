@@ -1,26 +1,32 @@
-package com.aimprosoft.camed.compiler.Service;
+package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.*;
+import com.aimprosoft.camed.compiler.model.impl.AssemblyStructure;
+import com.aimprosoft.camed.compiler.model.impl.Header;
+import com.aimprosoft.camed.compiler.model.impl.Namespaces;
+import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * author m.tkachenko
  */
-public class CAMTemplateBuilder {
+public class CAMTemplateBuilder implements ElementBuilder {
 
     private CAMTemplate template;
 
-    public CAMTemplate build(Document document) {
+    public CAMTemplateBuilder(Document document) {
         init(document); //1
+    }
+
+    @Override
+    public CAMTemplate build() {
         initNamespaces(); //2
         initHeader(); //3
         initStructures();
@@ -58,9 +64,12 @@ public class CAMTemplateBuilder {
     private void initStructures() {
         try {
             JDOMXPathAdapter assemblyStructurePath = new JDOMXPathAdapter("//as:AssemblyStructure/as:Structure", template);
+            List<Structure> list = new ArrayList<Structure>();
             for (Element structure : assemblyStructurePath.selectNodes()) {
                 //AddStructureToTemplate(structure, template);
             }
+            AssemblyStructure assemblyStructure = new AssemblyStructure(list);
+            template.setAssemblyStructure(assemblyStructure );
         } catch (JaxenException e) {
             e.printStackTrace(); //todo
         }

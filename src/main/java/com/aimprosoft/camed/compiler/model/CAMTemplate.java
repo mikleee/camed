@@ -5,30 +5,24 @@ import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
+import com.aimprosoft.camed.compiler.model.impl.*;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
-import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
-import com.aimprosoft.camed.compiler.xpath.Xpath;
-import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
-import org.jaxen.jdom.JDOMXPath;
 import org.jdom.*;
 import org.jdom.output.XMLOutputter;
 
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
-
-public class CAMTemplate {
+public class CAMTemplate implements Compilable {
 
     private String version = "0.1"; //todo
     private Integer camLevel = 1;
 
     private Header header;
-    private Namespaces namespaces;
+    private com.aimprosoft.camed.compiler.model.impl.Namespaces namespaces;
+    private AssemblyStructure assemblyStructure;
 
     private String description;
     private String owner;
@@ -497,11 +491,12 @@ public class CAMTemplate {
 
             openRootTag(writer, full);
 
-            headerToCXF(writer);
-            namespacesToCXF(writer);
+            writer.write(header.compile());
+            writer.write(namespaces.compile());
+
             parametersToCXF(writer);
 
-            assemblyStructureToCXF(writer, full);
+            writer.write(assemblyStructure.compile());
 
             extensionsToCXF(writer);
             closeRootTag(writer);
@@ -539,11 +534,11 @@ public class CAMTemplate {
 
     private void assemblyStructureToCXF(Writer out, boolean full) throws Exception {
         out.write("<as:AssemblyStructure>\n");
-        if (!Structures.isEmpty()) {
-            for (Structure struct : Structures.values()) {
-                struct.toCXF(out, full);
-            }
+
+        for (Structure struct : Structures.values()) {
+            struct.toCXF(out, full);
         }
+
         out.write("</as:AssemblyStructure>\n");
     }
 
@@ -1017,11 +1012,24 @@ public class CAMTemplate {
         this.header = header;
     }
 
-    public Namespaces getNamespaces() {
+    public com.aimprosoft.camed.compiler.model.impl.Namespaces getNamespaces() {
         return namespaces;
     }
 
-    public void setNamespaces(Namespaces namespaces) {
+    public void setNamespaces(com.aimprosoft.camed.compiler.model.impl.Namespaces namespaces) {
         this.namespaces = namespaces;
+    }
+
+    public AssemblyStructure getAssemblyStructure() {
+        return assemblyStructure;
+    }
+
+    public void setAssemblyStructure(AssemblyStructure assemblyStructure) {
+        this.assemblyStructure = assemblyStructure;
+    }
+
+    @Override
+    public String compile() {
+        return null;
     }
 }

@@ -27,7 +27,211 @@ import java.util.Map;
 import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
 
 
-public class Structure {
+public class Structure implements Compilable {
+
+    @Override
+    public String compile() {
+boolean full= false;
+
+//        if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
+//            out.write("<" + "as:Structure" + " ");
+//            String ID = elem.getAttributeValue("ID");
+//            if (ID != null) {
+//                out.write(" " + "ID" + "=\"" + StringEscapeUtils.escapeXml(ID) + "\" ");
+//            }
+//            String ref = elem.getAttributeValue("reference");
+//            if (ref != null) {
+//                out.write(" " + "reference" + "=\""
+//                        + StringEscapeUtils.escapeXml(ref) + "\" ");
+//            }
+//            String tax = elem.getAttributeValue("taxonomy");
+//            if (tax != null) {
+//                out.write(" " + "taxonomy" + "=\""
+//                        + StringEscapeUtils.escapeXml(tax) + "\" ");
+//            }
+//            out.write(">\n");
+//            if (template != null && template.getParameters().size() > 0) {
+//                out.write("<" + "as:parameters" + ">\n");
+//                for (Parameter param : template.getParameters()) {
+//                    param.toCXF(out);
+//                }
+//                out.write("</" + "as:parameters" + ">\n");
+//            }
+//            List<Element> children = elem.getChildren();
+//            for (Element child : children) {
+//                toCXF(out, child, null, full);
+//            }
+//            out.write("</" + "as:Structure" + ">");
+//        } else if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate != null) {
+//            List<Element> children = elem.getChildren();
+//            for (Element child : children) {
+//                toCXF(out, child, applyTemplate, full);
+//            }
+//        } else {
+//            Boolean ignoreChildren = false;
+//            // String itemQualifiedName =
+//            // XPathFunctions.fullXpathWithPosition(elem);
+//            out.write("<" + "as:Element" + " ");
+//            out.write(" " + "name" + "=\""
+//                    + StringEscapeUtils.escapeXml(elem.getQualifiedName())
+//                    + "\" ");
+//            // if (elem.getNamespace() != null)
+//            // out.write(" "+"namespace"+"=\""+StringEscapeUtils.escapeXml(elem.getNamespaceURI())+"\" ");
+//            if (full) {
+//                out.write(" "
+//                        + "path"
+//                        + "=\""
+//                        + StringEscapeUtils.escapeXml(XPathFunctions
+//                        .xpath(elem)) + "\" ");
+//                if (elem.getNamespace() != null)
+//                    out.write(" "
+//                            + "namespace"
+//                            + "=\""
+//                            + StringEscapeUtils.escapeXml(elem
+//                            .getNamespaceURI()) + "\" ");
+//                if (elem.getNamespacePrefix() != null)
+//                    out.write(" "
+//                            + "namespacePrefix"
+//                            + "=\""
+//                            + StringEscapeUtils.escapeXml(elem
+//                            .getNamespacePrefix()) + "\" ");
+//                if (IncludeHandlers.isIncluded(elem, template)) {
+//                    out.write(" " + "included" + "=\""
+//                            + StringEscapeUtils.escapeXml("true") + "\" ");
+//                    if (IncludeHandlers.includedRootElement(elem, template)) {
+//                        out.write(" "
+//                                + "includedFile"
+//                                + "=\""
+//                                + StringEscapeUtils.escapeXml(IncludeHandlers
+//                                .getInclude(elem, template).getUri()) + "\" ");
+//                    }
+//                }
+//                if (elem.getChildren().size() == 0) {
+//                    out.write(" " + "exampleValue" + "=\""
+//                            + StringEscapeUtils.escapeXml(elem.getText())
+//                            + "\" ");
+//                }
+//            } else {
+//                if (elem.getChildren().size() == 0) {
+//                    if (!(elem.getTextTrim().startsWith("%") && elem
+//                            .getTextTrim().endsWith("%"))) {
+//                        out.write(" " + "setValue" + "=\""
+//                                + StringEscapeUtils.escapeXml(elem.getText())
+//                                + "\" ");
+//                    }
+//                }
+//            }
+//
+//            if (applyTemplate != null) {
+//                if (full)
+//                    out.write(" " + "applyTemplate" + "=\""
+//                            + StringEscapeUtils.escapeXml(applyTemplate)
+//                            + "\" ");
+//            }
+//            if (full)
+//                out.write(">\n");
+//            boolean finish = true;
+//            List<Rule> nodeRules = template.getRuleManager().getNodeRules(elem);
+//            if (nodeRules != null && nodeRules.size() > 0) {
+//                if (full)
+//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "Rule" + ">\n");
+//                boolean unconditional = false;
+//                int count = 0;
+//                boolean duplicates = checkDuplicates();
+//                for (Rule rule : nodeRules) {
+//                    if (rule instanceof Constraint) {
+//                        count++;
+//                        Constraint cons = (Constraint) rule;
+//                        if (duplicates) {
+//                            cons.toCXF(out, full, count);
+//                        } else {
+//                            cons.toCXF(out, full, -1);
+//                        }
+//                        if (cons.getCondition() == null
+//                                || cons.getCondition().length() == 0) {
+//                            unconditional = true;
+//                        }
+//                        if (cons.getFirstActionString().startsWith(ActionType.applyTemplate.toString())) {
+//                            if (full) {
+//                                // out.write(">\n");
+//                                if (applyTemplate != null
+//                                        && !applyTemplate.equals(cons
+//                                        .getFirstAction()
+//                                        .getActionParameters().get(0)))
+//                                    applyTemplateCXF(out, full, cons);
+//                                finish = false;
+//                                cons.toCXF(out, full, count);
+//                            } else {
+//                                outputCompiledTemplate(cons);
+//                            }
+//                            ignoreChildren = true;
+//                        }
+//                    }
+//                }
+//                if (full && unconditional == false && count == 0) {
+//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "constraint" + " ");
+//                    out.write(" " + "action" + "=\""
+//                            + StringEscapeUtils.escapeXml("makeMandatory()")
+//                            + "\" ");
+//                    out.write("/>\n");
+//                } else if (unconditional == false && count == 0) {
+//                    out.write(" " + "makeMandatory" + "=\"true\" ");
+//                }
+//                if (full)
+//                    out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "Rule" + ">");
+//
+//            } else {
+//                if (full) {
+//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "Rule" + ">\n");
+//                    out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "constraint" + " ");
+//                    out.write(" " + "action" + "=\""
+//                            + StringEscapeUtils.escapeXml("makeMandatory()")
+//                            + "\" ");
+//                    out.write("/>\n");
+//                    out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                            + "Rule" + ">\n");
+//                } else {
+//                    out.write(" " + "makeMandatory" + "=\"true\" ");
+//                }
+//
+//            }
+//            if (full) {
+//                StructureAnnotations sa = (StructureAnnotations) AllowedExtensions
+//                        .getExtension(StructureAnnotations.name);
+//                if (sa != null) {
+//                    String xpath = XPathFunctions.xpathParentAndAll(elem);
+//                    StructureAnnotation anno = sa.get(xpath);
+//                    if (anno != null) {
+//                        anno.toCXF(out);
+//                    }
+//                }
+//            }
+//            if (!full && finish)
+//                out.write(">\n");
+//
+//            if (ignoreChildren) {
+//                ignoreChildren = false;
+//            } else {
+//                List<Attribute> attributes = elem.getAttributes();
+//                for (Attribute attr : attributes) {
+//                    toCXF(out, attr, full);
+//                }
+//                List<Element> children = elem.getChildren();
+//                for (Element child : children) {
+//                    toCXF(out, child, null, full);
+//                }
+//            }
+//            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
+//                    + "Element" + ">\n");
+//        }
+
+        return null;
+    }
 
     //Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -398,24 +602,24 @@ public class Structure {
     @SuppressWarnings({"unchecked"})
     public void toCXF(Writer out, Element elem, String applyTemplate, boolean full) throws Exception {
 
-        if (elem.getQualifiedName().endsWith("as:Structure")
-                && applyTemplate == null) {
+        if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
             out.write("<" + "as:Structure" + " ");
             String ID = elem.getAttributeValue("ID");
-            if (ID != null)
-                out.write(" " + "ID" + "=\"" + StringEscapeUtils.escapeXml(ID)
-                        + "\" ");
+            if (ID != null) {
+                out.write(" " + "ID" + "=\"" + StringEscapeUtils.escapeXml(ID) + "\" ");
+            }
             String ref = elem.getAttributeValue("reference");
-            if (ref != null)
+            if (ref != null) {
                 out.write(" " + "reference" + "=\""
                         + StringEscapeUtils.escapeXml(ref) + "\" ");
+            }
             String tax = elem.getAttributeValue("taxonomy");
-            if (tax != null)
+            if (tax != null) {
                 out.write(" " + "taxonomy" + "=\""
                         + StringEscapeUtils.escapeXml(tax) + "\" ");
+            }
             out.write(">\n");
-            if (template != null
-                    && template.getParameters().size() > 0) {
+            if (template != null && template.getParameters().size() > 0) {
                 out.write("<" + "as:parameters" + ">\n");
                 for (Parameter param : template.getParameters()) {
                     param.toCXF(out);
@@ -427,8 +631,7 @@ public class Structure {
                 toCXF(out, child, null, full);
             }
             out.write("</" + "as:Structure" + ">");
-        } else if (elem.getQualifiedName().endsWith("as:Structure")
-                && applyTemplate != null) {
+        } else if (elem.getQualifiedName().endsWith("as:Structure") && applyTemplate != null) {
             List<Element> children = elem.getChildren();
             for (Element child : children) {
                 toCXF(out, child, applyTemplate, full);

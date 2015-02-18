@@ -1,5 +1,6 @@
-package com.aimprosoft.camed.compiler.model;
+package com.aimprosoft.camed.compiler.model.impl;
 
+import com.aimprosoft.camed.compiler.model.Compilable;
 import org.jdom.Namespace;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +41,5 @@ public class Namespaces implements Compilable {
 
         builder.append("</as:Namespaces>\n");
         return builder.toString();
-
     }
 }

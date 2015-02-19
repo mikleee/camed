@@ -9,6 +9,7 @@ import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.impl.*;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
+import org.apache.commons.lang.text.StrBuilder;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.*;
 import org.jdom.output.XMLOutputter;
@@ -497,7 +498,7 @@ public class CAMTemplate implements Compilable {
 
             parametersToCXF(writer);
 
-            writer.write(structure.compile());
+            writer.write(compileStructureToCXF());
 
             extensionsToCXF(writer);
             closeRootTag(writer);
@@ -542,6 +543,11 @@ public class CAMTemplate implements Compilable {
 
         out.write("</as:AssemblyStructure>\n");
     }
+
+    private String compileStructureToCXF() throws Exception {
+        return "<as:AssemblyStructure>\n" + structure.compile() + "</as:AssemblyStructure>\n";
+    }
+
 
     private void parametersToCXF(Writer out) throws IOException {
         if (!parameters.isEmpty()) {

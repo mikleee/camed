@@ -28,10 +28,15 @@ import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
 
 public class Structure implements Compilable {
 
+
     @Override
     public String compile() {
         boolean full = false;
-        StringBuilder builder = new StringBuilder();
+
+        StringBuilder builder = new StringBuilder("<as:Structure ");
+
+        builder = write1();
+
 
 //        if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
 //
@@ -229,6 +234,37 @@ public class Structure implements Compilable {
 
         return builder.toString();
     }
+
+
+    private StringBuilder write1() {
+        StringBuilder builder = new StringBuilder("<as:Structure ");
+
+        if (id != null) {
+            builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
+        }
+
+        if (reference != null) {
+            builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
+        }
+
+        if (taxonomy != null) {
+            builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
+        }
+        builder.append(">\n");
+
+        //todo
+//            if (template != null && template.getParameters().size() > 0) {
+//                out.write("<" + "as:parameters" + ">\n");
+//                for (Parameter param : template.getParameters()) {
+//                    param.toCXF(out);
+//                }
+//                out.write("</" + "as:parameters" + ">\n");
+//            }
+
+        builder.append("</as:Structure>");
+        return builder;
+    }
+
 
     //Logger logger = LoggerFactory.getLogger(this.getClass());
 

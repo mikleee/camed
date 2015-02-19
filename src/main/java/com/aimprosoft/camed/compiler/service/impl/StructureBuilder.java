@@ -81,34 +81,4 @@ public class StructureBuilder implements ElementBuilder {
         return result;
     }
 
-//
-//    private void AddStructureToTemplate(Element structure, CAMTemplate template) throws JDOMException {
-//        String taxonomy = structure.getAttributeValue("taxonomy");
-//        String taxonomyOther = "";
-//        if (taxonomy.equals(Structure.TaxonomyType.OTHER.toString())) {
-//            taxonomyOther = structure.getAttributeValue("taxonomyOther");
-//            if (taxonomyOther.equals("")) {
-//                throw new JDOMException("taxonomyOther should be populated if taxonomy = OTHER");
-//            }
-//        }
-//        String ID = structure.getAttributeValue("ID");
-//        if (ID == null || ID.equals("")) {
-//            ID = "default";
-//        }
-//        String reference = structure.getAttributeValue("reference");
-//        if (reference == null)
-//            reference = "";
-//        if (structure.getChildren().size() > 1) {
-//            throw new JDOMException("Structure should only have one root node");
-//        }
-//        Structure struct = new Structure(structure, Structure.TaxonomyType.valueOf(taxonomy), taxonomyOther);
-//        struct.setID(ID);
-//        struct.setReference(reference);
-//        struct.setTemplate(template);
-//
-//        template.putStructure(ID, struct);
-//
-//
-//    }
-
 }

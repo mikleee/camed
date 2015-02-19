@@ -279,9 +279,9 @@ public class Structure implements Compilable {
         List<Attribute> attributes = element.getAttributes();
         for (Attribute attr : attributes) {
 //                toCXF(out, attr, full);
-            builder.append("<as:Attribute" + " ");
-            String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
-            builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n");
+//            builder.append("<as:Attribute" + " ");
+//            String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
+//            builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n/");
         }
 
         List<Element> children = element.getChildren();
@@ -313,6 +313,7 @@ public class Structure implements Compilable {
 
 
         }
+
 
         return builder.append("</as:Element>\n");
     }

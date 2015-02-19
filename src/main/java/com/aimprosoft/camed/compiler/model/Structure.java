@@ -35,7 +35,7 @@ public class Structure implements Compilable {
 
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
-        builder = write1();
+        builder = preoareStructure();
 
 
 //        if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
@@ -236,7 +236,36 @@ public class Structure implements Compilable {
     }
 
 
-    private StringBuilder write1() {
+    private StringBuilder preoareStructure() {
+        StringBuilder builder = new StringBuilder("<as:Structure ");
+
+        if (id != null) {
+            builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
+        }
+
+        if (reference != null) {
+            builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
+        }
+
+        if (taxonomy != null) {
+            builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
+        }
+        builder.append(">\n");
+
+        //todo
+//            if (template != null && template.getParameters().size() > 0) {
+//                out.write("<" + "as:parameters" + ">\n");
+//                for (Parameter param : template.getParameters()) {
+//                    param.toCXF(out);
+//                }
+//                out.write("</" + "as:parameters" + ">\n");
+//            }
+
+        builder.append("</as:Structure>");
+        return builder;
+    }
+
+    private StringBuilder write2() {
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
         if (id != null) {

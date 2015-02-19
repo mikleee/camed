@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.util;
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Document;
 import com.aimprosoft.camed.compiler.model.*;
@@ -119,15 +120,19 @@ public class RuleManager {
         }
     }
 
-    public List<Rule> getNodeRules(Object node) throws Exception {
-        List<Rule> rules = new ArrayList<Rule>();
-        for (String xpath : XPathFunctions.getXpathVariation(node)) {
-            if (getXpathRulesMap().containsKey(xpath))
-                for (UUID uuid : getXpathRulesMap().get(xpath)) {
-                    rules.add(getRuleMap().get(uuid));
-                }
+    public List<Rule> getNodeRules(Object node) throws CAMCompilerException {
+        try {
+            List<Rule> rules = new ArrayList<Rule>();
+            for (String xpath : XPathFunctions.getXpathVariation(node)) {
+                if (getXpathRulesMap().containsKey(xpath))
+                    for (UUID uuid : getXpathRulesMap().get(xpath)) {
+                        rules.add(getRuleMap().get(uuid));
+                    }
+            }
+            return rules;
+        } catch (Exception e) {
+            throw new CAMCompilerException(e.getMessage()); //todo
         }
-        return rules;
     }
 
     public Rule getRule(UUID ruleUUID) {

@@ -26,9 +26,15 @@ public class StructureBuilder implements ElementBuilder {
     private final static String DEFAULT_ID = "default";
 
     private Element element;
+    private CAMTemplate template;
 
     public StructureBuilder(Element element) {
         this.element = element;
+    }
+
+    public StructureBuilder(Element element, CAMTemplate template) {
+        this.element = element;
+        this.template = template;
     }
 
     @Override
@@ -42,6 +48,7 @@ public class StructureBuilder implements ElementBuilder {
         result.setTaxonomyOther(taxonomies.get(TAXONOMY_OTHER)); //todo
         result.setID(id);
         result.setReference(reference);
+        result.setTemplate(template);
 
         return result;
     }
@@ -81,4 +88,11 @@ public class StructureBuilder implements ElementBuilder {
         return result;
     }
 
+    public CAMTemplate getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(CAMTemplate template) {
+        this.template = template;
+    }
 }

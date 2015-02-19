@@ -17,6 +17,11 @@ public class ModelFactory {
         return new StructureBuilder(element).build();
     }
 
+    public static Structure createStructure(Element element, CAMTemplate template) throws CAMCompilerException {
+        return new StructureBuilder(element, template).build();
+    }
+
+
     public static CAMTemplate createCAMTemplate(Document document) throws CAMCompilerException {
         return new CAMTemplateBuilder(document).build();
     }

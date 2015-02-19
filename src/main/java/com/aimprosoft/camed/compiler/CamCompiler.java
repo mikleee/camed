@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler;
 
+import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.service.impl.CAMTemplateBuilder;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.apache.log4j.Logger;
@@ -38,8 +39,7 @@ public class CamCompiler {
 
     private CAMTemplate prepareTemplate(File inputFile) throws JDOMException, IOException, CAMCompilerException {
         Document doc = new DocumentFactory().createDocument(inputFile);
-        CAMTemplateBuilder builder = new CAMTemplateBuilder(doc);
-        CAMTemplate result = builder.build();
+        CAMTemplate result = ModelFactory.createCAMTemplate(doc);
 
         result.setCompilePath(compilePath);
         result.setTempFilesDirPath(tempFilesDirPath);

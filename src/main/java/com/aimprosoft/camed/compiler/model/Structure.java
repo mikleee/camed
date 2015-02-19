@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.model;
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
@@ -30,12 +31,12 @@ public class Structure implements Compilable {
 
 
     @Override
-    public String compile() {
+    public String compile() throws CAMCompilerException {
         boolean full = false;
 
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
-        builder = preoareStructure();
+        builder = prepareStructure();
 
 
 //        if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
@@ -236,7 +237,7 @@ public class Structure implements Compilable {
     }
 
 
-    private StringBuilder preoareStructure() {
+    private StringBuilder prepareStructure() throws CAMCompilerException {
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
         if (id != null) {
@@ -260,38 +261,48 @@ public class Structure implements Compilable {
 //                }
 //                out.write("</" + "as:parameters" + ">\n");
 //            }
+        for (Element child : (List<Element>) structure.getChildren()) { //todo remove collection
+            write2(builder, child);
+        }
 
         builder.append("</as:Structure>");
         return builder;
     }
 
-    private StringBuilder write2() {
-        StringBuilder builder = new StringBuilder("<as:Structure ");
+    private StringBuilder write2(StringBuilder builder, Element element) throws CAMCompilerException {
 
-        if (id != null) {
-            builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
+        builder.append("<as:Element" + " ");
+        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
+        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
+
+        List<Attribute> attributes = element.getAttributes();
+        for (Attribute attr : attributes) {
+//                toCXF(out, attr, full);
+        }
+        List<Element> children = element.getChildren();
+        for (Element child : children) {
+//                toCXF(out, child, null, full);
         }
 
-        if (reference != null) {
-            builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
+        return builder.append("</as:Element>\n");
+    }
+
+    private StringBuilder write3(StringBuilder builder, Element element) throws CAMCompilerException {
+
+        builder.append("<as:Element" + " ");
+        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
+        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
+
+        List<Attribute> attributes = element.getAttributes();
+        for (Attribute attr : attributes) {
+//                toCXF(out, attr, full);
+        }
+        List<Element> children = element.getChildren();
+        for (Element child : children) {
+//                toCXF(out, child, null, full);
         }
 
-        if (taxonomy != null) {
-            builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
-        }
-        builder.append(">\n");
-
-        //todo
-//            if (template != null && template.getParameters().size() > 0) {
-//                out.write("<" + "as:parameters" + ">\n");
-//                for (Parameter param : template.getParameters()) {
-//                    param.toCXF(out);
-//                }
-//                out.write("</" + "as:parameters" + ">\n");
-//            }
-
-        builder.append("</as:Structure>");
-        return builder;
+        return builder.append("</as:Element>\n");
     }
 
 

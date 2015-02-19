@@ -12,6 +12,8 @@ import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
 import org.apache.commons.lang.text.StrBuilder;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.*;
+import org.jdom.Attribute;
+import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
 
 import java.io.*;

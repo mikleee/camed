@@ -275,14 +275,22 @@ public class Structure implements Compilable {
         String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
         builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
 
+
         List<Attribute> attributes = element.getAttributes();
         for (Attribute attr : attributes) {
 //                toCXF(out, attr, full);
+            builder.append("<as:Attribute" + " ");
+            String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
+            builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n");
         }
+
         List<Element> children = element.getChildren();
+
         for (Element child : children) {
 //                toCXF(out, child, null, full);
+            write3(builder, child);
         }
+
 
         return builder.append("</as:Element>\n");
     }
@@ -293,16 +301,27 @@ public class Structure implements Compilable {
         String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
         builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
 
+
         List<Attribute> attributes = element.getAttributes();
         for (Attribute attr : attributes) {
 //                toCXF(out, attr, full);
+            //writeAttributes(builder, attr);
         }
         List<Element> children = element.getChildren();
         for (Element child : children) {
 //                toCXF(out, child, null, full);
+
+
         }
 
         return builder.append("</as:Element>\n");
+    }
+
+    private StringBuilder writeAttributes(StringBuilder builder, Attribute attr) throws CAMCompilerException {
+        builder.append("<as:Attribute" + " ");
+        String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
+        builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n");
+        return null;
     }
 
 

@@ -32,8 +32,7 @@ public class Constraint extends Rule  implements  Compilable{
     }
 
     @SuppressWarnings("unchecked")
-    public Constraint(Element constraint, RuleCategory cat)
-            throws Exception {
+    public Constraint(Element constraint, RuleCategory cat)            throws Exception {
         super();
         setType(RuleType.constraint);
         setCategory(cat);

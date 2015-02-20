@@ -7,10 +7,14 @@ import org.jdom.*;
 import org.jdom.Attribute;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class ElementWrapper implements Compilable {
+
+    private final static String ELEMENT = "as:Element";
+    private final static String ATTRIBUTE = "as:Attribute";
 
 //    private String name;
 //    private String path;
@@ -26,47 +30,66 @@ public class ElementWrapper implements Compilable {
 
     public ElementWrapper(Element element, List<Attribute> attributes) {
         this.element = element;
-        this.attributes = attributes;
-        init();
+        initAttributes(attributes);
     }
 
 
     @Override
     public String compile() throws CAMCompilerException {
         StringBuilder builder = new StringBuilder();
-        return compile(builder).toString();
+        return compile(builder, this).toString();
     }
 
 
-    private void init() {
+    private void initAttributes(List<Attribute> attributes) {
+        this.attributes = new ArrayList<Attribute>();
         String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
-        attributes.add(new Attribute("name", name));
+        this.attributes.add(new Attribute("name", name));
+        this.attributes.addAll(attributes);
     }
 
-    private StringBuilder compile(StringBuilder builder) throws CAMCompilerException {
+    private List<Attribute> initAttributes(Attribute attribute, List<Attribute> attributes) {
+        List<Attribute> result = new ArrayList<Attribute>();
+        String name = StringEscapeUtils.escapeXml(attribute.getQualifiedName());
+        result.add(new Attribute("name", name));
+        result.addAll(attributes);
+        return result;
+    }
 
-        String namespacePrefix = element.getNamespace().getPrefix();
-        String elementName = element.getQualifiedName();
+    private StringBuilder compile(StringBuilder builder, ElementWrapper elementWrapper) throws CAMCompilerException {
+        CAMElement root = new CAMElement(elementWrapper.getElement());
 
-        builder.append("<").append(namespacePrefix).append(elementName);
-
-        builder = compileAttributes(builder);
-
+        List<Attribute> attributes = (List<Attribute>) element.getAttributes();
         List<Element> children = (List<Element>) element.getChildren();
 
-        if (children.isEmpty()) {
-            builder.append("/>");
+        builder.append("<").append(root.getElementName()).append(" ");
+
+        builder = compileAttributes(builder, elementWrapper.getAttributes());
+
+        if (children.isEmpty() && attributes.isEmpty()) {
+            builder.append("/>").append("\n");
         } else {
-            for (Element child : children) {
-                compile(builder);
+            builder.append(">").append("\n");
+
+            for (Attribute attribute : attributes) {
+                List<Attribute> attributeList = initAttributes(attribute, new ArrayList<Attribute>());
+                builder.append("<").append(ATTRIBUTE).append(" ");
+                builder = compileAttributes(builder, attributeList);
+                builder.append("/>").append("\n");
             }
-            builder.append("</").append(namespacePrefix).append(elementName);
+
+            for (Element child : children) {
+                List<Attribute> childAttributes = new ArrayList<Attribute>(); //todo
+                ElementWrapper childWrapper = new ElementWrapper(child, childAttributes);
+                childWrapper.compile(builder, childWrapper);
+            }
+            builder.append("</").append(root.getElementName()).append(">").append("\n");
         }
 
         return builder;
     }
 
-    private StringBuilder compileAttributes(StringBuilder builder) {
+    private StringBuilder compileAttributes(StringBuilder builder, List<Attribute> attributes) {
         for (Attribute attribute : attributes) {
             builder
                     .append(attribute.getQualifiedName())
@@ -76,7 +99,6 @@ public class ElementWrapper implements Compilable {
         }
         return builder;
     }
-
 
     public org.jdom.Element getElement() {
         return element;

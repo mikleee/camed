@@ -4,6 +4,7 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
+import com.aimprosoft.camed.compiler.model.impl.ElementWrapper;
 import com.aimprosoft.camed.compiler.util.*;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
@@ -271,26 +272,21 @@ public class Structure implements Compilable {
 
     private StringBuilder write2(StringBuilder builder, Element element) throws CAMCompilerException {
 
-        builder.append("<as:Element" + " ");
-        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
-        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
+//        builder.append("<as:Element" + " ");
+//        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
+//        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
+//
+////
+//        List<Attribute> attributes = element.getAttributes();
+//        for (Attribute attr : attributes) {
+////                toCXF(out, attr, full);
+//        }
 
+        List<Attribute> attributes = new ArrayList<Attribute>();
+        attributes.add(new Attribute("makeMandatory", "true"));
 
-        List<Attribute> attributes = element.getAttributes();
-        for (Attribute attr : attributes) {
-//                toCXF(out, attr, full);
-//            builder.append("<as:Attribute" + " ");
-//            String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
-//            builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n/");
-        }
-
-        List<Element> children = element.getChildren();
-
-        for (Element child : children) {
-//                toCXF(out, child, null, full);
-            write3(builder, child);
-        }
-
+        ElementWrapper wrapper = new ElementWrapper(element, attributes);
+        builder.append(wrapper.compile());
 
         return builder.append("</as:Element>\n");
     }

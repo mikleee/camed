@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.model;
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
@@ -15,7 +16,7 @@ import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Constraint extends Rule {
+public class Constraint extends Rule  implements  Compilable{
 
     private boolean elementStyle = false;
     private String condition = "";
@@ -522,4 +523,8 @@ public class Constraint extends Rule {
         setItem(xpath);
     }
 
+    @Override
+    public String compile() throws CAMCompilerException {
+        return null;
+    }
 }

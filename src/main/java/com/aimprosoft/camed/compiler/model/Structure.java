@@ -288,7 +288,7 @@ public class Structure implements Compilable {
         ElementWrapper wrapper = new ElementWrapper(element, attributes);
         builder.append(wrapper.compile());
 
-        return builder.append("</as:Element>\n");
+        return builder;
     }
 
     private StringBuilder write3(StringBuilder builder, Element element) throws CAMCompilerException {

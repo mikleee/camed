@@ -9,7 +9,7 @@ import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
 import org.jdom.Element;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class RuleWrapper implements Compilable {
     private static final String RULE_XPATH = "//as:context";
     private CAMTemplate template;
     private Map<String, Constraint> mapRule = new HashMap<String, Constraint>();
-    List<Element> listElements = new ArrayList<Element>();
+
 
 
     public RuleWrapper(CAMTemplate template) throws CAMCompilerException {

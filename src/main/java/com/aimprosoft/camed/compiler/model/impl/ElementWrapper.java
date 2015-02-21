@@ -16,10 +16,6 @@ public class ElementWrapper implements Compilable {
     private final static String ELEMENT = "as:Element";
     private final static String ATTRIBUTE = "as:Attribute";
 
-//    private String name;
-//    private String path;
-//    private String namespace;
-
     private Element element;
     private List<Attribute> attributes;
 
@@ -57,12 +53,11 @@ public class ElementWrapper implements Compilable {
     }
 
     private StringBuilder compile(StringBuilder builder, ElementWrapper elementWrapper) throws CAMCompilerException {
-        CAMElement root = new CAMElement(elementWrapper.getElement());
 
         List<Attribute> attributes = (List<Attribute>) element.getAttributes();
         List<Element> children = (List<Element>) element.getChildren();
 
-        builder.append("<").append(root.getElementName()).append(" ");
+        builder.append("<").append(ELEMENT).append(" ");
 
         builder = compileAttributes(builder, elementWrapper.getAttributes());
 
@@ -83,7 +78,7 @@ public class ElementWrapper implements Compilable {
                 ElementWrapper childWrapper = new ElementWrapper(child, childAttributes);
                 childWrapper.compile(builder, childWrapper);
             }
-            builder.append("</").append(root.getElementName()).append(">").append("\n");
+            builder.append("</").append(ELEMENT).append(">").append("\n");
         }
 
         return builder;
@@ -100,11 +95,11 @@ public class ElementWrapper implements Compilable {
         return builder;
     }
 
-    public org.jdom.Element getElement() {
+    public Element getElement() {
         return element;
     }
 
-    public void setElement(org.jdom.Element element) {
+    public void setElement(Element element) {
         this.element = element;
     }
 

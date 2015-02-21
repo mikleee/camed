@@ -41,7 +41,7 @@ public class ConstraintManager implements Compilable {
         try {
             Element contextNode = new JDOMXPathAdapter(CONTEXT_PATH, template).selectNode();
             for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
-                constraints.add(ModelFactory.createConstraint(constraintNode, Rule.RuleCategory.CONDITIONAL)); //todo
+                constraints.add(ModelFactory.createConstraint(constraintNode)); //todo
             }
         } catch (JaxenException e) {
             throw new CAMCompilerException("Element " + CONTEXT_PATH + " is absent.");

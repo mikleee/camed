@@ -1,6 +1,8 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
+import org.jdom.Element;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,13 +19,20 @@ public class Header implements Compilable {
         this.description = description;
         this.owner = owner;
         this.templateVersion = templateVersion;
-        this.dateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
+    }
+
+    public Header(Element element) {
+        this(
+                element.getChildText("Description", CAMConstants.CAM_NAMESPACE),
+                element.getChildText("Owner", CAMConstants.CAM_NAMESPACE),
+                element.getChildText("Version", CAMConstants.CAM_NAMESPACE)
+        );
     }
 
     private String description;
     private String owner;
     private String templateVersion;
-    private String dateTime;
+    private String dateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
 
     @Override
     public String compile() {
@@ -45,6 +54,5 @@ public class Header implements Compilable {
 
         builder.append("</as:Header>\n");
         return builder.toString();
-
     }
 }

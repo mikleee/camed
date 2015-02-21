@@ -25,10 +25,9 @@ public class Constraint extends Rule  implements  Compilable{
 
     private String item = "";
 
-    public Constraint(RuleCategory cat) {
+    public Constraint() {
         super();
         setType(RuleType.constraint);
-        setCategory(cat);
     }
 
     @SuppressWarnings("unchecked")

@@ -28,7 +28,7 @@ public class ModelFactory {
         return new CAMTemplateBuilder(document).build();
     }
 
-    public static Constraint createConstraint(Element element, Rule.RuleCategory category) throws CAMCompilerException {
-        return new ConstraintBuilder(element, category).build();
+    public static Constraint createConstraint(Element element) throws CAMCompilerException {
+        return new ConstraintBuilder(element).build();
     }
 }

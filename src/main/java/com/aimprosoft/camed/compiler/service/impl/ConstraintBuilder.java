@@ -20,8 +20,8 @@ public class ConstraintBuilder implements ElementBuilder {
     private Constraint constraint;
     private Element element;
 
-    public ConstraintBuilder(Element element, Rule.RuleCategory category) {
-        this.constraint = new Constraint(category);
+    public ConstraintBuilder(Element element) {
+        this.constraint = new Constraint();
         this.element = element;
     }
 
@@ -38,6 +38,7 @@ public class ConstraintBuilder implements ElementBuilder {
 
         constraint.setType(Rule.RuleType.constraint);
         constraint.setCondition(condition);
+        constraint.setCategory(condition == null ? Rule.RuleCategory.DEFAULT : Rule.RuleCategory.CONDITIONAL);
 
         if (annotation != null) {
             constraint.setAnnotation(annotation);

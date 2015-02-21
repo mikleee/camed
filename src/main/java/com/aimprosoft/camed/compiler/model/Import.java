@@ -33,7 +33,7 @@ public class Import {
 
     public Element toXML() {
 
-        Element imp = new Element("import", Namespace.getNamespace(CAMConstants.CAM_NAMESPACE_PREFIX, CAMConstants.CAMURI));
+        Element imp = new Element("import", Namespace.getNamespace(CAMConstants.CAM_NAMESPACE_PREFIX, CAMConstants.CAM_NAMESPACE_URI));
         imp.setAttribute("URI", getURI());
         imp.setAttribute("alias", getAlias());
         return imp;

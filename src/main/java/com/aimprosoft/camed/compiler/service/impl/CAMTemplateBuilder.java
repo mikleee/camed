@@ -1,11 +1,11 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
-import com.aimprosoft.camed.compiler.model.*;
+import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.Structure;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
-import com.aimprosoft.camed.compiler.service.*;
+import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
@@ -20,6 +20,7 @@ import java.util.*;
  */
 public class CAMTemplateBuilder implements ElementBuilder {
 
+    private final static String HEADER_XPATH = "/as:CAM/as:Header";
     private final static String STRUCTURE_XPATH = "//as:AssemblyStructure/as:Structure";
 
     private CAMTemplate template;
@@ -40,15 +41,9 @@ public class CAMTemplateBuilder implements ElementBuilder {
         template = new CAMTemplate(document);
     }
 
-    private void initHeader() {
-        final Namespace as = template.getNamespacesMap().get(CAMConstants.CAM_NAMESPACE_PREFIX);
-        Element headerNode = template.getTemplateDocument().getRootElement().getChild("Header", as);
-
-        String description = headerNode.getChildText("Description", as);
-        String owner = headerNode.getChildText("Owner", as);
-        String templateVersion = headerNode.getChildText("Version", as);
-
-        Header header = new Header(description, owner, templateVersion);
+    private void initHeader() throws CAMCompilerException {
+        Element headerNode = retrieveTemplateNode(HEADER_XPATH);
+        Header header = new Header(headerNode);
         template.setHeader(header);
     }
 
@@ -65,14 +60,9 @@ public class CAMTemplateBuilder implements ElementBuilder {
 
 
     private void initStructure() throws CAMCompilerException {
-        try {
-            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(STRUCTURE_XPATH, template);
-            Element structureNode = jdomxPathAdapter.selectNode();
-            Structure structure = ModelFactory.createStructure(structureNode, template); //todo
-            template.setStructure(structure);
-        } catch (JaxenException e) {
-            throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");
-        }
+        Element structureNode = retrieveTemplateNode(STRUCTURE_XPATH);
+        Structure structure = ModelFactory.createStructure(structureNode, template); //todo
+        template.setStructure(structure);
     }
 
 
@@ -99,5 +89,14 @@ public class CAMTemplateBuilder implements ElementBuilder {
         }
     }
 
+    private Element retrieveTemplateNode(String xPath) throws CAMCompilerException {
+        try {
+            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(STRUCTURE_XPATH, template);
+            return jdomxPathAdapter.selectNode();
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");
+        }
+
+    }
 
 }

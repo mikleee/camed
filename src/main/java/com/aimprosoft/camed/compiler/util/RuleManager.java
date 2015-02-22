@@ -50,7 +50,7 @@ public class RuleManager {
     }
 
     private boolean isRuleExists(Rule rule) throws Exception {
-        if (rule instanceof Constraint && rule.getXpath() != null && rule.getCategory().equals(RuleCategory.DEFAULT)) {
+        if (rule instanceof Constraint && rule.getXpath() != null && rule.getCategory() == RuleCategory.DEFAULT) {
             Action action = ((Constraint) rule).getActions().get(0);
             if (rule.getXpath().contains("[")) {
                 Document structureDocument = template.toDocument();
@@ -96,10 +96,8 @@ public class RuleManager {
                     addXpathRule(item, ruleEntry.getKey());
                 } else {
                     xpath.setUpXPath(item, ns);
-                    for (Object node : xpath.getXPath().selectNodes(
-                            structureDocument)) {
-                        addXpathRule(XPathFunctions.xpath(node),
-                                ruleEntry.getKey());
+                    for (Object node : xpath.getXPath().selectNodes(structureDocument)) {
+                        addXpathRule(XPathFunctions.xpath(node), ruleEntry.getKey());
                     }
                 }
             }

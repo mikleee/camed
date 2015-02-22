@@ -5,6 +5,7 @@ import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.Structure;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
+import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
@@ -34,6 +35,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
         initNamespaces(); //2
         initHeader(); //3
         initStructure();
+        initConstraintManager();
         return template;
     }
 
@@ -65,6 +67,9 @@ public class CAMTemplateBuilder implements ElementBuilder {
         template.setStructure(structure);
     }
 
+    private void initConstraintManager() throws CAMCompilerException {
+        template.setConstraintManager(new ConstraintManager(template));
+    }
 
     private Set<Namespace> retrieveNamespaces() {
         Set<Namespace> result = new HashSet<Namespace>();

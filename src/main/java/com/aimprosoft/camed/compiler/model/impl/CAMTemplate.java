@@ -10,6 +10,7 @@ import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.model.impl.*;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
+import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
 import org.apache.commons.lang.text.StrBuilder;
@@ -54,6 +55,8 @@ public class CAMTemplate implements Compilable {
     private String tempFilesDirPath;
     private String compilePath;
     private String templatePath;
+
+    private ConstraintManager constraintManager;
 
     private static Parser parser = new Parser();
 
@@ -133,6 +136,10 @@ public class CAMTemplate implements Compilable {
 
     public void setTemplateVersion(String templateVersion) {
         this.templateVersion = templateVersion;
+    }
+
+    public void setCAMLevel(Integer camLevel) {
+        this.camLevel = camLevel;
     }
 
     public void setVersion(String version) {
@@ -425,6 +432,14 @@ public class CAMTemplate implements Compilable {
         this.structure = structure;
     }
 
+    public ConstraintManager getConstraintManager() {
+        return constraintManager;
+    }
+
+    public void setConstraintManager(ConstraintManager constraintManager) {
+        this.constraintManager = constraintManager;
+    }
+
     @Override
     public String compile() throws CAMCompilerException {
 
@@ -439,9 +454,7 @@ public class CAMTemplate implements Compilable {
         builder
                 .append(" compiled=" + QUOTE + "true" + QUOTE)
                 .append(" CAMlevel=" + QUOTE).append(camLevel).append(QUOTE + " ")
-                .append(" version=" + QUOTE).append(version).append(QUOTE)
-                .append(">\n");
-
+                .append(" version=" + QUOTE).append(version).append(QUOTE).append(">\n");
 
         builder
                 .append(header.compile())

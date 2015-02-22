@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class JDOMXPathAdapter extends JDOMXPath {
 
-    private CAMTemplate template;
+    private Document document;
 
     public JDOMXPathAdapter(String xpathExpr) throws JaxenException {
         super(xpathExpr);
@@ -25,7 +25,7 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
     public JDOMXPathAdapter(String xpathExpr, CAMTemplate camTemplate) throws JaxenException {
         this(xpathExpr);
-        this.template = camTemplate;
+        this.document = camTemplate.getTemplateDocument();
         initNamespaceContext(camTemplate);
     }
 
@@ -43,12 +43,10 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
     @SuppressWarnings("unchecked")
     public List<Element> selectNodes() throws JaxenException {
-        Document document = template.getTemplateDocument();
         return (ArrayList<Element>) super.selectNodes(document);
     }
 
     public Element selectNode() throws JaxenException {
-        Document document = template.getTemplateDocument();
         return (Element) super.selectSingleNode(document);
     }
 }

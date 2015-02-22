@@ -59,7 +59,7 @@ public class Structure implements Compilable {
             write2(builder, child);
         }
 
-        builder.append("</as:Structure>");
+        builder.append("</as:Structure>\n");
         return builder.toString();
     }
 
@@ -68,7 +68,7 @@ public class Structure implements Compilable {
         List<Attribute> attributes = new ArrayList<Attribute>();
         attributes.add(new Attribute("makeMandatory", "true"));
 
-        ElementWrapper wrapper = new ElementWrapper(element, attributes);
+        ElementWrapper wrapper = new ElementWrapper(element, attributes, template);
         builder.append(wrapper.compile());
 
         return builder;

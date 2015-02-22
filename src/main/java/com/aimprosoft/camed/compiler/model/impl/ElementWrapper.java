@@ -1,14 +1,22 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.model.Action;
 import com.aimprosoft.camed.compiler.model.Compilable;
+import com.aimprosoft.camed.compiler.model.Constraint;
+import com.aimprosoft.camed.compiler.model.Rule;
+import com.aimprosoft.camed.compiler.util.XPathFunctions;
+import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
+import com.aimprosoft.camed.compiler.xpath.Xpath;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.jaxen.JaxenException;
+import org.jaxen.SimpleNamespaceContext;
 import org.jdom.*;
 import org.jdom.Attribute;
+import org.jdom.adapters.JAXPDOMAdapter;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class ElementWrapper implements Compilable {
@@ -16,16 +24,18 @@ public class ElementWrapper implements Compilable {
     private final static String ELEMENT = "as:Element";
     private final static String ATTRIBUTE = "as:Attribute";
 
+    private CAMTemplate template;
     private Element element;
     private List<Attribute> attributes;
 
 
     public ElementWrapper(Element element) {
-        this(element, new ArrayList<Attribute>());
+        this(element, new ArrayList<Attribute>(), null);
     }
 
-    public ElementWrapper(Element element, List<Attribute> attributes) {
+    public ElementWrapper(Element element, List<Attribute> attributes, CAMTemplate template) {
         this.element = element;
+        this.template = template;
         initAttributes(attributes);
     }
 
@@ -54,6 +64,10 @@ public class ElementWrapper implements Compilable {
 
     private StringBuilder compile(StringBuilder builder, ElementWrapper elementWrapper) throws CAMCompilerException {
 
+
+        Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
+
+
         List<Attribute> attributes = (List<Attribute>) element.getAttributes();
         List<Element> children = (List<Element>) element.getChildren();
 
@@ -67,6 +81,14 @@ public class ElementWrapper implements Compilable {
             builder.append(">").append("\n");
 
             for (Attribute attribute : attributes) {
+
+
+                for (String xpath : groupedConstraints.keySet()) {
+
+                }
+
+                //todo link constraints
+
                 List<Attribute> attributeList = initAttributes(attribute, new ArrayList<Attribute>());
                 builder.append("<").append(ATTRIBUTE).append(" ");
                 builder = compileAttributes(builder, attributeList);
@@ -75,7 +97,7 @@ public class ElementWrapper implements Compilable {
 
             for (Element child : children) {
                 List<Attribute> childAttributes = new ArrayList<Attribute>(); //todo
-                ElementWrapper childWrapper = new ElementWrapper(child, childAttributes);
+                ElementWrapper childWrapper = new ElementWrapper(child, childAttributes, template);
                 childWrapper.compile(builder, childWrapper);
             }
             builder.append("</").append(ELEMENT).append(">").append("\n");
@@ -88,9 +110,9 @@ public class ElementWrapper implements Compilable {
         for (Attribute attribute : attributes) {
             builder
                     .append(attribute.getQualifiedName())
-                    .append("=\"")
+                    .append(QUOTE)
                     .append(attribute.getValue())
-                    .append("\" ");
+                    .append(QUOTE + " ");
         }
         return builder;
     }
@@ -110,5 +132,47 @@ public class ElementWrapper implements Compilable {
     public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
     }
+
+
+    //todo==================-----------------------------------------------------------------------
+
+
+    private String getConstraintString(Attribute attribute, Map<String, List<Constraint>> groupedConstraints) throws CAMCompilerException {
+        try {
+            for (String xpath : groupedConstraints.keySet()) {
+                List<Element> matchedNodes = new JDOMXPathAdapter(xpath, template).selectNodes();
+
+
+            }
+            return null;
+        } catch (JaxenException e) {
+            throw new CAMCompilerException();
+        }
+    }
+
+//    private boolean isRuleExists(String xPath) throws Exception {
+//
+//        Action action = ((Constraint) rule).getActions().get(0);
+//        if (xPath.contains("[")) {
+//            List<Element> nodes = new JDOMXPathAdapter(xPath, template).selectNodes();
+//            for (Element node : nodes) {
+//                if (getXpathRulesMap().containsKey(XPathFunctions.xpath(node))) {
+//                    for (UUID uuid : getXpathRulesMap().get(XPathFunctions.xpath(node))) {
+//                        if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).equals(action))
+//                            return true;
+//                    }
+//                }
+//            }
+//        } else {
+//            if (getXpathRulesMap().containsKey(rule.getXpath())) {
+//                for (UUID uuid : getXpathRulesMap().get(rule.getXpath())) {
+//                    if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).getAction().equals(action.getAction()))
+//                        return true;
+//                }
+//            }
+//        }
+//
+//        return false;
+//    }
 
 }

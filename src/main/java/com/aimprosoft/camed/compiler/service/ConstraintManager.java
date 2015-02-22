@@ -16,11 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConstraintManager implements Compilable {
+public class ConstraintManager  {
 
     private static final String CONTEXT_PATH = "//as:context";
     private List<Constraint> constraints;
-    private Map<String, List<Constraint>> xPathBoundedConstraints;
+    private Map<String, List<Constraint>> groupedConstraints;
 
 
     public ConstraintManager(CAMTemplate template) throws CAMCompilerException {
@@ -28,9 +28,8 @@ public class ConstraintManager implements Compilable {
         bindConstraintsToXpath();
     }
 
-    @Override
-    public String compile() throws CAMCompilerException {
-        return null;
+    public Map<String, List<Constraint>> getGroupedConstraints() {
+        return groupedConstraints;
     }
 
     private void initConstraints(CAMTemplate template) throws CAMCompilerException {
@@ -49,18 +48,18 @@ public class ConstraintManager implements Compilable {
     private void bindConstraintsToXpath() {
         List<Constraint> constraints = new ArrayList<Constraint>(this.constraints);
 
-        xPathBoundedConstraints = new HashMap<String, List<Constraint>>();
+        groupedConstraints = new HashMap<String, List<Constraint>>();
 
         for (int i = 0; i < constraints.size(); i++) {
             String xPath = constraints.get(i).getItem();
-            List<Constraint> xPathRelatedConstraints = new ArrayList<Constraint>();
-            xPathRelatedConstraints.add(constraints.get(i));
+            List<Constraint> constraintDroup = new ArrayList<Constraint>();
+            constraintDroup.add(constraints.get(i));
 
             for (int j = i + 1; j < constraints.size(); ) {
                 String thatXPath = constraints.get(j).getItem();
 
                 if (xPath.equals(thatXPath)) {
-                    xPathRelatedConstraints.add(constraints.get(j));
+                    constraintDroup.add(constraints.get(j));
                     constraints.remove(j);
                 } else {
                     j++;
@@ -68,19 +67,20 @@ public class ConstraintManager implements Compilable {
 
             }
 
-            assignOrderNumbers(xPathRelatedConstraints);
-            xPathBoundedConstraints.put(xPath, xPathRelatedConstraints);
+            assignOrderNumbers(constraintDroup);
+            groupedConstraints.put(xPath, constraintDroup);
         }
     }
 
-    private void assignOrderNumbers(List<Constraint> xPathRelatedConstraints) {
-        for (int i = 0; i < xPathRelatedConstraints.size(); i++) {
-            Constraint constraint = xPathRelatedConstraints.get(i);
+    private void assignOrderNumbers(List<Constraint> constraintGroup) {
+        for (int i = 0; i < constraintGroup.size(); i++) {
+            Constraint constraint = constraintGroup.get(i);
             for (Action action : constraint.getActions()) {
                 action.setOrderNumber(i + 1);
             }
         }
     }
+
 
 
     public static void main(String[] args) throws Exception {

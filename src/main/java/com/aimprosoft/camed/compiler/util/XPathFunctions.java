@@ -165,10 +165,8 @@ public class XPathFunctions {
         String parent = "";
         if (element.getParentElement() != null) {
             if (!element.getParentElement().isRootElement()
-                    && !element.getParentElement().getQualifiedName()
-                    .equals("as:Structure")
-                    && !element.getParentElement().getQualifiedName()
-                    .equals("as:Temp")) {
+                    && !element.getParentElement().getQualifiedName().equals("as:Structure")
+                    && !element.getParentElement().getQualifiedName().equals("as:Temp")) {
                 parent = xpath(element.getParentElement());
             }
         }
@@ -176,16 +174,13 @@ public class XPathFunctions {
     }
 
     private static String xpath(Attribute attribute) {
-        String path = "/" + attribute.getParent().getQualifiedName() + "/@"
-                + attribute.getQualifiedName();
+        String path = "/" + attribute.getParent().getQualifiedName() + "/@" + attribute.getQualifiedName();
         Element element = attribute.getParent();
         String parent = "";
         if (element.getParentElement() != null) {
             if (!element.getParentElement().isRootElement()
-                    && !element.getParentElement().getQualifiedName()
-                    .equals("as:Structure")
-                    && !element.getParentElement().getQualifiedName()
-                    .equals("as:Temp")) {
+                    && !element.getParentElement().getQualifiedName().equals("as:Structure")
+                    && !element.getParentElement().getQualifiedName().equals("as:Temp")) {
                 parent = xpath(element.getParentElement());
             }
         }

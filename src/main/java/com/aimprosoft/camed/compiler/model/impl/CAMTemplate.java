@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
@@ -62,65 +63,6 @@ public class CAMTemplate implements Compilable {
         return templateDocument;
     }
 
-//    public void initNamespaces() {
-//        for (Namespace ns : CommonUtils.retrieveNamespaces(templateDocument)) {
-//            namespacesMap.put(ns.getPrefix(), ns);
-//        }
-//    }
-
-//    private void initHeader() {
-//        final Namespace as = namespacesMap.get(CAMConstants.CAM_NAMESPACE_PREFIX);
-//        Element header = templateDocument.getRootElement().getChild("Header", as);
-//
-//        description = header.getChildText("Description", as);
-//        owner = header.getChildText("Owner", as);
-//        templateVersion = header.getChildText("Version", as);
-//    }
-
-//    @SuppressWarnings("unchecked")
-//    private void initStructures() {
-//        try {
-//            JDOMXPath assemblyStructurePath = new JDOMXPathAdapter("//as:AssemblyStructure/as:Structure", this);
-//            List<Element> structures = (ArrayList<Element>) assemblyStructurePath.selectNodes(templateDocument);
-//            for (Element structure : structures) {
-//                //AddStructureToTemplate(structure, template);
-//            }
-//        } catch (JaxenException e) {
-//            e.printStackTrace(); //todo
-//        }
-//    }
-
-
-//    private void initStructures(Element structure) throws JDOMException {
-//        String taxonomy = structure.getAttributeValue("taxonomy");
-//        String taxonomyOther = "";
-//
-//        if (taxonomy.equals(Structure.TaxonomyType.OTHER.toString())) {
-//            taxonomyOther = structure.getAttributeValue("taxonomyOther");
-//            if (taxonomyOther.equals("")) {
-//                throw new JDOMException("taxonomyOther should be populated if taxonomy = OTHER");
-//            }
-//        }
-//        String ID = structure.getAttributeValue("ID");
-//        if (ID == null || ID.equals("")) {
-//            ID = "default";
-//        }
-//        String reference = structure.getAttributeValue("reference");
-//        if (reference == null)
-//            reference = "";
-//        if (structure.getChildren().size() > 1) {
-//            throw new JDOMException("Structure should only have one root node");
-//        }
-//        Structure struct = new Structure(structure, Structure.TaxonomyType.valueOf(taxonomy), taxonomyOther);
-//        struct.setID(ID);
-//        struct.setReference(reference);
-//        struct.setTemplate(this);
-//
-//        putStructure(ID, struct);
-//
-//
-//    }
-
     public Map<String, Namespace> getNamespacesMap() {
         return namespacesMap;
     }
@@ -128,16 +70,6 @@ public class CAMTemplate implements Compilable {
     public CAMTemplate() {
         initialise(null);
     }
-
-//    public CAMTemplate(Document doc, String tempFilesDirPath) {
-//        this.version = "0.1";
-//        this.ruleManager = new RuleManager(this);
-//        this.tempFilesDirPath = tempFilesDirPath;
-//        this.templateDocument = doc;
-//        initNamespaces();
-//        initHeader();
-//        initStructures();
-//    }
 
     public CAMTemplate(Document doc) {
         this.templateDocument = doc;
@@ -150,42 +82,10 @@ public class CAMTemplate implements Compilable {
         this.Imports = new HashMap<String, Import>();
         this.Properties = new HashMap<String, Property>();
         this.Structures = new HashMap<String, Structure>();
-//        this.Includes = new HashMap<String, Include>();
         this.ruleManager = new RuleManager(this);
         this.tempFilesDirPath = tempFilesDirPath;
     }
 
-    //
-//    private void businessContextRulesToXML(Element cam) {
-//        Element bus = new Element("BusinessUseContext", CAMEditor.CAMNamespace);
-//        if (getRootRules() != null) {
-//            Element rulesElement = new Element("Rules", CAMEditor.CAMNamespace);
-//            Element defaultElement = new Element("default",
-//                    CAMEditor.CAMNamespace);
-//
-//            int count = 0;
-//            for (Rule rule : getRootRules()) {
-//                if (count == 0) {
-//                    fillRuleElement(defaultElement, rule);
-//                    rulesElement.addContent(defaultElement);
-//                } else {
-//                    fillRuleElement(rulesElement, rule);
-//                }
-//                count++;
-//            }
-//            bus.addContent(rulesElement);
-//        }
-//        cam.addContent(bus);
-//
-//    }
-//
-//    private void fillRuleElement(Element ruleElement, Rule parentRule) {
-//        if (parentRule.getType() == Rule.RuleType.context)
-//            ruleElement.addContent(((Context) parentRule).toXML());
-//        else
-//            ruleElement.addContent(((Constraint) parentRule).toXML());
-//    }
-//
     public Structure getFirstStructure() {
         if (!Structures.isEmpty()) {
             for (Structure str : getStructures().values()) {
@@ -198,98 +98,14 @@ public class CAMTemplate implements Compilable {
         }
     }
 
-    //
-//    /**
-//     * @return Returns the cAMLevel.
-//     */
+
     public Integer getCAMLevel() {
         return camLevel;
     }
 
-    //
-//    /**
-//     * @return Returns the dateTime.
-//     */
-//    public Date getDateTime() {
-//        return dateTime;
-//    }
-//
-//    /**
-//     * @return Returns the description.
-//     */
-//    public String getDescription() {
-//        return Description;description
-//    public Collection<Import> getImports() {
-//        return Imports.values();
-//    }
-//
-//    /**
-//     * @return Returns the owner.
-//     */
-//    public String getOwner() {
-//        return owner;
-//    }
-//
     public Collection<Parameter> getParameters() {
         return parameters.values();
     }
-
-    //
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#get(java.lang.Object)
-//     */
-//    public Structure getStructure(String name) {
-//        return Structures.get(name);
-//    }
-//
-//    /**
-//     * @return Returns the templateVersion.
-//     */
-//    public String getTemplateVersion() {
-//        return templateVersion;
-//    }
-//
-//    /**
-//     * @return Returns the version.
-//     */
-//    public String getVersion() {
-//        return version;
-//    }
-//
-//    private void importsToXML(Element header) {
-//        if (Imports.size() > 0) {
-//            Element imps = new Element("Imports", CAMEditor.CAMNamespace);
-//            for (Import imp : Imports.values()) {
-//                imps.addContent(imp.toXML());
-//            }
-//            header.addContent(imps);
-//        }
-//    }
-//
-//    private void parametersToXML(Element header) {
-//        if (Parameters.size() > 0) {
-//            Element pars = new Element("Parameters", CAMEditor.CAMNamespace);
-//            for (Parameter param : Parameters.values()) {
-//                pars.addContent(param.toXML());
-//            }
-//            header.addContent(pars);
-//        }
-//    }
-//
-//    private void propertiesToXML(Element header) {
-//        if (Properties.size() > 0) {
-//            Element props = new Element("Properties", CAMEditor.CAMNamespace);
-//            for (String key : Properties.keySet()) {
-//                Property property = Properties.get(key);
-//
-//                props.addContent(property.toXML());
-//            }
-//            header.addContent(props);
-//        }
-//
-//    }
 
     public Object putImport(String name, Import imp) {
         return Imports.put(name, imp);
@@ -303,91 +119,22 @@ public class CAMTemplate implements Compilable {
         return Properties.put(name, new Property(name, value));
     }
 
-    //
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#put(K, V)
-//     */
     public Object putStructure(String name, Structure structure) {
         return Structures.put(name, structure);
     }
-//
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#remove(java.lang.Object)
-//     */
-//    public Object removeImport(String name) {
-//        return Imports.remove(name);
-//    }
-//
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#remove(java.lang.Object)
-//     */
-//    public Object removeParameter(String name) {
-//        return Parameters.remove(name);
-//    }
-//
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#remove(java.lang.Object)
-//     */
-//    public Object removeProperty(String name) {
-//        return Properties.remove(name);
-//    }
-//
-//    /*
-//     * (non-Javadoc)
-//     *
-//     * @see java.util.HashMap#remove(java.lang.Object)
-//     */
-//    public Object removeStructure(String name) {
-//        return Structures.remove(name);
-//    }
-//
 
-    /**
-     * @param level The cAMLevel to set.
-     */
-    public void setCAMLevel(Integer level) {
-        camLevel = level;
-    }
-
-//    /**
-//     * @param dateTime The dateTime to set.
-//     */
-//    public void setDateTime(Date dateTime) {
-//        this.dateTime = dateTime;
-//    }
-
-    /**
-     * @param description The description to set.
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     * @param owner The owner to set.
-     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
-    /**
-     * @param templateVersion The templateVersion to set.
-     */
     public void setTemplateVersion(String templateVersion) {
         this.templateVersion = templateVersion;
     }
 
-    /**
-     * @param version The version to set.
-     */
     public void setVersion(String version) {
         this.version = version;
     }
@@ -434,36 +181,6 @@ public class CAMTemplate implements Compilable {
             }
         }
     }
-//
-//    public Element toXML() {
-//        Element cam = new Element("CAM", CAMEditor.CAMNamespace);
-//        cam.setAttribute("CAMlevel", getCAMLevel().toString());
-//        cam.setAttribute("version", getVersion());
-//        for (Namespace ns : getNamespacesMap().values()) {
-//            cam.addNamespaceDeclaration(ns);
-//        }
-//        Element header = new Element("Header", CAMEditor.CAMNamespace);
-//        if (getDescription() != null && getDescription().length() != 0)
-//            header.addContent(new Element("Description", CAMEditor.CAMNamespace)description            .setText(getDescription()));
-//        if (getOwner() != null && getOwner().length() != 0)
-//            header.addContent(new ElemownerOwner", CAMEditor.CAMNamespace)
-//                    .setText(getOwner()));
-//        if (getTemplateVersion() != null && getTemplateVersion().length() != 0)
-//            header.addContent(new Element("Version", CAMEditor.CAMNamespace)
-//                    .setText(getTemplateVersion()));
-//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//        header.addContent(new Element("DateTime", CAMEditor.CAMNamespace)
-//                .setText(df.format(getDateTime())));
-//
-//        parametersToXML(header);
-//        propertiesToXML(header);
-//        importsToXML(header);
-//        cam.addContent(header);
-//        structuresToXML(cam);
-//        businessContextRulesToXML(cam);
-//        extensionsToXML(cam);
-//        return cam;
-//    }
 
     public Element toXMLnoRules() {
         Element cam = new Element("CAM", CAMConstants.CAMNamespace);
@@ -517,6 +234,7 @@ public class CAMTemplate implements Compilable {
     }
 
     private void openRootTag(Writer out, boolean full) throws IOException {
+
         out.write("<as:CAM ");
 
         for (Namespace ns : namespaces.getNamespacesMap().values()) {
@@ -582,11 +300,6 @@ public class CAMTemplate implements Compilable {
         return elem;
     }
 
-    //
-//    public Element toDoc() throws Exception {
-//        return toDoc(true);
-//    }
-//
     private void extensionsToXML(Element cam) {
         for (IExtension ext : AllowedExtensions.getExtensions()) {
             Element extension = ext.toXML();
@@ -610,345 +323,18 @@ public class CAMTemplate implements Compilable {
 
     }
 
-    //
-//    /*
-//     * (non-Javadoc)
-//     * 
-//     * @see java.util.HashMap#values()
-//     */
-//    public Collection<Property> getProperties() {
-//        return Properties.values();
-//    }
-//
     public Map<String, Structure> getStructures() {
         return Structures;
     }
 
-    //
-//    public boolean namespacePrefixExists(String prefix) {
-//        if (prefix != null) {
-//            for (Namespace ns : namespacesMap.values()) {
-//                if (ns.getPrefix().equals(prefix)) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//
-//    }
-//
-//    public Namespace getNamespace(String prefix) {
-//        if (prefix != null) {
-//            for (Namespace ns : namespacesMap.values()) {
-//                if (ns.getPrefix().equals(prefix)) {
-//                    return ns;
-//                }
-//            }
-//        }
-//        return null;
-//
-//    }
-//
-//    public void setRunResults(Element elem) {
-//        runResults = elem;
-//    }
-//
-//    public Element getRunResults() {
-//        return runResults;
-//    }
-//
     public Map<String, Include> getIncludes() {
         return Includes;
     }
 
-    //
-//    public void removeInclude(Include include) {
-//        for (String key : getIncludes().keySet()) {
-//            if (Includes.get(key).equals(include)) {
-//                Includes.remove(key);
-//                return;
-//            }
-//        }
-//    }
-//
-//    public Include getInclude(Element element) {
-//        for (Include include : getIncludes().values()) {
-//            if (include.getDocument().equals(element)) {
-//                return include;
-//            }
-//        }
-//        return null;
-//    }
-//
     public static Parser getParser() {
         return parser;
     }
 
-    //
-//    public void deleteRule(Rule rule) throws Exception {
-//        getRuleManager().removeRule(rule.getUuid());
-//    }
-//
-//    public void addRule(Rule rule) throws Exception {
-//        getRuleManager().addRule(rule);
-//    }
-//
-//    public void deleteNodeRules(Object node) throws Exception {
-//        camXpathEvaluator = new CAMXPathEvaluator(toXMLnoRules(),
-//                getNamespacesMap());
-//        deleteRules(node);
-//        camXpathEvaluator.close();
-//    }
-//
-//    private void deleteRules(Object node) throws Exception {
-//        for (Rule rule : getRuleManager().getNodeRules(node)) {
-//            if (!Boolean.parseBoolean(camXpathEvaluator.evaluate("count("
-//                    + rule.getXpath() + ") > 1")))
-//                getRuleManager().removeRule(rule.getUuid());
-//
-//        }
-//
-//        if (node instanceof Element) {
-//            for (Object attribute : ((Element) node).getAttributes())
-//                deleteRules(attribute);
-//            for (Object element : ((Element) node).getChildren())
-//                deleteRules(element);
-//        }
-//    }
-//
-//    public boolean renameNode(Object node, String newName) throws Exception {
-//        boolean hasMoreElements = false;
-//        String originalXpath = XPathFunctions.xpathParentAndAll(node);
-//        camXpathEvaluator = new CAMXPathEvaluator(toXMLnoRules(), getNamespacesMap());
-//        String name = null;
-//        Namespace ns = null;
-//        if (newName.contains(":")) {
-//            name = newName.substring(newName.lastIndexOf(":") + 1);
-//            ns = getNamespace(newName.substring(0, newName.lastIndexOf(":")));
-//        } else {
-//            name = newName;
-//        }
-//
-//        if (node instanceof Element) {
-//            renameRuleXpath(node, ((Element) node).getQualifiedName(), newName);
-//            ((Element) node).setName(name);
-//            ((Element) node).setNamespace(ns);
-//        } else if (node instanceof Attribute) {
-//            renameRuleXpath(node, ((Attribute) node).getQualifiedName(),
-//                    newName);
-//            ((Attribute) node).setName(name);
-//            ((Attribute) node).setNamespace(ns);
-//        }
-//        hasMoreElements = renameAnnotationsXpath(node, originalXpath);
-//        camXpathEvaluator.close();
-//        getRuleManager().setUpXpathRulesMap();
-//        return hasMoreElements;
-//    }
-//
-//    /**
-//     * @param node
-//     * @param originalXpath
-//     * @throws CloneNotSupportedException
-//     * @throws XPathExpressionException
-//     */
-//    private boolean renameAnnotationsXpath(Object node, String originalXpath)
-//            throws CloneNotSupportedException, XPathExpressionException {
-//        boolean hasMoreElements = false;
-//        if (getAnnotations() != null) {
-//            if (getAnnotations().containsKey(originalXpath)) {
-//                StructureAnnotation sa = null;
-//                if (!Boolean.parseBoolean(camXpathEvaluator.evaluate("count("
-//                        + originalXpath + ") > 1"))) {
-//                    sa = getAnnotations().remove(originalXpath);
-//                    sa.setXpath(XPathFunctions.xpathParentAndAll(node));
-//                    getAnnotations().put(
-//                            XPathFunctions.xpathParentAndAll(node), sa);
-//                    // Fix children level as well
-//                    if (node instanceof Element) {
-//                        String oldParenName = originalXpath
-//                                .substring(originalXpath.lastIndexOf("/") + 1);
-//                        for (Object child : ((Element) node).getChildren()) {
-//                            if (getAnnotations().containsKey(
-//                                    "//"
-//                                            + oldParenName
-//                                            + "/"
-//                                            + ((Element) child)
-//                                            .getQualifiedName())) {
-//                                sa = getAnnotations().remove(
-//                                        "//"
-//                                                + oldParenName
-//                                                + "/"
-//                                                + ((Element) child)
-//                                                .getQualifiedName());
-//                                sa.setXpath(XPathFunctions
-//                                        .xpathParentAndAll(child));
-//                                getAnnotations()
-//                                        .put(XPathFunctions
-//                                                .xpathParentAndAll(child),
-//                                                sa);
-//                            }
-//                        }
-//                        for (Object child : ((Element) node).getAttributes()) {
-//                            if (getAnnotations().containsKey(
-//                                    "//"
-//                                            + oldParenName
-//                                            + "/@"
-//                                            + ((Attribute) child)
-//                                            .getQualifiedName())) {
-//                                sa = getAnnotations().remove(
-//                                        "//"
-//                                                + oldParenName
-//                                                + "/@"
-//                                                + ((Attribute) child)
-//                                                .getQualifiedName());
-//                                sa.setXpath(XPathFunctions
-//                                        .xpathParentAndAll(child));
-//                                getAnnotations()
-//                                        .put(XPathFunctions
-//                                                .xpathParentAndAll(child),
-//                                                sa);
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    hasMoreElements = true;
-//                    sa = getAnnotations().get(originalXpath);
-//                    StructureAnnotation saClone = sa.cloneAnnotation();
-//                    saClone.setXpath(XPathFunctions.xpathParentAndAll(node));
-//                    getAnnotations().put(
-//                            XPathFunctions.xpathParentAndAll(node), saClone);
-//                    // Fix children level as well
-//                    if (node instanceof Element) {
-//                        String oldParenName = originalXpath
-//                                .substring(originalXpath.lastIndexOf("/") + 1);
-//                        for (Object child : ((Element) node).getChildren()) {
-//                            if (getAnnotations().containsKey(
-//                                    "//"
-//                                            + oldParenName
-//                                            + "/"
-//                                            + ((Element) child)
-//                                            .getQualifiedName())) {
-//                                sa = getAnnotations().get(
-//                                        "//"
-//                                                + oldParenName
-//                                                + "/"
-//                                                + ((Element) child)
-//                                                .getQualifiedName());
-//                                saClone = sa.cloneAnnotation();
-//                                saClone.setXpath(XPathFunctions
-//                                        .xpathParentAndAll(child));
-//                                getAnnotations()
-//                                        .put(XPathFunctions
-//                                                .xpathParentAndAll(child),
-//                                                saClone);
-//                            }
-//                        }
-//                        for (Object child : ((Element) node).getAttributes()) {
-//                            if (getAnnotations().containsKey(
-//                                    "//"
-//                                            + oldParenName
-//                                            + "/@"
-//                                            + ((Attribute) child)
-//                                            .getQualifiedName())) {
-//                                sa = getAnnotations().get(
-//                                        "//"
-//                                                + oldParenName
-//                                                + "/@"
-//                                                + ((Attribute) child)
-//                                                .getQualifiedName());
-//                                saClone = sa.cloneAnnotation();
-//                                saClone.setXpath(XPathFunctions
-//                                        .xpathParentAndAll(child));
-//                                getAnnotations()
-//                                        .put(XPathFunctions
-//                                                .xpathParentAndAll(child),
-//                                                saClone);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return hasMoreElements;
-//    }
-//
-//    private void renameRuleXpath(Object origNode, String oldName, String newName)
-//            throws Exception {
-//
-//        if (oldName != null && newName != null) {
-//            Rule ruleClone = null;
-//
-//            for (Rule rule : getRuleManager().getNodeRules(origNode)) {
-//                if (!Boolean.parseBoolean(camXpathEvaluator
-//                        .evaluate("count(" + rule.getXpath() + ") > 1"))) {
-//                    rule.setXpath(rule.getXpath().replace(oldName, newName));
-//                } else {
-//                    ruleClone = rule.cloneRule();
-//                    ruleClone.setUUID();
-//                    ruleClone.setXpath(ruleClone.getXpath().replace(
-//                            oldName, newName));
-//                    addRule(ruleClone);
-//                }
-//            }
-//        }
-//        if (origNode instanceof Element) {
-//            if (!((Element) origNode).getChildren().isEmpty()) {
-//                for (Object child : ((Element) origNode).getChildren()) {
-//                    renameRuleXpath(child, oldName, newName);
-//                }
-//            }
-//            if (!((Element) origNode).getAttributes().isEmpty()) {
-//                for (Object child : ((Element) origNode).getAttributes()) {
-//                    renameRuleXpath(child, oldName, newName);
-//                }
-//            }
-//        }
-//    }
-//
-//    /**
-//     * @return the annotations
-//     */
-//    public StructureAnnotations getAnnotations() {
-//        if (annotations == null)
-//            annotations = (StructureAnnotations) AllowedExtensions
-//                    .getExtension(StructureAnnotations.name);
-//        return annotations;
-//    }
-//
-//    public void deleteNodeAnnotations(Object obj) throws Exception {
-//        camXpathEvaluator = new CAMXPathEvaluator(toXMLnoRules(), getNamespacesMap());
-//        deleteAnnotations(obj);
-//        camXpathEvaluator.close();
-//    }
-//
-//    private void deleteAnnotations(Object node) throws XPathExpressionException {
-//        if (!Boolean.parseBoolean(camXpathEvaluator.evaluate("count("
-//                + XPathFunctions.xpathParentAndAll(node) + ") > 1")))
-//            deleteAnnotation(node);
-//
-//        if (node instanceof Element) {
-//            for (Object attribute : ((Element) node).getAttributes()) {
-//                deleteAnnotations(attribute);
-//            }
-//            for (Object element : ((Element) node).getChildren()) {
-//                deleteAnnotations(element);
-//            }
-//        }
-//    }
-//
-//    public void deleteAnnotation(Object obj) {
-//        String annXpath = XPathFunctions.xpathParentAndAll(obj);
-//        if (getAnnotations() != null) {
-//            if (getAnnotations().containsKey(annXpath)) {
-//                getAnnotations().remove(annXpath);
-//            }
-//        }
-//    }
-//
-//    public Rule getDefaultContextParentRule() {
-//        return getRuleManager().getDefaultContextParentRule();
-//    }
-//
     public List<Rule> getRootRules() {
         return getRuleManager().getRootRules();
     }
@@ -1040,7 +426,40 @@ public class CAMTemplate implements Compilable {
     }
 
     @Override
-    public String compile() {
-        return null;
+    public String compile() throws CAMCompilerException {
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("<as:CAM ");
+
+        for (Namespace ns : namespaces.getNamespacesMap().values()) {
+            builder.append(" xmlns:").append(ns.getPrefix()).append("=" + QUOTE).append(ns.getURI()).append(QUOTE + " ");
+        }
+
+        builder
+                .append(" compiled=" + QUOTE + "true" + QUOTE)
+                .append(" CAMlevel=" + QUOTE).append(camLevel).append(QUOTE + " ")
+                .append(" version=" + QUOTE).append(version).append(QUOTE)
+                .append(">\n");
+
+
+        builder
+                .append(header.compile())
+                .append(namespaces.compile());
+
+//        parametersToCXF(writer);
+
+        builder
+                .append("<as:AssemblyStructure>\n")
+                .append(structure.compile())
+                .append("</as:AssemblyStructure>\n");
+
+
+//        extensionsToCXF(writer);
+
+        builder.append("</as:CAM>\n");
+
+
+        return builder.toString();
     }
 }

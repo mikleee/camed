@@ -34,224 +34,16 @@ public class Structure implements Compilable {
 
     @Override
     public String compile() throws CAMCompilerException {
-        boolean full = false;
-
-        StringBuilder builder = new StringBuilder("<as:Structure ");
-
-        builder = prepareStructure();
-
-
-//        if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate == null) {
-//
-//            builder.append("<" + "as:Structure" + " ");
-//            if (id != null) {
-//                builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
-//            }
-//            if (reference != null) {
-//                builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
-//            }
-//            if (taxonomy != null) {
-//                builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
-//            }
-//            builder.append(">\n");
-//
-//            if (template != null && !template.getParameters().isEmpty()) {
-//                builder.append("<" + "as:parameters" + ">\n");
-//                for (Parameter param : template.getParameters()) {
-//                    param.toCXF(out);
-//                }
-//                builder.append("</" + "as:parameters" + ">\n");
-//            }
-//            List<Element> children = structure.getChildren();
-//            for (Element child : children) {
-//                toCXF(out, child, null, full);
-//            }
-//            builder.append("</" + "as:Structure" + ">");
-//        } else if (structure.getQualifiedName().endsWith("as:Structure") && applyTemplate != null) {
-//            List<Element> children = structure.getChildren();
-//            for (Element child : children) {
-//                toCXF(out, child, applyTemplate, full);
-//            }
-//        } else {
-//            Boolean ignoreChildren = false;
-//            // String itemQualifiedName =
-//            // XPathFunctions.fullXpathWithPosition(elem);
-//            builder
-//                    .append("<" + "as:Element" + " ")
-//                    .append(" " + "name" + "=\"").append(StringEscapeUtils.escapeXml(structure.getQualifiedName())).append("\" ");
-//            // if (structure.getNamespace() != null)
-//            // builder.append(" "+"namespace"+"=\""+StringEscapeUtils.escapeXml(structure.getNamespaceURI())+"\" ");
-//
-//            if (full) {
-//                builder.append(" "
-//                        + "path"
-//                        + "=\""
-//                        + StringEscapeUtils.escapeXml(XPathFunctions
-//                        .xpath(elem)) + "\" ");
-//                if (structure.getNamespace() != null)
-//                    builder.append(" "
-//                            + "namespace"
-//                            + "=\""
-//                            + StringEscapeUtils.escapeXml(elem
-//                            .getNamespaceURI()) + "\" ");
-//                if (structure.getNamespacePrefix() != null)
-//                    builder.append(" "
-//                            + "namespacePrefix"
-//                            + "=\""
-//                            + StringEscapeUtils.escapeXml(elem
-//                            .getNamespacePrefix()) + "\" ");
-//                if (IncludeHandlers.isIncluded(elem, template)) {
-//                    builder.append(" " + "included" + "=\""
-//                            + StringEscapeUtils.escapeXml("true") + "\" ");
-//                    if (IncludeHandlers.includedRootElement(elem, template)) {
-//                        builder.append(" "
-//                                + "includedFile"
-//                                + "=\""
-//                                + StringEscapeUtils.escapeXml(IncludeHandlers
-//                                .getInclude(elem, template).getUri()) + "\" ");
-//                    }
-//                }
-//                if (structure.getChildren().size() == 0) {
-//                    builder.append(" " + "exampleValue" + "=\""
-//                            + StringEscapeUtils.escapeXml(structure.getText())
-//                            + "\" ");
-//                }
-//            } else {
-//                if (structure.getChildren().size() == 0) {
-//                    if (!(structure.getTextTrim().startsWith("%") && elem
-//                            .getTextTrim().endsWith("%"))) {
-//                        builder.append(" " + "setValue" + "=\""
-//                                + StringEscapeUtils.escapeXml(structure.getText())
-//                                + "\" ");
-//                    }
-//                }
-//            }
-//
-//            if (applyTemplate != null) {
-//                if (full)
-//                    builder.append(" " + "applyTemplate" + "=\""
-//                            + StringEscapeUtils.escapeXml(applyTemplate)
-//                            + "\" ");
-//            }
-//            if (full)
-//                builder.append(">\n");
-//            boolean finish = true;
-//            List<Rule> nodeRules = template.getRuleManager().getNodeRules(elem);
-//            if (nodeRules != null && nodeRules.size() > 0) {
-//                if (full)
-//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "Rule" + ">\n");
-//                boolean unconditional = false;
-//                int count = 0;
-//                boolean duplicates = checkDuplicates();
-//                for (Rule rule : nodeRules) {
-//                    if (rule instanceof Constraint) {
-//                        count++;
-//                        Constraint cons = (Constraint) rule;
-//                        if (duplicates) {
-//                            cons.toCXF(out, full, count);
-//                        } else {
-//                            cons.toCXF(out, full, -1);
-//                        }
-//                        if (cons.getCondition() == null
-//                                || cons.getCondition().length() == 0) {
-//                            unconditional = true;
-//                        }
-//                        if (cons.getFirstActionString().startsWith(ActionType.applyTemplate.toString())) {
-//                            if (full) {
-//                                // builder.append(">\n");
-//                                if (applyTemplate != null
-//                                        && !applyTemplate.equals(cons
-//                                        .getFirstAction()
-//                                        .getActionParameters().get(0)))
-//                                    applyTemplateCXF(out, full, cons);
-//                                finish = false;
-//                                cons.toCXF(out, full, count);
-//                            } else {
-//                                outputCompiledTemplate(cons);
-//                            }
-//                            ignoreChildren = true;
-//                        }
-//                    }
-//                }
-//                if (full && unconditional == false && count == 0) {
-//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "constraint" + " ");
-//                    builder.append(" " + "action" + "=\""
-//                            + StringEscapeUtils.escapeXml("makeMandatory()")
-//                            + "\" ");
-//                    builder.append("/>\n");
-//                } else if (unconditional == false && count == 0) {
-//                    builder.append(" " + "makeMandatory" + "=\"true\" ");
-//                }
-//                if (full)
-//                    builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "Rule" + ">");
-//
-//            } else {
-//                if (full) {
-//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "Rule" + ">\n");
-//                    builder.append("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "constraint" + " ");
-//                    builder.append(" " + "action" + "=\""
-//                            + StringEscapeUtils.escapeXml("makeMandatory()")
-//                            + "\" ");
-//                    builder.append("/>\n");
-//                    builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                            + "Rule" + ">\n");
-//                } else {
-//                    builder.append(" " + "makeMandatory" + "=\"true\" ");
-//                }
-//
-//            }
-//            if (full) {
-//                StructureAnnotations sa = (StructureAnnotations) AllowedExtensions
-//                        .getExtension(StructureAnnotations.name);
-//                if (sa != null) {
-//                    String xpath = XPathFunctions.xpathParentAndAll(elem);
-//                    StructureAnnotation anno = sa.get(xpath);
-//                    if (anno != null) {
-//                        anno.toCXF(out);
-//                    }
-//                }
-//            }
-//            if (!full && finish)
-//                builder.append(">\n");
-//
-//            if (ignoreChildren) {
-//                ignoreChildren = false;
-//            } else {
-//                List<Attribute> attributes = structure.getAttributes();
-//                for (Attribute attr : attributes) {
-//                    toCXF(out, attr, full);
-//                }
-//                List<Element> children = structure.getChildren();
-//                for (Element child : children) {
-//                    toCXF(out, child, null, full);
-//                }
-//            }
-//            builder.append("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-//                    + "Element" + ">\n");
-//        }
-
-        return builder.toString();
-    }
-
-
-    private StringBuilder prepareStructure() throws CAMCompilerException {
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
         if (id != null) {
-            builder.append(" " + "ID" + "=\"").append(StringEscapeUtils.escapeXml(id)).append("\" ");
+            builder.append(" ID=" + QUOTE).append(StringEscapeUtils.escapeXml(id)).append(QUOTE + " ");
         }
-
         if (reference != null) {
-            builder.append(" " + "reference" + "=\"").append(StringEscapeUtils.escapeXml(reference)).append("\" ");
+            builder.append(" reference=" + QUOTE).append(StringEscapeUtils.escapeXml(reference)).append(QUOTE + " ");
         }
-
         if (taxonomy != null) {
-            builder.append(" " + "taxonomy" + "=\"").append(StringEscapeUtils.escapeXml(taxonomy)).append("\" ");
+            builder.append(" taxonomy=" + QUOTE).append(StringEscapeUtils.escapeXml(taxonomy)).append(QUOTE + " ");
         }
         builder.append(">\n");
 
@@ -268,21 +60,11 @@ public class Structure implements Compilable {
         }
 
         builder.append("</as:Structure>");
-        return builder;
+        return builder.toString();
     }
 
+
     private StringBuilder write2(StringBuilder builder, Element element) throws CAMCompilerException {
-
-//        builder.append("<as:Element" + " ");
-//        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
-//        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
-//
-////
-//        List<Attribute> attributes = element.getAttributes();
-//        for (Attribute attr : attributes) {
-////                toCXF(out, attr, full);
-//        }
-
         List<Attribute> attributes = new ArrayList<Attribute>();
         attributes.add(new Attribute("makeMandatory", "true"));
 

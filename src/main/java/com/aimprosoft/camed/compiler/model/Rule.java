@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.constants.RuleType;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 
 import java.util.UUID;
 

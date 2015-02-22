@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.*;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.xpath;
 
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.jdom.JDOMXPath;

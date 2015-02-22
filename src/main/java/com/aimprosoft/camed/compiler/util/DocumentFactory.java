@@ -2,7 +2,7 @@ package com.aimprosoft.camed.compiler.util;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.xpath.Xpath;
 import org.jdom.Attribute;
 import org.jdom.Document;

@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.util;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Document;
 import com.aimprosoft.camed.compiler.model.*;

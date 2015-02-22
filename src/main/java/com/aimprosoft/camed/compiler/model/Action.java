@@ -4,8 +4,6 @@ package com.aimprosoft.camed.compiler.model;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
-import com.aimprosoft.camed.compiler.constants.RuleCategory;
-import com.aimprosoft.camed.compiler.constants.RuleType;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Element;
 import org.jdom.Namespace;

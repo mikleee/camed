@@ -1,4 +1,4 @@
-package com.aimprosoft.camed.compiler.model;
+package com.aimprosoft.camed.compiler.model.impl;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
@@ -6,6 +6,7 @@ import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
+import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.model.impl.*;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
 import com.aimprosoft.camed.compiler.util.*;

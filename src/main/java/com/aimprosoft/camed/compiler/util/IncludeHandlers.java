@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.util;
 
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jdom.Element;
 
 import com.aimprosoft.camed.compiler.model.Include;

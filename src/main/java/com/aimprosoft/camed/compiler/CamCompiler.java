@@ -1,7 +1,6 @@
 package com.aimprosoft.camed.compiler;
 
 import com.aimprosoft.camed.compiler.service.ModelFactory;
-import com.aimprosoft.camed.compiler.service.impl.CAMTemplateBuilder;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
@@ -9,7 +8,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.output.CAMXMLOutputEngine;
 import org.jdom.output.Format;
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;
 
 import java.io.*;

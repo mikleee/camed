@@ -4,6 +4,7 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.constants.RuleType;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;

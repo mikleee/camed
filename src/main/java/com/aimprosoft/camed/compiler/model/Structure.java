@@ -4,6 +4,7 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.ElementWrapper;
 import com.aimprosoft.camed.compiler.util.*;
 import org.apache.commons.lang.StringEscapeUtils;

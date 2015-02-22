@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.CAMXMLOutputEngine;

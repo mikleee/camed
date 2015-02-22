@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.model;
 
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -235,11 +236,11 @@ public class ModelFactory {
         List<Element> childrenRules = rules.getChildren();
         for (Element childRule : childrenRules) {
             if (childRule.getName().equals("constraint")) {
-                Constraint cons = new Constraint(childRule, Rule.RuleCategory.DEFAULT);
+                Constraint cons = new Constraint(childRule, RuleCategory.DEFAULT);
                 cons.setTemplate(template);
                 ruleMap.put(cons.getUuid(), cons);
                 for (Element constRule : (List<Element>) childRule.getChildren()) {
-                    consRule = new Constraint(constRule, Rule.RuleCategory.DEFAULT);
+                    consRule = new Constraint(constRule, RuleCategory.DEFAULT);
                     consRule.setParentUUID(cons.getUuid());
                     consRule.setTemplate(template);
                     ruleMap.put(consRule.getUuid(), consRule);
@@ -247,11 +248,11 @@ public class ModelFactory {
                 }
                 cons = null;
             } else if (childRule.getName().equals("context")) {
-                Context context = new Context(childRule, Rule.RuleCategory.DEFAULT);
+                Context context = new Context(childRule, RuleCategory.DEFAULT);
                 context.setTemplate(template);
                 ruleMap.put(context.getUuid(), context);
                 for (Element constRule : (List<Element>) childRule.getChildren()) {
-                    consRule = new Constraint(constRule, Rule.RuleCategory.DEFAULT);
+                    consRule = new Constraint(constRule, RuleCategory.DEFAULT);
                     consRule.setParentUUID(context.getUuid());
                     ruleMap.put(consRule.getUuid(), consRule);
                     consRule = null;
@@ -263,21 +264,21 @@ public class ModelFactory {
         List<Element> contextRules = xpath.getXPath().selectNodes(doc);
         for (Element childRule : contextRules) {
             if (childRule.getName().equals("constraint")) {
-                Constraint cons = new Constraint(childRule, Rule.RuleCategory.CONDITIONAL);
+                Constraint cons = new Constraint(childRule, RuleCategory.CONDITIONAL);
                 ruleMap.put(cons.getUuid(), cons);
                 for (Element constRule : (List<Element>) childRule.getChildren()) {
-                    consRule = new Constraint(constRule, Rule.RuleCategory.CONDITIONAL);
+                    consRule = new Constraint(constRule, RuleCategory.CONDITIONAL);
                     consRule.setParentUUID(cons.getUuid());
                     ruleMap.put(consRule.getUuid(), consRule);
                     consRule = null;
                 }
                 cons = null;
             } else if (childRule.getName().equals("context")) {
-                Context context = new Context(childRule, Rule.RuleCategory.CONDITIONAL);
+                Context context = new Context(childRule, RuleCategory.CONDITIONAL);
                 context.setTemplate(template);
                 ruleMap.put(context.getUuid(), context);
                 for (Element constRule : (List<Element>) childRule.getChildren()) {
-                    consRule = new Constraint(constRule, Rule.RuleCategory.CONDITIONAL);
+                    consRule = new Constraint(constRule, RuleCategory.CONDITIONAL);
                     consRule.setParentUUID(context.getUuid());
                     ruleMap.put(consRule.getUuid(), consRule);
                     consRule = null;

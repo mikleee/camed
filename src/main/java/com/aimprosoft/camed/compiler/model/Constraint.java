@@ -2,11 +2,13 @@ package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.RuleType;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import com.aimprosoft.camed.compiler.model.Action.ActionType;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.util.Parser;
 import com.aimprosoft.camed.compiler.util.Parser.ParserException;
 
@@ -16,7 +18,7 @@ import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Constraint extends Rule  implements  Compilable{
+public class Constraint extends Rule implements Compilable {
 
     private boolean elementStyle = false;
     private String condition = "";
@@ -27,13 +29,13 @@ public class Constraint extends Rule  implements  Compilable{
 
     public Constraint() {
         super();
-        setType(RuleType.constraint);
+        setType(RuleType.CONSTRAINT);
     }
 
     @SuppressWarnings("unchecked")
-    public Constraint(Element constraint, RuleCategory cat)            throws Exception {
+    public Constraint(Element constraint, RuleCategory cat) throws Exception {
         super();
-        setType(RuleType.constraint);
+        setType(RuleType.CONSTRAINT);
         setCategory(cat);
         // Element element = (Element) constraint.clone();
         // setElement((Element)element.detach());
@@ -242,7 +244,7 @@ public class Constraint extends Rule  implements  Compilable{
             if (getCondition() != null) {
                 condition = getCondition();
             }
-            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
                 condition = getParentCondition(condition);
                 constraint.setAttribute("context", getParentCondition());
             }
@@ -257,7 +259,7 @@ public class Constraint extends Rule  implements  Compilable{
             if (getCondition() != null) {
                 condition = getCondition();
             }
-            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
                 condition = getParentCondition(condition);
                 if (getParentCondition() != null)
                     constraint.setAttribute("context", getParentCondition());
@@ -291,7 +293,7 @@ public class Constraint extends Rule  implements  Compilable{
     }
 
     private String getParentCondition(String condition) {
-        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
             if (condition.trim().length() > 0 &&
                     ((Context) getTemplate().getRuleManager().getRule(getParentUUID())).getCondition() != null)
                 condition = ((Context) getTemplate().getRuleManager().getRule(getParentUUID())).getCondition() + " and " + condition;
@@ -305,7 +307,7 @@ public class Constraint extends Rule  implements  Compilable{
 
     private String getParentCondition() {
         String condition = "";
-        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
             condition = ((Context) getTemplate().getRuleManager().getRule(getParentUUID())).getCondition();
             if (condition != null && condition.trim().length() > 0)
                 return condition;
@@ -367,28 +369,25 @@ public class Constraint extends Rule  implements  Compilable{
     }
 
     public void toCXF(Writer out, boolean full, int count) throws IOException {
-        if (full)
-            out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                    + "constraint" + " ");
+        if (full) {
+            out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "constraint" + " ");
+        }
         if (elementStyle || getActions().size() > 1) {
             String condition = "";
             if (getCondition() != null) {
                 condition = getCondition();
             }
-            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
                 condition = getParentCondition(condition);
-                out.write(" " + "context" + "=\""
-                        + StringEscapeUtils.escapeXml(getParentCondition())
-                        + "\" ");
+                out.write(" " + "context" + "=\"" + StringEscapeUtils.escapeXml(getParentCondition()) + "\" ");
             }
-            if (condition != null && condition.length() > 1)
-                out.write(" " + "condition" + "=\""
-                        + StringEscapeUtils.escapeXml(condition) + "\" ");
-            out.write(" " + "item" + "=\""
-                    + StringEscapeUtils.escapeXml(getItem()) + "\" ");
-            if (full)
-                out.write(" " + "xpath" + "=\""
-                        + StringEscapeUtils.escapeXml(getItem()) + "\" ");
+            if (condition != null && condition.length() > 1) {
+                out.write(" " + "condition" + "=\"" + StringEscapeUtils.escapeXml(condition) + "\" ");
+            }
+            out.write(" " + "item" + "=\"" + StringEscapeUtils.escapeXml(getItem()) + "\" ");
+            if (full) {
+                out.write(" " + "xpath" + "=\"" + StringEscapeUtils.escapeXml(getItem()) + "\" ");
+            }
             out.write(">");
             for (Action act : getActions()) {
                 if (full) {
@@ -397,15 +396,15 @@ public class Constraint extends Rule  implements  Compilable{
                     out.write(act.toCXF(count));
                 }
             }
-            if (full)
-                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "constraint" + ">\n");
+            if (full) {
+                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "constraint" + ">\n");
+            }
         } else {
             String condition = "";
             if (getCondition() != null) {
                 condition = getCondition();
             }
-            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+            if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
                 condition = getParentCondition(condition);
                 if (getParentCondition() != null)
                     if (full)
@@ -491,19 +490,17 @@ public class Constraint extends Rule  implements  Compilable{
                 }
             }
             if (full) {
-                out.write(" " + "xpath" + "=\""
-                        + StringEscapeUtils.escapeXml(getItem()) + "\" ");
+                out.write(" " + "xpath" + "=\"" + StringEscapeUtils.escapeXml(getItem()) + "\" ");
                 out.write(">");
             }
         }
 
-        if (full && getAnnotation() != null
-                && getAnnotation().getDocumentationSize() > 0) {
+        if (full && getAnnotation() != null && getAnnotation().getDocumentationSize() > 0) {
             AnnotationToCXF(out);
         }
-        if (full)
-            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                    + "constraint" + ">\n");
+        if (full) {
+            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "constraint" + ">\n");
+        }
     }
 
     private void AnnotationToCXF(Writer out) throws IOException {
@@ -521,8 +518,18 @@ public class Constraint extends Rule  implements  Compilable{
         setItem(xpath);
     }
 
+
     @Override
     public String compile() throws CAMCompilerException {
-        return null;
+
+        StringBuilder result = new StringBuilder();
+
+        for (Action action : getActions()) {
+            String compiledAction = action.compile();
+            result.append(compiledAction);
+        }
+
+        return result.toString();
     }
+
 }

@@ -7,6 +7,7 @@ import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.impl.*;
+import com.aimprosoft.camed.compiler.model.impl.Namespaces;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
 import org.apache.commons.lang.text.StrBuilder;
@@ -25,7 +26,7 @@ public class CAMTemplate implements Compilable {
     private Integer camLevel = 1;
 
     private Header header;
-    private com.aimprosoft.camed.compiler.model.impl.Namespaces namespaces;
+    private Namespaces namespaces;
     private Structure structure;
 
     private String description;

@@ -91,7 +91,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
 
     private Element retrieveTemplateNode(String xPath) throws CAMCompilerException {
         try {
-            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(STRUCTURE_XPATH, template);
+            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(xPath, template);
             return jdomxPathAdapter.selectNode();
         } catch (JaxenException e) {
             throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");

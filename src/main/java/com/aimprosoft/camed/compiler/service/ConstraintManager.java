@@ -1,10 +1,7 @@
 package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.model.CAMTemplate;
-import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.model.Constraint;
-import com.aimprosoft.camed.compiler.model.Rule;
+import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
@@ -70,7 +67,17 @@ public class ConstraintManager implements Compilable {
 
             }
 
+            assignOrderNumbers(xPathRelatedConstraints);
             xPathBoundedConstraints.put(xPath, xPathRelatedConstraints);
+        }
+    }
+
+    private void assignOrderNumbers(List<Constraint> xPathRelatedConstraints) {
+        for (int i = 0; i < xPathRelatedConstraints.size(); i++) {
+            Constraint constraint = xPathRelatedConstraints.get(i);
+            for (Action action : constraint.getActions()) {
+                action.setOrderNumber(i + 1);
+            }
         }
     }
 

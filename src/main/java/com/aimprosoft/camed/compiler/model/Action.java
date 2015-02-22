@@ -1,7 +1,11 @@
 package com.aimprosoft.camed.compiler.model;
 
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.RuleType;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -11,89 +15,31 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Action {
-    public enum ActionType {
-        makeMandatory(0),
-        makeOptional(0),
-        makeNillable(1),
-        makeRepeatable(0),
-        setID(1),
-        setChoice(0),
-        setDateMask(1),
-        setStringMask(1),
-        setNumberMask(1),
-        setValue(1),
-        restrictValues(2),
-        setDefault(1),
-        setNumberRange(1),
-        datatype(1),
-        useChoice(0),
-        useElement(0),
-        useTree(0),
-        excludeTree(0),
-        excludeElement(0),
-        setLimit(1),
-        setLength(1),
-        makeRecursive(1),
-        orderChildren(0),
-        //allowAnyContent,
-        useAttribute(0),
-        excludeAttribute(0),
-        lookup(2),
-        printMessage(1),
-        applyTemplate(2),
-        evaluateVariable(1);
-        int numOfParams;
-
-        ActionType(int numOfParams) {
-            this.numOfParams = numOfParams;
-        }
-
-        public int getNumOfParams() {
-            return numOfParams;
-        }
-    }
-
-
-    public static final String DateMaskText = "Date Masks can either be CAM or Java format\n" +
-            "For Java Mask must start with 'J'\n" +
-            "CAM Mask Options are:\n" +
-            "DD - Day of Month\n" +
-            "DDD - Day in Year\n" +
-            "DDDD - relative day in Month, i.e. ' 2nd'\n" +
-            "MM - Month in number\n" +
-            "MMM... - Month is letter (number of 'M' = length required)\n" +
-            "YY - last 2 digits of year\n" +
-            "YYYY - Full year number - i.e. 2006\n" +
-            "W - Day in week\n" +
-            "WWW... - Name of day (number of 'W' = length required)\n" +
-            "T - if T occurs as the first character of mask then all letter masks are trimmed of extra spaces.";
-
-
-    public static final String StringMaskText = "String Masks use the following characters:\n" +
-            "X - a mandatory character\n" +
-            "? - an optional character\n" +
-            "* - a series of optional characters\n" +
-            "U - a mandatory Uppercase letter\n" +
-            "^ - an optional Uppercase letter\n" +
-            "L - a mandatory Lowecase letter\n" +
-            "_ - (underscore) an optional Lowercase letter\n" +
-            "0 - a digit - leading zeros must exist\n" +
-            "# - a digit leading zeros may be absent\n" +
-            "'' = quoted characters must exist in the string.";
-
-
-    public static final String NumberMaskText = "Number Masks can either be CAM or Java format\n" +
-            "For Java Mask must start with 'J'\n" +
-            "CAM Mask Options are:\n" +
-            "0 - a digit (0-9)\n" +
-            "# - a digit (0-9) trailing or leading zeros may be absent\n" +
-            ". - the position of the decimal point";
+public class Action implements Compilable {
 
 
     private ActionType action;
-
+    private String condition;
+    private String xPath;
     private List<String> actionParameters = new ArrayList<String>();
+
+    private int orderNumber; //todo
+
+    public Action() {
+    }
+
+    public Action(String condition, String xPath) {
+        this.condition = StringEscapeUtils.escapeXml(condition);
+        this.xPath = xPath;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
     public ActionType getAction() {
         return action;
@@ -169,6 +115,55 @@ public class Action {
     public String toCXF(int count) {
         String param = actionParametersToString();
         return this.action.toString() + (count != -1 ? "_" + String.valueOf(count) : "") + "=\"" + (param.length() > 0 ? param : "true") + "\" ";
+    }
+
+    @Override
+    public String compile() throws CAMCompilerException {
+        String result;
+
+        if (action == ActionType.setChoice || action == ActionType.makeRepeatable) {
+            result = compileSpecialAction();
+        } else {
+            result = compileCommonAction();
+        }
+
+        return result;
+    }
+
+
+    private String compileCommonAction() {
+        String param = actionParametersToString();
+
+        StringBuilder builder = new StringBuilder()
+                .append(" ")
+                .append(action.toString())
+                .append(orderNumber != -1 ? "_" + String.valueOf(orderNumber) : "")
+                .append("=\"")
+                .append(param.isEmpty() ? "true" : param);
+
+        if (condition != null) {
+            builder.append("?").append(condition);
+        }
+
+        builder.append("\" ");
+        return builder.toString();
+    }
+
+    private String compileSpecialAction() {
+        StringBuilder builder = new StringBuilder()
+                .append(" ")
+                .append(action)
+                .append("=\"")
+                .append(xPath);
+
+        if (condition != null) {
+            builder
+                    .append("?")
+                    .append(condition);
+        }
+
+        builder.append("\" ");
+        return builder.toString();
     }
 
 }

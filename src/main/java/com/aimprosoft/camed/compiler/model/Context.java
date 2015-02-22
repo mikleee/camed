@@ -1,6 +1,8 @@
 package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.RuleType;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -12,14 +14,14 @@ public class Context extends Rule {
 
     public Context(RuleCategory cat) {
         super();
-        setType(RuleType.context);
+        setType(RuleType.CONTEXT);
         setCategory(cat);
 
     }
 
     public Context(Element context, RuleCategory cat) throws Exception {
         super();
-        setType(RuleType.context);
+        setType(RuleType.CONTEXT);
         setCategory(cat);
         //setElement(context);
         if (!context.getName().equals("context")) {
@@ -69,7 +71,7 @@ public class Context extends Rule {
 
         for (Rule childRule : getTemplate().getRuleManager().getRuleMap().values()) {
             if (childRule.getParentUUID() != null && childRule.getParentUUID().equals(getUuid())) {
-                if (childRule.getType() == RuleType.context)
+                if (childRule.getType() == RuleType.CONTEXT)
                     contx.addContent(((Context) childRule).toXML());
                 else
                     contx.addContent(((Constraint) childRule).toXML());
@@ -87,7 +89,7 @@ public class Context extends Rule {
     }
 
     public String getParentCondition(String condition) {
-        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.context)) {
+        if (getParentUUID() != null && getTemplate().getRuleManager().getRule(getParentUUID()).getType().equals(RuleType.CONTEXT)) {
             if (condition.length() > 0)
                 condition = ((Context) getTemplate().getRuleManager().getRule(getParentUUID())).getCondition() + " and " + condition;
             else

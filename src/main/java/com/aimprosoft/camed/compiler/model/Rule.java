@@ -1,13 +1,14 @@
 package com.aimprosoft.camed.compiler.model;
 
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.RuleType;
+
 import java.util.UUID;
 
 public abstract class Rule implements Cloneable{
 
-	public enum RuleCategory { DEFAULT, CONDITIONAL }
-	public enum RuleType { constraint, context }
-	private RuleCategory category;
-	private RuleType type;	
+    private RuleCategory category;
+	private RuleType type;
 	private UUID uuid;
 	private UUID parentUUID;
 

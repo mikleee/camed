@@ -13,7 +13,7 @@ import org.jdom.Element;
 
 import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotation;
-import com.aimprosoft.camed.compiler.model.Action.ActionType;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -984,43 +984,36 @@ public class Structure implements Compilable {
     }
 
 
-    private void toCXF(Writer out, Attribute attr, boolean full)
-            throws Exception {
+    private void toCXF(Writer out, Attribute attr, boolean full) throws Exception {
 
-        out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Attribute"
-                + " ");
-        out.write(" " + "name" + "=\""
-                + StringEscapeUtils.escapeXml(attr.getQualifiedName()) + "\" ");
+        out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Attribute" + " ");
+        out.write(" " + "name" + "=\"" + StringEscapeUtils.escapeXml(attr.getQualifiedName()) + "\" ");
         if (full) {
-            out.write(" " + "path" + "=\""
-                    + StringEscapeUtils.escapeXml(XPathFunctions.xpath(attr))
-                    + "\" ");
-            if (attr.getNamespace() != null)
-                out.write(" " + "namespace" + "=\""
-                        + StringEscapeUtils.escapeXml(attr.getNamespaceURI())
-                        + "\" ");
-            if (attr.getNamespacePrefix() != null)
+            out.write(" " + "path" + "=\"" + StringEscapeUtils.escapeXml(XPathFunctions.xpath(attr)) + "\" ");
+            if (attr.getNamespace() != null) {
+                out.write(" " + "namespace" + "=\"" + StringEscapeUtils.escapeXml(attr.getNamespaceURI()) + "\" ");
+            }
+            if (attr.getNamespacePrefix() != null) {
                 out.write(" "
                         + "namespacePrefix"
                         + "=\""
                         + StringEscapeUtils.escapeXml(attr.getNamespacePrefix())
                         + "\" ");
-            out.write(" " + "exampleValue" + "=\""
-                    + StringEscapeUtils.escapeXml(attr.getValue()) + "\" ");
+                out.write(" " + "exampleValue" + "=\"" + StringEscapeUtils.escapeXml(attr.getValue()) + "\" ");
+            }
             if (IncludeHandlers.isIncluded(attr, template)) {
-                out.write(" " + "included" + "=\""
-                        + StringEscapeUtils.escapeXml("true") + "\" ");
+                out.write(" " + "included" + "=\"" + StringEscapeUtils.escapeXml("true") + "\" ");
             }
         }
-        if (full)
+        if (full) {
             out.write(">\n");
-
+        }
         List<Rule> nodeRules = template.getRuleManager().getNodeRules(attr);
 
         if (nodeRules != null && nodeRules.size() > 0) {
-            if (full)
-                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "Rule" + ">\n");
+            if (full) {
+                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Rule" + ">\n");
+            }
             int count = 1;
             boolean duplicates = checkDuplicates();
             for (Rule rule : nodeRules) {
@@ -1033,28 +1026,22 @@ public class Structure implements Compilable {
                     }
                 }
             }
-            if (full)
-                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "Rule" + ">\n");
+            if (full) {
+                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Rule" + ">\n");
+            }
         } else {
             if (full) {
-                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "Rule" + ">\n");
-                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "constraint" + " ");
-                out.write(" " + "action" + "=\""
-                        + StringEscapeUtils.escapeXml("makeMandatory()")
-                        + "\" ");
+                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Rule" + ">\n");
+                out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "constraint" + " ");
+                out.write(" " + "action" + "=\"" + StringEscapeUtils.escapeXml("makeMandatory()") + "\" ");
                 out.write("/>");
-                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                        + "Rule" + ">\n");
+                out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Rule" + ">\n");
             } else {
                 out.write(" " + "makeMandatory" + "=\"true\" ");
             }
         }
         if (full) {
-            StructureAnnotations sa = (StructureAnnotations) AllowedExtensions
-                    .getExtension(StructureAnnotations.name);
+            StructureAnnotations sa = (StructureAnnotations) AllowedExtensions.getExtension(StructureAnnotations.name);
             if (sa != null) {
                 String xpath = XPathFunctions.xpathParentAndAll(attr);
                 StructureAnnotation anno = sa.get(xpath);
@@ -1063,11 +1050,11 @@ public class Structure implements Compilable {
                 }
             }
         }
-        if (!full)
+        if (full) {
+            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Attribute" + ">\n");
+        } else {
             out.write("/>\n");
-        if (full)
-            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":"
-                    + "Attribute" + ">\n");
+        }
     }
 
     public void toCXF(Writer out) throws Exception {

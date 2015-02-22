@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.util;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Document;
 import com.aimprosoft.camed.compiler.model.*;
@@ -48,22 +49,17 @@ public class RuleManager {
     }
 
     private boolean isRuleExists(Rule rule) throws Exception {
-        if (rule instanceof Constraint && rule.getXpath() != null
-                && rule.getCategory().equals(Rule.RuleCategory.DEFAULT)) {
+        if (rule instanceof Constraint && rule.getXpath() != null && rule.getCategory().equals(RuleCategory.DEFAULT)) {
             Action action = ((Constraint) rule).getActions().get(0);
             if (rule.getXpath().contains("[")) {
                 Document structureDocument = template.toDocument();
                 Xpath xpath = new Xpath();
                 SimpleNamespaceContext ns = template.getNamespaceContext();
                 xpath.setUpXPath(rule.getXpath(), ns);
-                for (Object node : xpath.getXPath().selectNodes(
-                        structureDocument)) {
-                    if (getXpathRulesMap().containsKey(
-                            XPathFunctions.xpath(node))) {
-                        for (UUID uuid : getXpathRulesMap().get(
-                                XPathFunctions.xpath(node))) {
-                            if (((Constraint) getRuleMap().get(uuid))
-                                    .getActions().get(0).equals(action))
+                for (Object node : xpath.getXPath().selectNodes(structureDocument)) {
+                    if (getXpathRulesMap().containsKey(XPathFunctions.xpath(node))) {
+                        for (UUID uuid : getXpathRulesMap().get(XPathFunctions.xpath(node))) {
+                            if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).equals(action))
                                 return true;
                         }
                     }
@@ -71,8 +67,7 @@ public class RuleManager {
             } else {
                 if (getXpathRulesMap().containsKey(rule.getXpath())) {
                     for (UUID uuid : getXpathRulesMap().get(rule.getXpath())) {
-                        if (((Constraint) getRuleMap().get(uuid)).getActions()
-                                .get(0).getAction().equals(action.getAction()))
+                        if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).getAction().equals(action.getAction()))
                             return true;
                     }
                 }

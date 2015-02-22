@@ -1,7 +1,10 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.RuleType;
 import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.util.Parser;
@@ -35,18 +38,21 @@ public class ConstraintBuilder implements ElementBuilder {
 
         String condition = element.getAttributeValue("condition");
         Element annotation = element.getChild("annotation", CAMConstants.CAMNamespace);
+        RuleCategory ruleCategory = condition == null ? RuleCategory.DEFAULT : RuleCategory.CONDITIONAL;
 
-        constraint.setType(Rule.RuleType.constraint);
+        constraint.setType(RuleType.CONSTRAINT);
         constraint.setCondition(condition);
-        constraint.setCategory(condition == null ? Rule.RuleCategory.DEFAULT : Rule.RuleCategory.CONDITIONAL);
+        constraint.setCategory(ruleCategory);
 
         if (annotation != null) {
             constraint.setAnnotation(annotation);
         }
 
+        String xPath;
+
         if (itemAttribute != null) {
             // item attribute exists therefore actions are elements
-            constraint.setItem(itemAttribute.getValue());
+            xPath = itemAttribute.getValue();
 
             List<Element> actions = element.getChildren("action", CAMConstants.CAMNamespace);
 
@@ -55,11 +61,11 @@ public class ConstraintBuilder implements ElementBuilder {
 
                     Parser.Expression parserExpression = createParserExpression(action.getTextNormalize());
 
-                    Action result = new Action();
+                    Action result = new Action(condition, xPath);
 
-                    result.setAction(Action.ActionType.valueOf(parserExpression.getName()));
+                    result.setAction(ActionType.valueOf(parserExpression.getName()));
 
-                    if (!result.getAction().equals(Action.ActionType.restrictValues)) {
+                    if (!result.getAction().equals(ActionType.restrictValues)) {
 
                         List<String> params = new ArrayList<String>();
                         for (int i = 0; i < parserExpression.getParts().length; i++) {
@@ -93,12 +99,12 @@ public class ConstraintBuilder implements ElementBuilder {
             try {
 
                 Parser.Expression parserExpression = createParserExpression(actionAttribute.getValue());
+                xPath = parserExpression.getPart(0);
 
-                Action result = new Action();
-                result.setAction(Action.ActionType.valueOf(parserExpression.getName()));
-                constraint.setItem(parserExpression.getPart(0));
+                Action result = new Action(condition, xPath);
+                result.setAction(ActionType.valueOf(parserExpression.getName()));
 
-                if (!result.getAction().equals(Action.ActionType.restrictValues)) {
+                if (!result.getAction().equals(ActionType.restrictValues)) {
 
                     List<String> params = new ArrayList<String>();
                     for (int i = 1; i < parserExpression.getParts().length; i++) {
@@ -106,13 +112,13 @@ public class ConstraintBuilder implements ElementBuilder {
                             params.add(parserExpression.getPart(i));
                         }
                     }
-                    if (result.getAction().equals(Action.ActionType.setChoice)) {
+                    if (result.getAction().equals(ActionType.setChoice)) {
                         UID uid = new UID();
                         params.add(uid.toString().replace(':', '-'));
                     }
                     result.setActionParameters(params);
 
-                } else if (result.getAction().equals(Action.ActionType.restrictValues)) {
+                } else if (result.getAction().equals(ActionType.restrictValues)) {
 
                     String actionValue = actionAttribute.getValue();
 
@@ -134,6 +140,7 @@ public class ConstraintBuilder implements ElementBuilder {
             throw new CAMCompilerException("Constraint malformed");
         }
 
+        constraint.setItem(xPath);
         return constraint;
     }
 

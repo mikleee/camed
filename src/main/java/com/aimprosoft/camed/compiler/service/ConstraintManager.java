@@ -4,6 +4,7 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;
+import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jaxen.JaxenException;
 import org.jdom.Document;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConstraintManager  {
+public class ConstraintManager {
 
     private static final String CONTEXT_PATH = "//as:context";
     private List<Constraint> constraints;
@@ -52,14 +53,14 @@ public class ConstraintManager  {
 
         for (int i = 0; i < constraints.size(); i++) {
             String xPath = constraints.get(i).getItem();
-            List<Constraint> constraintDroup = new ArrayList<Constraint>();
-            constraintDroup.add(constraints.get(i));
+            List<Constraint> constraintGroup = new ArrayList<Constraint>();
+            constraintGroup.add(constraints.get(i));
 
             for (int j = i + 1; j < constraints.size(); ) {
                 String thatXPath = constraints.get(j).getItem();
 
                 if (xPath.equals(thatXPath)) {
-                    constraintDroup.add(constraints.get(j));
+                    constraintGroup.add(constraints.get(j));
                     constraints.remove(j);
                 } else {
                     j++;
@@ -67,8 +68,8 @@ public class ConstraintManager  {
 
             }
 
-            assignOrderNumbers(constraintDroup);
-            groupedConstraints.put(xPath, constraintDroup);
+            assignOrderNumbers(constraintGroup);
+            groupedConstraints.put(xPath, constraintGroup);
         }
     }
 
@@ -82,9 +83,8 @@ public class ConstraintManager  {
     }
 
 
-
     public static void main(String[] args) throws Exception {
-        File input = new File("D:\\work\\camed\\resorces\\input\\UDB-cam.cam");
+        File input = new File("/home/misha/Work/Projects/camed/resorces/input/UDB-cam.cam");
         Document doc = new DocumentFactory().createDocument(input);
         CAMTemplate result = ModelFactory.createCAMTemplate(doc);
         ConstraintManager constraintManager = new ConstraintManager(result);

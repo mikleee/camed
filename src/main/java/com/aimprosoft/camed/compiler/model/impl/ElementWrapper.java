@@ -64,16 +64,19 @@ public class ElementWrapper implements Compilable {
 
     private StringBuilder compile(StringBuilder builder, ElementWrapper elementWrapper) throws CAMCompilerException {
 
-
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
-
-
         List<Attribute> attributes = (List<Attribute>) element.getAttributes();
         List<Element> children = (List<Element>) element.getChildren();
 
-        builder.append("<").append(ELEMENT).append(" ");
+        {
+            List<Constraint> constraints = getConstraints(elementWrapper.getElement(), groupedConstraints);
+            String compiledConstraints = compileConstraints(constraints);
 
-        builder = compileAttributes(builder, elementWrapper.getAttributes());
+            builder
+                    .append("<" + ELEMENT + " ")
+                    .append("name=" + QUOTE).append(elementWrapper.getElement().getQualifiedName()).append(QUOTE)
+                    .append(compiledConstraints);  //todo
+        }
 
         if (children.isEmpty() && attributes.isEmpty()) {
             builder.append("/>").append("\n");
@@ -82,28 +85,30 @@ public class ElementWrapper implements Compilable {
 
             for (Attribute attribute : attributes) {
 
+                List<Constraint> constraints = getConstraints(attribute, groupedConstraints);
+                String compiledConstraints = compileConstraints(constraints);
 
-                for (String xpath : groupedConstraints.keySet()) {
+                builder
+                        .append("<" + ATTRIBUTE + " ")
+                        .append("name=" + QUOTE).append(attribute.getQualifiedName()).append(QUOTE)
+                        .append(compiledConstraints)
+                        .append("/>\n");
 
-                }
-
-                //todo link constraints
-
-                List<Attribute> attributeList = initAttributes(attribute, new ArrayList<Attribute>());
-                builder.append("<").append(ATTRIBUTE).append(" ");
-                builder = compileAttributes(builder, attributeList);
-                builder.append("/>").append("\n");
             }
 
+
             for (Element child : children) {
+
                 List<Attribute> childAttributes = new ArrayList<Attribute>(); //todo
                 ElementWrapper childWrapper = new ElementWrapper(child, childAttributes, template);
                 childWrapper.compile(builder, childWrapper);
             }
-            builder.append("</").append(ELEMENT).append(">").append("\n");
+            builder.append("</" + ELEMENT + ">\n");
         }
 
         return builder;
+
+
     }
 
     private StringBuilder compileAttributes(StringBuilder builder, List<Attribute> attributes) {
@@ -115,6 +120,10 @@ public class ElementWrapper implements Compilable {
                     .append(QUOTE + " ");
         }
         return builder;
+    }
+
+    private String nameToAttribute() {
+        return "name=" + QUOTE + element.getQualifiedName() + QUOTE + " ";
     }
 
     public Element getElement() {
@@ -136,43 +145,91 @@ public class ElementWrapper implements Compilable {
 
     //todo==================-----------------------------------------------------------------------
 
+    private String compileConstraints(List<Constraint> constraints) throws CAMCompilerException {
+        if (constraints == null || constraints.isEmpty()) {
+            return "";
+        }
 
-    private String getConstraintString(Attribute attribute, Map<String, List<Constraint>> groupedConstraints) throws CAMCompilerException {
+        StringBuilder builder = new StringBuilder();
+
+        for (Constraint constraint : constraints) {
+            builder.append(constraint.compile());
+        }
+
+        return builder.toString();
+    }
+
+    private List<Constraint> getConstraints(Element element, Map<String, List<Constraint>> groupedConstraints) throws CAMCompilerException {
+        String currentXpath = XPathFunctions.fullXpathWithPosition(element);
+
         try {
-            for (String xpath : groupedConstraints.keySet()) {
-                List<Element> matchedNodes = new JDOMXPathAdapter(xpath, template).selectNodes();
+            for (String boundXPath : groupedConstraints.keySet()) {
 
+                if (boundXPath.contains("/@")) {
+                    continue;
+                }
+
+                List<Element> matchedNodes = new JDOMXPathAdapter(boundXPath, template).selectNodes();
+
+                for (Element matchedNode : matchedNodes) {
+
+                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
+
+                    if (currentXpath.equals(xPathOfCandidate)) {
+                        return groupedConstraints.get(boundXPath);
+                    }
+
+                }
 
             }
+
             return null;
         } catch (JaxenException e) {
             throw new CAMCompilerException();
         }
     }
 
-//    private boolean isRuleExists(String xPath) throws Exception {
-//
-//        Action action = ((Constraint) rule).getActions().get(0);
-//        if (xPath.contains("[")) {
-//            List<Element> nodes = new JDOMXPathAdapter(xPath, template).selectNodes();
-//            for (Element node : nodes) {
-//                if (getXpathRulesMap().containsKey(XPathFunctions.xpath(node))) {
-//                    for (UUID uuid : getXpathRulesMap().get(XPathFunctions.xpath(node))) {
-//                        if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).equals(action))
-//                            return true;
-//                    }
-//                }
-//            }
-//        } else {
-//            if (getXpathRulesMap().containsKey(rule.getXpath())) {
-//                for (UUID uuid : getXpathRulesMap().get(rule.getXpath())) {
-//                    if (((Constraint) getRuleMap().get(uuid)).getActions().get(0).getAction().equals(action.getAction()))
-//                        return true;
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
+    private List<Constraint> getConstraints(Attribute attribute, Map<String, List<Constraint>> groupedConstraints) throws CAMCompilerException {
+        for (String boundXPath : groupedConstraints.keySet()) {
+
+            if (!boundXPath.contains("@" + attribute.getQualifiedName())) {
+                continue;
+            }
+
+            String parentXpath = XPathFunctions.getParentXpath(boundXPath);
+            if (isAttributeMapped(attribute, parentXpath)) {
+                return groupedConstraints.get(boundXPath);
+            }
+
+        }
+        return null;
+    }
+
+    private boolean isAttributeMapped(Attribute attribute, String parentXpath) throws CAMCompilerException {
+        try {
+            List<Element> matchedParentNodes = new JDOMXPathAdapter(parentXpath, template).selectNodes();
+
+            if (parentXpath.equals("//UDBFile")) { // example "//@attr"
+                for (Element matchedParentNode : matchedParentNodes) {
+                    // if attr consist in one of children of  "UDBFile"
+                    if (XPathFunctions.isAttributePresent(attribute, matchedParentNode)) {
+                        return true;
+                    }
+                }
+            } else {
+                for (Element matchedParentNode : matchedParentNodes) {
+                    // if attr consist in one of matched nodes
+                    if (matchedParentNode.getAttribute(attribute.getQualifiedName()) != null) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        } catch (JaxenException e) {
+            throw new CAMCompilerException(e.getMessage());
+        }
+    }
+
 
 }

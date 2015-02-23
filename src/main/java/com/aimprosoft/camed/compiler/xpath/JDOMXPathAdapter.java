@@ -43,7 +43,7 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
     @SuppressWarnings("unchecked")
     public List<Element> selectNodes() throws JaxenException {
-        return (ArrayList<Element>) super.selectNodes(document);
+        return (List<Element>) super.selectNodes(document);
     }
 
     public Element selectNode() throws JaxenException {

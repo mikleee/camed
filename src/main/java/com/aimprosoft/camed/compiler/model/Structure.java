@@ -68,7 +68,7 @@ public class Structure implements Compilable {
         List<Attribute> attributes = new ArrayList<Attribute>();
         attributes.add(new Attribute("makeMandatory", "true"));
 
-        ElementWrapper wrapper = new ElementWrapper(element, attributes, template);
+        ElementWrapper wrapper = new ElementWrapper(element, template);
         builder.append(wrapper.compile());
 
         return builder;

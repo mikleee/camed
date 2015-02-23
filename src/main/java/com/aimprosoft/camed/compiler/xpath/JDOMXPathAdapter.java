@@ -4,11 +4,11 @@ import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.jdom.JDOMXPath;
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +41,22 @@ public class JDOMXPathAdapter extends JDOMXPath {
         setNamespaceContext(result);
     }
 
+
     @SuppressWarnings("unchecked")
     public List<Element> selectNodes() throws JaxenException {
         return (List<Element>) super.selectNodes(document);
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Attribute> selectAttributes() throws JaxenException {
+        return (List<Attribute>) super.selectNodes(document);
+    }
+
     public Element selectNode() throws JaxenException {
         return (Element) super.selectSingleNode(document);
+    }
+
+    public Attribute selectAttribute() throws JaxenException {
+        return (Attribute) super.selectSingleNode(document);
     }
 }

@@ -7,9 +7,11 @@ import java.io.File;
 
 public class Main {
 
+    private static String root = "C:\\Users\\Мишаня\\IdeaProjects\\camed\\";
+
     public static void main(String[] args) throws Exception {
-        File input = new File("D:\\work\\camed\\resorces\\input\\UDB-cam.cam");
-        new CamCompiler("D:\\work\\camed\\resorces\\output", "D:\\work\\camed\\resorces\\input\\result.cxx").compile(input);
+        File input = new File(root + "resorces\\input\\UDB-cam.cam");
+        new CamCompiler(root + "resorces\\output", root + "resorces\\input\\result.cxx").compile(input);
     }
 
 }

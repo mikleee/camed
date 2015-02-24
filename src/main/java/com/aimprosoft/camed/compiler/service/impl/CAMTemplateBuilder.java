@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Structure;
 import com.aimprosoft.camed.compiler.model.impl.Header;
@@ -32,9 +33,9 @@ public class CAMTemplateBuilder implements ElementBuilder {
 
     @Override
     public CAMTemplate build() throws CAMCompilerException {
+        initStructure();
         initNamespaces(); //2
         initHeader(); //3
-        initStructure();
         initConstraintManager();
         return template;
     }
@@ -60,8 +61,16 @@ public class CAMTemplateBuilder implements ElementBuilder {
         template.setNamespaces(namespaces);
     }
 
+//    private void initStructure() throws CAMCompilerException {
+//        Element structureNode = JDOMXPathAdapter.newInstance(STRUCTURE_XPATH, template).selectNode();
+//        Structure structure = ModelFactory.createStructure(structureNode, template); //todo
+//        template.setStructure(structure);
+//    }
+
     private void initStructure() throws CAMCompilerException {
-        Element structureNode = JDOMXPathAdapter.newInstance(STRUCTURE_XPATH, template).selectNode();
+        Element structureNode = template.getTemplateDocument().getRootElement()
+                .getChild("AssemblyStructure", CAMConstants.CAM_NAMESPACE)
+                .getChild("Structure", CAMConstants.CAM_NAMESPACE);
         Structure structure = ModelFactory.createStructure(structureNode, template); //todo
         template.setStructure(structure);
     }

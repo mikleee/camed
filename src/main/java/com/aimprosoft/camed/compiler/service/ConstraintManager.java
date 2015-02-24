@@ -1,17 +1,11 @@
 package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.model.*;
+import com.aimprosoft.camed.compiler.model.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
-import com.aimprosoft.camed.compiler.util.DocumentFactory;
-import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
-import org.jaxen.JaxenException;
-import org.jdom.Document;
 import org.jdom.Element;
 
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +31,7 @@ public class ConstraintManager {
         constraints = new ArrayList<Constraint>();
 
         Element contextNode = JDOMXPathAdapter.newInstance(CONTEXT_PATH, template).selectNode();
+        //noinspection unchecked
         for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
             constraints.add(ModelFactory.createConstraint(constraintNode)); //todo
         }
@@ -65,27 +60,8 @@ public class ConstraintManager {
 
             }
 
-            assignOrderNumbers(constraintGroup);
             groupedConstraints.put(xPath, constraintGroup);
         }
     }
-
-    private void assignOrderNumbers(List<Constraint> constraintGroup) {
-        for (int i = 0; i < constraintGroup.size(); i++) {
-            Constraint constraint = constraintGroup.get(i);
-            for (Action action : constraint.getActions()) {
-                action.setOrderNumber(i + 1);
-            }
-        }
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        File input = new File("/home/stas/Work/Projects/camed/resorces/input/UDB-cam.cam");
-        Document doc = new DocumentFactory().createDocument(input);
-        CAMTemplate result = ModelFactory.createCAMTemplate(doc);
-        ConstraintManager constraintManager = new ConstraintManager(result);
-    }
-
 
 }

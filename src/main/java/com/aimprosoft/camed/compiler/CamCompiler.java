@@ -31,8 +31,6 @@ public class CamCompiler {
     public void compile(File inputFile) throws Exception {
         CAMTemplate template = prepareTemplate(inputFile);
         Element element = template.toDoc(false);
-//        Document doc = new DocumentFactory().createDocument(inputFile);
-//        Element element = doc.getRootElement();
         writePretty(new File(compilePath), element);
     }
 

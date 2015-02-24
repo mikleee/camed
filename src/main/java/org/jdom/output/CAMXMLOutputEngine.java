@@ -781,8 +781,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param level      <code>int</code> level of indention.
      * @param namespaces <code>List</code> stack of Namespaces in scope.
      */
-    protected void printElement(Writer out, Element element, int level, NamespaceStack namespaces)
-            throws IOException {
+    protected void printElement(Writer out, Element element, int level, NamespaceStack namespaces) throws IOException {
 
         List<?> attributes = element.getAttributes();
         List<?> content = element.getContent();
@@ -790,8 +789,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         // Check for xml:space and adjust format settings
         String space = null;
         if (attributes != null) {
-            space = element.getAttributeValue("space",
-                    Namespace.XML_NAMESPACE);
+            space = element.getAttributeValue("space", Namespace.XML_NAMESPACE);
         }
 
         Format previousFormat = currentFormat;
@@ -1071,9 +1069,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
     }
 
-    private void printElementNamespace(Writer out, Element element,
-                                       NamespaceStack namespaces)
-            throws IOException {
+    private void printElementNamespace(Writer out, Element element, NamespaceStack namespaces) throws IOException {
         // Add namespace decl only if it's not the XML namespace and it's
         // not the NO_NAMESPACE with the prefix "" not yet mapped
         // (we do output xmlns="" if the "" prefix was already used and we
@@ -1082,8 +1078,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         if (ns == Namespace.XML_NAMESPACE) {
             return;
         }
-        if (!((ns == Namespace.NO_NAMESPACE) &&
-                (namespaces.getURI("") == null))) {
+        if (!((ns == Namespace.NO_NAMESPACE) && (namespaces.getURI("") == null))) {
             printNamespace(out, ns, namespaces);
         }
     }

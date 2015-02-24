@@ -2,8 +2,8 @@ package com.aimprosoft.camed.compiler.xpath;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import org.jaxen.JaxenException;
-import org.jaxen.NamespaceContext;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.jdom.JDOMXPath;
 import org.jdom.Attribute;
@@ -19,10 +19,7 @@ import java.util.Map;
  */
 public class JDOMXPathAdapter extends JDOMXPath {
 
-    private final static String UDB = "/UDBFile";
-
     private Document document;
-    private Document structure;
 
     public JDOMXPathAdapter(String xpathExpr) throws JaxenException {
         super(xpathExpr);
@@ -36,7 +33,7 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
     public static JDOMXPathAdapter newInstance(String xpathExpr, CAMTemplate camTemplate) throws CAMCompilerException {
 
-        if (xpathExpr.startsWith(UDB) && !xpathExpr.startsWith("//")) {
+        if (xpathExpr.startsWith("/") && !xpathExpr.startsWith("//") && isStructureChild(xpathExpr, camTemplate)) {
             xpathExpr = "/" + xpathExpr;
         }
 
@@ -91,6 +88,19 @@ public class JDOMXPathAdapter extends JDOMXPath {
         } catch (JaxenException e) {
             throw new CAMCompilerException("Can not find attribute by xPath expression: " + toString());
         }
+    }
+
+    private static boolean isStructureChild(String xPath, CAMTemplate template) {
+        String name = XPathFunctions.getFirstElementNameInXPath(xPath);
+        Element structure = template.getStructure().getStructure();
+
+        for (Element child : (List<Element>) structure.getChildren()) {
+            if (child.getQualifiedName().equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

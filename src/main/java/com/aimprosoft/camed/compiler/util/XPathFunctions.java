@@ -319,6 +319,15 @@ public class XPathFunctions {
 
     }
 
+    public static String getFirstElementNameInXPath(String xpath) {
+        String name = xpath;
+        while (name.startsWith("/")) {
+            name = name.substring(1);
+        }
+        int index = name.indexOf("/");
+        return name.substring(0, index);
+    }
+
     public static String getParentXpath(String attributeXpath) {
         int index = attributeXpath.indexOf("/@");
         String result = attributeXpath.substring(0, index);

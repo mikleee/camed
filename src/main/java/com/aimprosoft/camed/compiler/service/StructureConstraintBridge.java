@@ -73,7 +73,7 @@ public class StructureConstraintBridge {
 
         for (String boundXPath : groupedConstraints.keySet()) {
 
-            if (!boundXPath.contains("@" + attribute.getQualifiedName())) {
+            if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
                 continue;
             }
 

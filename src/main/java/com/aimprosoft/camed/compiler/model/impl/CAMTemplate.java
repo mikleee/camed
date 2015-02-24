@@ -8,12 +8,9 @@ import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.extensions.IExtension;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.*;
-import com.aimprosoft.camed.compiler.model.impl.*;
-import com.aimprosoft.camed.compiler.model.impl.Namespaces;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
-import org.apache.commons.lang.text.StrBuilder;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.*;
 import org.jdom.Attribute;
@@ -49,8 +46,6 @@ public class CAMTemplate implements Compilable {
 
     private Map<String, Namespace> namespacesMap = new HashMap<String, Namespace>();
     private Document templateDocument;
-
-    private Element runResults = null;
 
     private String tempFilesDirPath;
     private String compilePath;
@@ -219,17 +214,7 @@ public class CAMTemplate implements Compilable {
             File file = CommonUtils.findFile(fileName);
             writer = new OutputStreamWriter(new FileOutputStream(file));
 
-            openRootTag(writer, full);
-
-            writer.write(header.compile());
-            writer.write(namespaces.compile());
-
-            parametersToCXF(writer);
-
-            writer.write(compileStructureToCXF());
-
-            extensionsToCXF(writer);
-            closeRootTag(writer);
+            writer.write(this.compile());
 
         } catch (Exception e) {
             e.printStackTrace(); //todo
@@ -460,7 +445,7 @@ public class CAMTemplate implements Compilable {
                 .append(header.compile())
                 .append(namespaces.compile());
 
-//        parametersToCXF(writer);
+//        parametersToCXF(writer) todo;
 
         builder
                 .append("<as:AssemblyStructure>\n")
@@ -468,11 +453,8 @@ public class CAMTemplate implements Compilable {
                 .append("</as:AssemblyStructure>\n");
 
 
-//        extensionsToCXF(writer);
+//        extensionsToCXF(writer) todo;
 
-        builder.append("</as:CAM>\n");
-
-
-        return builder.toString();
+        return builder.append("</as:CAM>\n").toString();
     }
 }

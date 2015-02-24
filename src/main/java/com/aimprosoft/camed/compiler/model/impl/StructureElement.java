@@ -10,7 +10,7 @@ import org.jdom.Element;
 import java.util.List;
 
 
-public class ElementWrapper implements Compilable {
+public class StructureElement implements Compilable {
 
     private CAMTemplate template;
     private Element element;
@@ -19,7 +19,7 @@ public class ElementWrapper implements Compilable {
 
 
     @SuppressWarnings("unchecked")
-    public ElementWrapper(Element element, CAMTemplate template) {
+    public StructureElement(Element element, CAMTemplate template) {
         this.attributes = (List<Attribute>) element.getAttributes();
         this.children = (List<Element>) element.getChildren();
         this.template = template;
@@ -34,37 +34,38 @@ public class ElementWrapper implements Compilable {
     }
 
 
-    private StringBuilder compile(StringBuilder builder, ElementWrapper elementWrapper) throws CAMCompilerException {
+    private StringBuilder compile(StringBuilder builder, StructureElement structureElement) throws CAMCompilerException {
         builder
                 .append("<" + ELEMENT + " ")
-                .append(populateElement(elementWrapper));
+                .append(populateElement(structureElement));
 
-        if (elementWrapper.isEmpty()) {
+        if (structureElement.isEmpty()) {
             builder.append("/>").append("\n");
         } else {
             builder
                     .append(">").append("\n")
-                    .append(populateAttributes(elementWrapper))
-                    .append(populateChildren(elementWrapper, builder))
+                    .append(populateAttributes(structureElement));
+
+            builder = populateChildren(structureElement, builder)
                     .append("</" + ELEMENT + ">\n");
         }
 
         return builder;
     }
 
-    private StringBuilder populateElement(ElementWrapper elementWrapper) throws CAMCompilerException {
-        List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(elementWrapper.getElement(), template);
+    private StringBuilder populateElement(StructureElement structureElement) throws CAMCompilerException {
+        List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(structureElement.getElement(), template);
         String compiledConstraints = compileConstraints(constraints);
 
         return new StringBuilder()
-                .append("name=" + QUOTE).append(elementWrapper.getElement().getQualifiedName()).append(QUOTE)
+                .append("name=" + QUOTE).append(structureElement.getElement().getQualifiedName()).append(QUOTE)
                 .append(compiledConstraints);
     }
 
-    private StringBuilder populateAttributes(ElementWrapper elementWrapper) throws CAMCompilerException {
+    private StringBuilder populateAttributes(StructureElement structureElement) throws CAMCompilerException {
         StringBuilder builder = new StringBuilder();
 
-        for (Attribute attribute : elementWrapper.getAttributes()) {
+        for (Attribute attribute : structureElement.getAttributes()) {
             List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(attribute, template);
             String compiledConstraints = compileConstraints(constraints);
 
@@ -77,9 +78,9 @@ public class ElementWrapper implements Compilable {
         return builder;
     }
 
-    private StringBuilder populateChildren(ElementWrapper elementWrapper, StringBuilder builder) throws CAMCompilerException {
-        for (Element child : elementWrapper.getChildren()) {
-            ElementWrapper childWrapper = new ElementWrapper(child, template);
+    private StringBuilder populateChildren(StructureElement structureElement, StringBuilder builder) throws CAMCompilerException {
+        for (Element child : structureElement.getChildren()) {
+            StructureElement childWrapper = new StructureElement(child, template);
             childWrapper.compile(builder, childWrapper);
         }
         return builder;

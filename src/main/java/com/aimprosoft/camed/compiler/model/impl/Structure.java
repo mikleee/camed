@@ -1,11 +1,10 @@
-package com.aimprosoft.camed.compiler.model;
+package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
-import com.aimprosoft.camed.compiler.model.impl.ElementWrapper;
+import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.util.*;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
@@ -31,6 +30,24 @@ import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
 
 public class Structure implements Compilable {
 
+    private String id = "";
+    private String reference = "";
+    private String taxonomy = TaxonomyType.XML.toString();
+    private String taxonomyOther = "";
+    private Element structure;
+    private CAMTemplate template;
+
+    public Structure(Element element) {
+        structure = element;
+    }
+
+    public Structure(Element structure, TaxonomyType taxonomy, String taxonomyOther) {
+        setStructure(structure);
+//        setTaxonomy(taxonomy);
+        if (taxonomy == TaxonomyType.OTHER) //todo
+            setTaxonomyOther(taxonomyOther);
+
+    }
 
     @Override
     public String compile() throws CAMCompilerException {
@@ -56,7 +73,7 @@ public class Structure implements Compilable {
 //                out.write("</" + "as:parameters" + ">\n");
 //            }
         for (Element child : (List<Element>) structure.getChildren()) { //todo remove collection
-            write2(builder, child);
+            compile(builder, child);
         }
 
         builder.append("</as:Structure>\n");
@@ -64,69 +81,13 @@ public class Structure implements Compilable {
     }
 
 
-    private StringBuilder write2(StringBuilder builder, Element element) throws CAMCompilerException {
-        List<Attribute> attributes = new ArrayList<Attribute>();
-        attributes.add(new Attribute("makeMandatory", "true"));
-
-        ElementWrapper wrapper = new ElementWrapper(element, template);
+    private StringBuilder compile(StringBuilder builder, Element element) throws CAMCompilerException {
+        StructureElement wrapper = new StructureElement(element, template);
         builder.append(wrapper.compile());
 
         return builder;
     }
 
-    private StringBuilder write3(StringBuilder builder, Element element) throws CAMCompilerException {
-
-        builder.append("<as:Element" + " ");
-        String name = StringEscapeUtils.escapeXml(element.getQualifiedName());
-        builder.append(" " + "name =\"").append(name).append("\" ").append(" makeMandatory=\"true\">\n");
-
-
-        List<Attribute> attributes = element.getAttributes();
-        for (Attribute attr : attributes) {
-//                toCXF(out, attr, full);
-            //writeAttributes(builder, attr);
-        }
-        List<Element> children = element.getChildren();
-        for (Element child : children) {
-//                toCXF(out, child, null, full);
-
-
-        }
-
-
-        return builder.append("</as:Element>\n");
-    }
-
-    private StringBuilder writeAttributes(StringBuilder builder, Attribute attr) throws CAMCompilerException {
-        builder.append("<as:Attribute" + " ");
-        String nameAttribute = StringEscapeUtils.escapeXml(attr.getQualifiedName());
-        builder.append(" " + "name = \" ").append(nameAttribute).append("\" ").append(" makeMandatory=\"true\">\n");
-        return null;
-    }
-
-
-    //Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
-    private String id = "";
-    private String reference = "";
-    private String taxonomy = TaxonomyType.XML.toString();
-    private String taxonomyOther = "";
-    private Element structure;
-    private CAMTemplate template;
-
-    public Structure(Element element) {
-        structure = element;
-    }
-
-    public Structure(Element structure, TaxonomyType taxonomy, String taxonomyOther) {
-        setStructure(structure);
-//        setTaxonomy(taxonomy);
-        if (taxonomy.equals(TaxonomyType.OTHER.toString()))
-            setTaxonomyOther(taxonomyOther);
-        reference = "";
-        id = "";
-    }
 
     public String getID() {
         return id;

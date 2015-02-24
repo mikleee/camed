@@ -2,7 +2,7 @@ package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
-import com.aimprosoft.camed.compiler.model.Structure;
+import com.aimprosoft.camed.compiler.model.impl.Structure;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;

@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.service.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
-import com.aimprosoft.camed.compiler.model.Structure;
+import com.aimprosoft.camed.compiler.model.impl.Structure;
 import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.apache.commons.lang.StringUtils;

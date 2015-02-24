@@ -135,7 +135,7 @@ public class Action implements Compilable {
         StringBuilder builder = new StringBuilder()
                 .append(" ")
                 .append(action.toString())
-                .append(orderNumber != -1 ? "_" + String.valueOf(orderNumber) : "")
+                .append(orderNumber != 0 ? "_" + String.valueOf(orderNumber) : "")
                 .append("=\"")
                 .append(param.isEmpty() ? "true" : param);
 

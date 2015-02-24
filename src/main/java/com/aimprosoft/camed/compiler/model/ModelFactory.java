@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.Structure;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;

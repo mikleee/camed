@@ -72,9 +72,12 @@ public class Structure implements Compilable {
 //                }
 //                out.write("</" + "as:parameters" + ">\n");
 //            }
-        for (Element child : (List<Element>) structure.getChildren()) { //todo remove collection
-            compile(builder, child);
-        }
+
+        compile(builder, structure.getChild("UDBFile"));
+
+//        for (Element child : (List<Element>) structure.getChildren()) { //todo remove collection
+//            compile(builder, child);
+//        }
 
         builder.append("</as:Structure>\n");
         return builder.toString();

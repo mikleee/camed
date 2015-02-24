@@ -3,6 +3,7 @@ package com.aimprosoft.camed.compiler.xpath;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jaxen.JaxenException;
+import org.jaxen.NamespaceContext;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.jdom.JDOMXPath;
 import org.jdom.Attribute;
@@ -18,8 +19,10 @@ import java.util.Map;
  */
 public class JDOMXPathAdapter extends JDOMXPath {
 
+    private final static String UDB = "/UDBFile";
+
     private Document document;
-    private String xPath;
+    private Document structure;
 
     public JDOMXPathAdapter(String xpathExpr) throws JaxenException {
         super(xpathExpr);
@@ -32,6 +35,11 @@ public class JDOMXPathAdapter extends JDOMXPath {
     }
 
     public static JDOMXPathAdapter newInstance(String xpathExpr, CAMTemplate camTemplate) throws CAMCompilerException {
+
+        if (xpathExpr.startsWith(UDB) && !xpathExpr.startsWith("//")) {
+            xpathExpr = "/" + xpathExpr;
+        }
+
         try {
             return new JDOMXPathAdapter(xpathExpr, camTemplate);
         } catch (JaxenException e) {
@@ -50,7 +58,6 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
         setNamespaceContext(result);
     }
-
 
     @SuppressWarnings("unchecked")
     public List<Element> selectNodes() throws CAMCompilerException {
@@ -85,4 +92,5 @@ public class JDOMXPathAdapter extends JDOMXPath {
             throw new CAMCompilerException("Can not find attribute by xPath expression: " + toString());
         }
     }
+
 }

@@ -81,7 +81,7 @@ public class ConstraintManager {
 
 
     public static void main(String[] args) throws Exception {
-        File input = new File("/home/misha/Work/Projects/camed/resorces/input/UDB-cam.cam");
+        File input = new File("/home/stas/Work/Projects/camed/resorces/input/UDB-cam.cam");
         Document doc = new DocumentFactory().createDocument(input);
         CAMTemplate result = ModelFactory.createCAMTemplate(doc);
         ConstraintManager constraintManager = new ConstraintManager(result);

@@ -88,7 +88,7 @@ public class StructureElement implements Compilable {
 
     private String compileConstraints(List<Constraint> constraints) throws CAMCompilerException {
         if (constraints == null || constraints.isEmpty()) {
-            return " makeMandatory=" + QUOTE + "true" + QUOTE + " ";
+            return " makeMandatory=" + QUOTE + "true" + QUOTE + " "; //todo
         }
 
         StringBuilder builder = new StringBuilder();

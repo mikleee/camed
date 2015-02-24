@@ -9,6 +9,7 @@ import org.jaxen.JaxenException;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class StructureConstraintBridge {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
         String currentXpath = XPathFunctions.fullXpathWithPosition(element);
 
+        List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
 
             if (boundXPath.contains("/@")) {
@@ -47,24 +49,26 @@ public class StructureConstraintBridge {
             }
 
             List<Element> matchedNodes = JDOMXPathAdapter.newInstance(boundXPath, template).selectNodes();
+
             for (Element matchedNode : matchedNodes) {
 
                 String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
                 if (currentXpath.equals(xPathOfCandidate)) {
-                    return groupedConstraints.get(boundXPath);
+                    result.addAll(groupedConstraints.get(boundXPath));
                 }
 
             }
 
         }
 
-        return null;
+        return result;
     }
 
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
         String currentXpath = XPathFunctions.fullXpathWithPosition(attribute);
 
+        List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
 
             if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
@@ -76,14 +80,14 @@ public class StructureConstraintBridge {
 
                 String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
                 if (currentXpath.equals(xPathOfCandidate)) {
-                    return groupedConstraints.get(boundXPath);
+                    result.addAll(groupedConstraints.get(boundXPath));
                 }
 
             }
 
         }
 
-        return null;
+        return result;
     }
 
 }

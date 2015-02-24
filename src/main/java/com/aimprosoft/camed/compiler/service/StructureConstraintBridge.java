@@ -49,11 +49,9 @@ public class StructureConstraintBridge {
                 }
 
                 List<Element> matchedNodes = new JDOMXPathAdapter(boundXPath, template).selectNodes();
-
                 for (Element matchedNode : matchedNodes) {
 
                     String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
-
                     if (currentXpath.equals(xPathOfCandidate)) {
                         return groupedConstraints.get(boundXPath);
                     }
@@ -61,7 +59,6 @@ public class StructureConstraintBridge {
                 }
 
             }
-
             return null;
         } catch (JaxenException e) {
             throw new CAMCompilerException();
@@ -71,44 +68,29 @@ public class StructureConstraintBridge {
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
 
-        for (String boundXPath : groupedConstraints.keySet()) {
-
-            if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
-                continue;
-            }
-
-            String parentXpath = XPathFunctions.getParentXpath(boundXPath);
-            if (isAttributeMapped(attribute, parentXpath, template)) {
-                return groupedConstraints.get(boundXPath);
-            }
-
-        }
-        return null;
-    }
-
-    private boolean isAttributeMapped(Attribute attribute, String parentXpath, CAMTemplate template) throws CAMCompilerException {
+        String currentXpath = XPathFunctions.fullXpathWithPosition(attribute);
         try {
-            List<Element> matchedParentNodes = new JDOMXPathAdapter(parentXpath, template).selectNodes();
+            for (String boundXPath : groupedConstraints.keySet()) {
 
-            if (parentXpath.equals("//UDBFile")) { // example "//@attr"
-                for (Element matchedParentNode : matchedParentNodes) {
-                    // if attr consist in one of children of  "UDBFile"
-                    if (XPathFunctions.isAttributePresent(attribute, matchedParentNode)) {
-                        return true;
-                    }
+                if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
+                    continue;
                 }
-            } else {
-                for (Element matchedParentNode : matchedParentNodes) {
-                    // if attr consist in one of matched nodes
-                    if (matchedParentNode.getAttribute(attribute.getQualifiedName()) != null) {
-                        return true;
+
+                List<Attribute> matchedAttributes = new JDOMXPathAdapter(boundXPath, template).selectAttributes();
+                for (Attribute matchedAttribute : matchedAttributes) {
+
+                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
+                    if (currentXpath.equals(xPathOfCandidate)) {
+                        return groupedConstraints.get(boundXPath);
                     }
+
                 }
+
             }
-
-            return false;
+            return null;
         } catch (JaxenException e) {
-            throw new CAMCompilerException(e.getMessage());
+            throw new CAMCompilerException();
         }
     }
+
 }

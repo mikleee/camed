@@ -31,10 +31,6 @@ public class Action implements Compilable {
         this.xPath = xPath;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
@@ -89,13 +85,6 @@ public class Action implements Compilable {
     public String toCXF(String condition, int count) {
         String param = actionParametersToString();
         return " " + this.action.toString() + (count != -1 ? "_" + String.valueOf(count) : "") + "=\"" + (param.length() > 0 ? param : "true") + "?" + condition + "\" ";
-    }
-
-    public String toStringScreen() {
-        if (this.action.equals(ActionType.setChoice)) {
-            return this.action.toString() + "()";
-        }
-        return this.action.toString() + "(" + actionParametersToString() + ")";
     }
 
     public String toString(String item) {

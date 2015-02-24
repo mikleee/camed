@@ -4,13 +4,9 @@ package com.aimprosoft.camed.compiler.model.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
-import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
-import com.aimprosoft.camed.compiler.extensions.IExtension;
-import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.util.*;
-import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Attribute;
 import org.jdom.Document;
@@ -33,7 +29,6 @@ public class CAMTemplate implements Compilable {
     private String description;
     private String owner;
     private String templateVersion;
-    private String creationDateTime;
 
     private Date dateTime;
 
@@ -56,8 +51,6 @@ public class CAMTemplate implements Compilable {
 
     private static Parser parser = new Parser();
 
-    private CAMXPathEvaluator camXpathEvaluator = null;
-
     public Document getTemplateDocument() {
         return templateDocument;
     }
@@ -73,7 +66,6 @@ public class CAMTemplate implements Compilable {
     public CAMTemplate(Document doc) {
         this.templateDocument = doc;
     }
-
 
     private void initialise(String tempFilesDirPath) {
         this.version = "0.1";
@@ -95,11 +87,6 @@ public class CAMTemplate implements Compilable {
             Structure struct = new Structure(new Element("Structure", CAMConstants.CAMNamespace), TaxonomyType.XML, null);
             return struct;
         }
-    }
-
-
-    public Integer getCAMLevel() {
-        return camLevel;
     }
 
     public Collection<Parameter> getParameters() {
@@ -226,58 +213,6 @@ public class CAMTemplate implements Compilable {
 
     }
 
-    private void openRootTag(Writer out, boolean full) throws IOException {
-
-        out.write("<as:CAM ");
-
-        for (Namespace ns : namespaces.getNamespacesMap().values()) {
-            out.write(" xmlns:" + ns.getPrefix() + "=\"" + ns.getURI() + "\" ");
-        }
-
-        if (!full) {
-            out.write(" compiled=\"true\"");
-        }
-        out.write(" CAMlevel=\"" + camLevel.toString() + "\" ");
-        out.write(" version=\"" + version + "\">\n");
-    }
-
-    private void closeRootTag(Writer out) throws IOException {
-        out.write("</as:CAM>\n");
-    }
-
-    private void headerToCXF(Writer out) throws IOException {
-        out.write(header.compile());
-    }
-
-    private void assemblyStructureToCXF(Writer out, boolean full) throws Exception {
-        out.write("<as:AssemblyStructure>\n");
-
-        for (Structure struct : Structures.values()) {
-            struct.toCXF(out, full);
-        }
-
-        out.write("</as:AssemblyStructure>\n");
-    }
-
-    private String compileStructureToCXF() throws Exception {
-        return "<as:AssemblyStructure>\n" + structure.compile() + "</as:AssemblyStructure>\n";
-    }
-
-
-    private void parametersToCXF(Writer out) throws IOException {
-        if (!parameters.isEmpty()) {
-            out.write("<" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");
-            for (Parameter param : parameters.values()) {
-                param.toCXF(out);
-            }
-            out.write("</" + CAMConstants.CAMNamespace.getPrefix() + ":" + "Parameters" + ">\n");
-        }
-    }
-
-    private void namespacesToCXF(Writer out) throws IOException {
-        out.write(namespaces.compile());
-    }
-
     public Element toDoc(boolean full) throws Exception {
 
         String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
@@ -293,29 +228,6 @@ public class CAMTemplate implements Compilable {
         return elem;
     }
 
-    private void extensionsToXML(Element cam) {
-        for (IExtension ext : AllowedExtensions.getExtensions()) {
-            Element extension = ext.toXML();
-            if (extension != null)
-                cam.addContent(extension);
-        }
-
-    }
-
-    //
-    private void extensionsToCXF(Writer out) throws IOException {
-        for (IExtension ext : AllowedExtensions.getExtensions()) {
-            if (!ext.getName().equals(StructureAnnotations.name)) {
-                Element extension = ext.toCXF();
-                if (extension != null) {
-                    String output = DocumentWriter.writePrettyString(extension);
-                    out.write(output);
-                }
-            }
-        }
-
-    }
-
     public Map<String, Structure> getStructures() {
         return Structures;
     }
@@ -326,10 +238,6 @@ public class CAMTemplate implements Compilable {
 
     public static Parser getParser() {
         return parser;
-    }
-
-    public List<Rule> getRootRules() {
-        return getRuleManager().getRootRules();
     }
 
     public SimpleNamespaceContext getNamespaceContext() {
@@ -346,10 +254,6 @@ public class CAMTemplate implements Compilable {
         return ruleManager;
     }
 
-    public String getTempFilesDirPath() {
-        return tempFilesDirPath;
-    }
-
     public void setTempFilesDirPath(String tempFilesDirPath) {
         this.tempFilesDirPath = tempFilesDirPath;
     }
@@ -362,20 +266,8 @@ public class CAMTemplate implements Compilable {
         this.compilePath = compilePath;
     }
 
-    public Date getDateTime() {
-        return dateTime;
-    }
-
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getCreationDateTime() {
-        return creationDateTime;
-    }
-
-    public void setCreationDateTime(String creationDateTime) {
-        this.creationDateTime = creationDateTime;
     }
 
     public String getTemplatePath() {
@@ -384,18 +276,6 @@ public class CAMTemplate implements Compilable {
 
     public void setTemplatePath(String templatePath) {
         this.templatePath = templatePath;
-    }
-
-    public void setTemplateDocument(Document templateDocument) {
-        this.templateDocument = templateDocument;
-    }
-
-    public void setNamespacesMap(Map<String, Namespace> namespacesMap) {
-        this.namespacesMap = namespacesMap;
-    }
-
-    public Header getHeader() {
-        return header;
     }
 
     public void setHeader(Header header) {

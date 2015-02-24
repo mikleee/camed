@@ -37,7 +37,7 @@ public class ConstraintBuilder implements ElementBuilder {
         Attribute itemAttribute = element.getAttribute("item");
         Attribute actionAttribute = element.getAttribute("action");
 
-        String condition = element.getAttributeValue("condition");
+        String condition = element.getAttributeValue("condition"); //todo
         Element annotation = element.getChild("annotation", CAMConstants.CAMNamespace);
         RuleCategory ruleCategory = condition == null ? RuleCategory.DEFAULT : RuleCategory.CONDITIONAL;
 
@@ -55,6 +55,7 @@ public class ConstraintBuilder implements ElementBuilder {
             // item attribute exists therefore actions are elements
             xPath = itemAttribute.getValue();
 
+            //noinspection unchecked
             List<Element> actions = element.getChildren("action", CAMConstants.CAMNamespace);
 
             for (Element action : actions) {

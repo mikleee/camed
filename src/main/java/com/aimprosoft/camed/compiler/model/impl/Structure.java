@@ -19,7 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,16 +71,13 @@ public class Structure implements Compilable {
 //                out.write("</" + "as:parameters" + ">\n");
 //            }
 
-        compile(builder, structure.getChild("UDBFile"));
-
-//        for (Element child : (List<Element>) structure.getChildren()) { //todo remove collection
-//            compile(builder, child);
-//        }
+        for (Element structureContent : (List<Element>) structure.getChildren()) {
+            compile(builder, structureContent);
+        }
 
         builder.append("</as:Structure>\n");
         return builder.toString();
     }
-
 
     private StringBuilder compile(StringBuilder builder, Element element) throws CAMCompilerException {
         StructureElement wrapper = new StructureElement(element, template);
@@ -90,7 +86,6 @@ public class Structure implements Compilable {
         return builder;
     }
 
-
     public String getID() {
         return id;
     }
@@ -98,13 +93,6 @@ public class Structure implements Compilable {
     public void setID(String id) {
         this.id = id;
 //        structure.setAttribute("ID", id);
-    }
-
-    public String getReference() {
-        if (reference != null)
-            return reference;
-        else
-            return "";
     }
 
     public void setReference(String reference) {
@@ -124,10 +112,6 @@ public class Structure implements Compilable {
         this.template = template;
     }
 
-    public String getTaxonomy() {
-        return taxonomy;
-    }
-
     public void setTaxonomy(String taxonomy) {
         this.taxonomy = taxonomy;
 //        structure.setAttribute("taxonomy", taxonomy);
@@ -141,7 +125,6 @@ public class Structure implements Compilable {
         this.taxonomyOther = taxonomyOther;
 //        structure.setAttribute("taxonomyOther", taxonomyOther);
     }
-
 
     public Element toXML() {
         if (getID().length() > 0) {
@@ -160,7 +143,6 @@ public class Structure implements Compilable {
         }
         return structure;
     }
-
 
     @SuppressWarnings("unchecked")
     public Element toDoc(Element elem) throws Exception {
@@ -337,7 +319,6 @@ public class Structure implements Compilable {
         return parent;
     }
 
-
     public Element toDoc(Attribute attr) throws Exception {
         Element output = new Element("Attribute", CAMConstants.CAMNamespace);
         output.setAttribute("name", attr.getQualifiedName());
@@ -383,58 +364,6 @@ public class Structure implements Compilable {
             }
         }
         return output;
-    }
-
-    public List<String> getStructureXPaths() {
-        return getStructureXPaths((Element) structure.getChildren().get(0));
-    }
-
-    @SuppressWarnings("unchecked")
-    private List<String> getStructureXPaths(Element element) {
-        List<String> xpaths = new ArrayList<String>();
-        xpaths.add(XPathFunctions.xpathParentAndAll(element));
-        if (element.getAttributes().size() > 0) {
-            List<Attribute> attrs = element.getAttributes();
-            for (Attribute attribute : attrs) {
-                xpaths.add(XPathFunctions.xpathParentAndAll(attribute));
-            }
-        }
-        if (element.getChildren().size() > 0) {
-            List<Element> children = element.getChildren();
-            for (Element child : children) {
-                xpaths.addAll(getStructureXPaths(child));
-            }
-        }
-        return xpaths;
-    }
-
-    public Map<String, Object> getStructureXPathsMap() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        String path = XPathFunctions.xpathParentAndAll((Element) structure.getChildren().get(0));
-        map.put(path, (Element) structure.getChildren().get(0));
-        getStructureXPaths(map, (Element) structure.getChildren().get(0));
-        return map;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void getStructureXPaths(Map<String, Object> map, Element element) {
-
-
-        if (!element.getAttributes().isEmpty()) {
-            List<Attribute> attrs = element.getAttributes();
-            for (Attribute attribute : attrs) {
-                map.put(XPathFunctions.xpathParentAndAll(attribute), attribute);
-            }
-        }
-
-        if (!element.getChildren().isEmpty()) {
-            List<Element> children = element.getChildren();
-            for (Element child : children) {
-                String path = XPathFunctions.xpathParentAndAll(child);
-                map.put(path, child);
-                getStructureXPaths(map, child);
-            }
-        }
     }
 
     @SuppressWarnings({"unchecked"})
@@ -728,7 +657,6 @@ public class Structure implements Compilable {
         tempStruct.toCXF(out, tempStruct.getStructure(), applytemplate, full);
 
     }
-
 
     private void toCXF(Writer out, Attribute attr, boolean full) throws Exception {
 

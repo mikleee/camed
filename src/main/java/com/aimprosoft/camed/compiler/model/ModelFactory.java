@@ -1,16 +1,16 @@
 package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.constants.TaxonomyType;
+import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Structure;
+import com.aimprosoft.camed.compiler.util.DocumentFactory;
+import com.aimprosoft.camed.compiler.xpath.Xpath;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
-import com.aimprosoft.camed.compiler.constants.TaxonomyType;
-import com.aimprosoft.camed.compiler.xpath.Xpath;
-import com.aimprosoft.camed.compiler.util.DocumentFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;

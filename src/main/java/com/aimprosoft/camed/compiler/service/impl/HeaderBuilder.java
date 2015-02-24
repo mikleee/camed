@@ -1,7 +1,6 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.service.ElementBuilder;
 

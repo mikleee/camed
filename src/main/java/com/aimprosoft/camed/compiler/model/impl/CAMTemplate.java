@@ -12,9 +12,10 @@ import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.util.*;
 import com.aimprosoft.camed.compiler.xpath.CAMXPathEvaluator;
 import org.jaxen.SimpleNamespaceContext;
-import org.jdom.*;
 import org.jdom.Attribute;
+import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.Namespace;
 import org.jdom.output.XMLOutputter;
 
 import java.io.*;

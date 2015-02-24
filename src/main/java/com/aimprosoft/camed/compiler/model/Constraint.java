@@ -1,17 +1,17 @@
 package com.aimprosoft.camed.compiler.model;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.constants.RuleType;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.util.Parser;
+import com.aimprosoft.camed.compiler.util.Parser.ParserException;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import com.aimprosoft.camed.compiler.constants.ActionType;
-import com.aimprosoft.camed.compiler.util.Parser;
-import com.aimprosoft.camed.compiler.util.Parser.ParserException;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -1,14 +1,14 @@
 package com.aimprosoft.camed.compiler.extensions;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
-
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Annotation;
 import com.aimprosoft.camed.compiler.model.Documentation;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Element;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
 
 
 /**

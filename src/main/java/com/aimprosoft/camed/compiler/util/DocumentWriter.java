@@ -1,13 +1,6 @@
 package com.aimprosoft.camed.compiler.util;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -16,6 +9,8 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
 
 public class DocumentWriter {
 

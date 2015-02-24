@@ -6,7 +6,6 @@ import com.aimprosoft.camed.compiler.model.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
-import org.jaxen.JaxenException;
 import org.jdom.Attribute;
 import org.jdom.Element;
 

@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.util;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.model.Include;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.xpath.Xpath;
 import org.jdom.Attribute;
@@ -11,7 +12,6 @@ import org.jdom.JDOMException;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.DOMBuilder;
 import org.jdom.input.SAXBuilder;
-import com.aimprosoft.camed.compiler.model.Include;
 
 import java.io.File;
 import java.io.FileNotFoundException;

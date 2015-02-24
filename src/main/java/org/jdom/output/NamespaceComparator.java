@@ -1,9 +1,9 @@
 package org.jdom.output;
 
+import org.jdom.Namespace;
+
 import java.io.Serializable;
 import java.util.Comparator;
-
-import org.jdom.Namespace;
 
 public class NamespaceComparator implements Comparator<Namespace>, Serializable {
 

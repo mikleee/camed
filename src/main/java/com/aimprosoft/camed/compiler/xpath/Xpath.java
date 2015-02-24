@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.xpath;
 
+import com.aimprosoft.camed.compiler.util.Namespaces;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.SimpleVariableContext;
 import org.jaxen.jdom.JDOMXPath;
@@ -9,8 +10,6 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.aimprosoft.camed.compiler.util.Namespaces;
 
 public class Xpath {
 

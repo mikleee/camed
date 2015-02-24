@@ -1,23 +1,15 @@
 package com.aimprosoft.camed.compiler.xpath;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.saxon.jdom.DocumentWrapper;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.om.VirtualNode;
-import net.sf.saxon.s9api.DocumentBuilder;
-import net.sf.saxon.s9api.Processor;
-import net.sf.saxon.s9api.SaxonApiException;
-import net.sf.saxon.s9api.XPathCompiler;
-import net.sf.saxon.s9api.XPathExecutable;
-import net.sf.saxon.s9api.XPathSelector;
-import net.sf.saxon.s9api.XdmItem;
-import net.sf.saxon.s9api.XdmNode;
-
+import net.sf.saxon.s9api.*;
 import org.jdom.Content;
 import org.jdom.Document;
 import org.jdom.Namespace;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class S9APIXpath {
 

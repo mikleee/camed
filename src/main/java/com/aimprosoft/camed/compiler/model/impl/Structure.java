@@ -1,8 +1,11 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
+import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
+import com.aimprosoft.camed.compiler.extensions.StructureAnnotation;
 import com.aimprosoft.camed.compiler.extensions.StructureAnnotations;
 import com.aimprosoft.camed.compiler.model.*;
 import com.aimprosoft.camed.compiler.util.*;
@@ -10,10 +13,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
-
-import com.aimprosoft.camed.compiler.extensions.AllowedExtensions;
-import com.aimprosoft.camed.compiler.extensions.StructureAnnotation;
-import com.aimprosoft.camed.compiler.constants.ActionType;
 
 import java.io.File;
 import java.io.FileNotFoundException;

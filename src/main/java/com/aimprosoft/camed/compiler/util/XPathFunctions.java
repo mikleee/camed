@@ -1,13 +1,13 @@
 package com.aimprosoft.camed.compiler.util;
 
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import org.jdom.Attribute;
+import org.jdom.Element;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
-import org.jdom.Attribute;
-import org.jdom.Element;
 
 public class XPathFunctions {
 

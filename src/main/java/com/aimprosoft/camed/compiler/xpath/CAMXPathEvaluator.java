@@ -1,20 +1,18 @@
 package com.aimprosoft.camed.compiler.xpath;
 
+import net.sf.saxon.xpath.XPathEvaluator;
+import org.jdom.Element;
+import org.jdom.Namespace;
+import org.jdom.output.XMLOutputter;
+import org.xml.sax.InputSource;
+
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.xpath.XPathExpressionException;
-
-import net.sf.saxon.xpath.XPathEvaluator;
-
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.output.XMLOutputter;
-import org.xml.sax.InputSource;
 
 public class CAMXPathEvaluator{
 	private ByteArrayOutputStream out = null;

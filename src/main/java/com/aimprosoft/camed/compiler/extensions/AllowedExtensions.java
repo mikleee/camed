@@ -1,12 +1,12 @@
 package com.aimprosoft.camed.compiler.extensions;
 
-import java.lang.reflect.Constructor;
-import java.util.Collection;
-import java.util.HashMap;
-
 import org.jdom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * @author 802051682

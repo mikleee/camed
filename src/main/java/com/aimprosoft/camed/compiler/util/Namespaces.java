@@ -1,10 +1,7 @@
 package com.aimprosoft.camed.compiler.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.aimprosoft.camed.compiler.xpath.S9APIXpath;
 import net.sf.saxon.s9api.SaxonApiException;
-
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -12,7 +9,8 @@ import org.jdom.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aimprosoft.camed.compiler.xpath.S9APIXpath;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Namespaces implements Cloneable{
 

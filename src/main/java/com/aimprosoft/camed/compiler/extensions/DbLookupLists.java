@@ -1,11 +1,11 @@
 package com.aimprosoft.camed.compiler.extensions;
 
-import java.util.Collection;
-import java.util.HashMap;
-
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import org.jdom.Element;
 import org.jdom.Namespace;
+
+import java.util.Collection;
+import java.util.HashMap;
 
 public class DbLookupLists implements IExtension, ILookupLists {
 

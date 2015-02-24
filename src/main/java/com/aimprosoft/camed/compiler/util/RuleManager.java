@@ -2,11 +2,14 @@ package com.aimprosoft.camed.compiler.util;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.model.Action;
+import com.aimprosoft.camed.compiler.model.Constraint;
+import com.aimprosoft.camed.compiler.model.Context;
+import com.aimprosoft.camed.compiler.model.Rule;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.xpath.Xpath;
 import org.jaxen.SimpleNamespaceContext;
 import org.jdom.Document;
-import com.aimprosoft.camed.compiler.model.*;
-import com.aimprosoft.camed.compiler.xpath.Xpath;
 
 import java.util.*;
 import java.util.Map.Entry;

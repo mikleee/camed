@@ -3,12 +3,8 @@ package com.aimprosoft.camed.compiler.model.impl;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.jdom.Namespace;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.aimprosoft.camed.compiler.util.CommonUtils.isNotEmpty;
 
 /**
  * author m.tkachenko

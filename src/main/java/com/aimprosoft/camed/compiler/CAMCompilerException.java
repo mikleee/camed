@@ -1,7 +1,5 @@
 package com.aimprosoft.camed.compiler;
 
-import com.aimprosoft.camed.compiler.util.Parser;
-
 /**
  * @author mtkachenko.
  */

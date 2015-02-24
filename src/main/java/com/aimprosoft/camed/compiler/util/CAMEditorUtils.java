@@ -2,7 +2,6 @@ package com.aimprosoft.camed.compiler.util;
 
 import org.apache.log4j.Logger;
 import org.jdom.Document;
-import com.aimprosoft.camed.compiler.constants.PreferenceConstants;
 
 /**
  * @author mtkachenko.

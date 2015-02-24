@@ -44,7 +44,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
     }
 
     private void initHeader() throws CAMCompilerException {
-        Element headerNode = retrieveTemplateNode(HEADER_XPATH);
+        Element headerNode = JDOMXPathAdapter.newInstance(HEADER_XPATH, template).selectNode();
         Header header = new Header(headerNode);
         template.setHeader(header);
     }
@@ -60,9 +60,8 @@ public class CAMTemplateBuilder implements ElementBuilder {
         template.setNamespaces(namespaces);
     }
 
-
     private void initStructure() throws CAMCompilerException {
-        Element structureNode = retrieveTemplateNode(STRUCTURE_XPATH);
+        Element structureNode = JDOMXPathAdapter.newInstance(STRUCTURE_XPATH, template).selectNode();
         Structure structure = ModelFactory.createStructure(structureNode, template); //todo
         template.setStructure(structure);
     }
@@ -92,16 +91,6 @@ public class CAMTemplateBuilder implements ElementBuilder {
                 populateNamespaceList(child, result);
             }
         }
-    }
-
-    private Element retrieveTemplateNode(String xPath) throws CAMCompilerException {
-        try {
-            JDOMXPathAdapter jdomxPathAdapter = new JDOMXPathAdapter(xPath, template);
-            return jdomxPathAdapter.selectNode();
-        } catch (JaxenException e) {
-            throw new CAMCompilerException("Element " + STRUCTURE_XPATH + " is absent.");
-        }
-
     }
 
 }

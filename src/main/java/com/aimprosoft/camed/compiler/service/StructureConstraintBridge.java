@@ -38,59 +38,52 @@ public class StructureConstraintBridge {
 
     private List<Constraint> getConstraints(Element element, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
-
         String currentXpath = XPathFunctions.fullXpathWithPosition(element);
 
-        try {
-            for (String boundXPath : groupedConstraints.keySet()) {
+        for (String boundXPath : groupedConstraints.keySet()) {
 
-                if (boundXPath.contains("/@")) {
-                    continue;
-                }
+            if (boundXPath.contains("/@")) {
+                continue;
+            }
 
-                List<Element> matchedNodes = new JDOMXPathAdapter(boundXPath, template).selectNodes();
-                for (Element matchedNode : matchedNodes) {
+            List<Element> matchedNodes = JDOMXPathAdapter.newInstance(boundXPath, template).selectNodes();
+            for (Element matchedNode : matchedNodes) {
 
-                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
-                    if (currentXpath.equals(xPathOfCandidate)) {
-                        return groupedConstraints.get(boundXPath);
-                    }
-
+                String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
+                if (currentXpath.equals(xPathOfCandidate)) {
+                    return groupedConstraints.get(boundXPath);
                 }
 
             }
-            return null;
-        } catch (JaxenException e) {
-            throw new CAMCompilerException();
+
         }
+
+        return null;
     }
 
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
-
         String currentXpath = XPathFunctions.fullXpathWithPosition(attribute);
-        try {
-            for (String boundXPath : groupedConstraints.keySet()) {
 
-                if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
-                    continue;
-                }
+        for (String boundXPath : groupedConstraints.keySet()) {
 
-                List<Attribute> matchedAttributes = new JDOMXPathAdapter(boundXPath, template).selectAttributes();
-                for (Attribute matchedAttribute : matchedAttributes) {
+            if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
+                continue;
+            }
 
-                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
-                    if (currentXpath.equals(xPathOfCandidate)) {
-                        return groupedConstraints.get(boundXPath);
-                    }
+            List<Attribute> matchedAttributes = JDOMXPathAdapter.newInstance(boundXPath, template).selectAttributes();
+            for (Attribute matchedAttribute : matchedAttributes) {
 
+                String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
+                if (currentXpath.equals(xPathOfCandidate)) {
+                    return groupedConstraints.get(boundXPath);
                 }
 
             }
-            return null;
-        } catch (JaxenException e) {
-            throw new CAMCompilerException();
+
         }
+
+        return null;
     }
 
 }

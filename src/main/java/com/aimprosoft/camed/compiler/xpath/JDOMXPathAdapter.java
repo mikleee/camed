@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.xpath;
 
+import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class JDOMXPathAdapter extends JDOMXPath {
 
     private Document document;
+    private String xPath;
 
     public JDOMXPathAdapter(String xpathExpr) throws JaxenException {
         super(xpathExpr);
@@ -27,6 +29,14 @@ public class JDOMXPathAdapter extends JDOMXPath {
         this(xpathExpr);
         this.document = camTemplate.getTemplateDocument();
         initNamespaceContext(camTemplate);
+    }
+
+    public static JDOMXPathAdapter newInstance(String xpathExpr, CAMTemplate camTemplate) throws CAMCompilerException {
+        try {
+            return new JDOMXPathAdapter(xpathExpr, camTemplate);
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Can not parse xPath expression: " + xpathExpr);
+        }
     }
 
     private void initNamespaceContext(CAMTemplate camTemplate) {
@@ -43,20 +53,36 @@ public class JDOMXPathAdapter extends JDOMXPath {
 
 
     @SuppressWarnings("unchecked")
-    public List<Element> selectNodes() throws JaxenException {
-        return (List<Element>) super.selectNodes(document);
+    public List<Element> selectNodes() throws CAMCompilerException {
+        try {
+            return (List<Element>) super.selectNodes(document);
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Can not find element by xPath expression: " + toString());
+        }
     }
 
     @SuppressWarnings("unchecked")
-    public List<Attribute> selectAttributes() throws JaxenException {
-        return (List<Attribute>) super.selectNodes(document);
+    public List<Attribute> selectAttributes() throws CAMCompilerException {
+        try {
+            return (List<Attribute>) super.selectNodes(document);
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Can not find attributes by xPath expression: " + toString());
+        }
     }
 
-    public Element selectNode() throws JaxenException {
-        return (Element) super.selectSingleNode(document);
+    public Element selectNode() throws CAMCompilerException {
+        try {
+            return (Element) super.selectSingleNode(document);
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Can not find element by xPath expression: " + toString());
+        }
     }
 
-    public Attribute selectAttribute() throws JaxenException {
-        return (Attribute) super.selectSingleNode(document);
+    public Attribute selectAttribute() throws CAMCompilerException {
+        try {
+            return (Attribute) super.selectSingleNode(document);
+        } catch (JaxenException e) {
+            throw new CAMCompilerException("Can not find attribute by xPath expression: " + toString());
+        }
     }
 }

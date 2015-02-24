@@ -36,14 +36,11 @@ public class ConstraintManager {
     private void initConstraints(CAMTemplate template) throws CAMCompilerException {
         constraints = new ArrayList<Constraint>();
 
-        try {
-            Element contextNode = new JDOMXPathAdapter(CONTEXT_PATH, template).selectNode();
-            for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
-                constraints.add(ModelFactory.createConstraint(constraintNode)); //todo
-            }
-        } catch (JaxenException e) {
-            throw new CAMCompilerException("Element " + CONTEXT_PATH + " is absent.");
+        Element contextNode = JDOMXPathAdapter.newInstance(CONTEXT_PATH, template).selectNode();
+        for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
+            constraints.add(ModelFactory.createConstraint(constraintNode)); //todo
         }
+
     }
 
     private void bindConstraintsToXpath() {

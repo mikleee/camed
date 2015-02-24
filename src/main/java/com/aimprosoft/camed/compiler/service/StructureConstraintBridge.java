@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.model.Action;
 import com.aimprosoft.camed.compiler.model.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.XPathFunctions;
@@ -61,7 +62,7 @@ public class StructureConstraintBridge {
 
         }
 
-        return result;
+        return assignOrderNumbers(result);
     }
 
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
@@ -87,7 +88,17 @@ public class StructureConstraintBridge {
 
         }
 
-        return result;
+        return assignOrderNumbers(result);
+    }
+
+    private List<Constraint> assignOrderNumbers(List<Constraint> constraintGroup) {
+        for (int i = 0; i < constraintGroup.size(); i++) {
+            Constraint constraint = constraintGroup.get(i);
+            for (Action action : constraint.getActions()) {
+                action.setOrderNumber(i + 1);
+            }
+        }
+        return constraintGroup;
     }
 
 }

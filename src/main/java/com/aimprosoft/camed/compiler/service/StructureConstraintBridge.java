@@ -50,7 +50,6 @@ public class StructureConstraintBridge {
             }
 
             List<Element> matchedNodes = JDOMXPathAdapter.newInstance(boundXPath, template).selectNodes();
-
             for (Element matchedNode : matchedNodes) {
 
                 String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);

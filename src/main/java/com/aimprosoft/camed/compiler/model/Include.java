@@ -22,24 +22,9 @@ public class Include {
         return parentElement;
     }
 
-    public void setParentElement(Element parentElement) {
-        this.parentElement = parentElement;
-    }
-
-    public Include() {
-    }
 
     public Include(Element doc, String URI) {
         document = doc;
-        uri = URI;
-        List<Element> temp = new ArrayList<Element>();
-        temp.add(document);
-        addToElements(temp);
-        ignoreRoot = false;
-    }
-
-    public Include(List<Element> list, String URI) {
-        document = list.get(0).getParentElement();
         uri = URI;
         List<Element> temp = new ArrayList<Element>();
         temp.add(document);

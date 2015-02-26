@@ -1,5 +1,7 @@
 package com.aimprosoft.camed;
 
+import com.aimprosoft.camed.compiler.CamCompiler;
+
 import java.io.File;
 
 
@@ -12,7 +14,7 @@ public class Main {
         long start = System.currentTimeMillis();
 
 
-//      new CamCompiler(root + "resorces\\output", root + "resorces\\input\\result.cxx").compile(input);
+      new CamCompiler(root + "resorces\\output", root + "resorces\\input\\result.cxx").compile(input);
         TestCase.test(root, input);
         System.out.println("total time: " + (System.currentTimeMillis() - start));
     }

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed;
 
-import com.aimprosoft.camed.compiler.model.Constraint;
+import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.util.DocumentFactory;

@@ -27,6 +27,10 @@ public class ConstraintManager {
         return groupedConstraints;
     }
 
+    public List<Constraint> getConstraints() {
+        return constraints;
+    }
+
     private void initConstraints(CAMTemplate template) throws CAMCompilerException {
         constraints = new ArrayList<Constraint>();
 

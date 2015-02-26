@@ -46,14 +46,6 @@ public class Constraint implements Compilable {
         return actions.add(arg0);
     }
 
-    public String getXpath() {
-        return getItem();
-    }
-
-    public void setXpath(String xpath) {
-        setItem(xpath);
-    }
-
     public RuleCategory getCategory() {
         return category;
     }

@@ -5,9 +5,12 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 public class Action implements Compilable {
 
@@ -17,9 +20,6 @@ public class Action implements Compilable {
     private List<String> actionParameters = new ArrayList<String>();
 
     private int orderNumber; //todo
-
-    public Action() {
-    }
 
     public Action(String condition, String xPath) {
         this.condition = StringEscapeUtils.escapeXml(condition);
@@ -41,9 +41,9 @@ public class Action implements Compilable {
     public void setActionParameters(List<String> actionParameters) {
         this.actionParameters.clear();
         for (String param : actionParameters) {
-            if (param.length() > 0)
+            if (param.length() > 0) {
                 this.actionParameters.add(param);
-
+            }
         }
         this.actionParameters = actionParameters;
     }
@@ -68,15 +68,15 @@ public class Action implements Compilable {
         StringBuilder builder = new StringBuilder()
                 .append(" ")
                 .append(action.toString())
-                .append(orderNumber != 0 ? "_" + String.valueOf(orderNumber) : "")
-                .append("=\"")
+                .append(orderNumber != 0 ? "_" + orderNumber : StringUtils.EMPTY)
+                .append("=" + QUOTE)
                 .append(param.isEmpty() ? "true" : param);
 
         if (condition != null) {
             builder.append("?").append(condition);
         }
 
-        builder.append("\" ");
+        builder.append(QUOTE + " ");
         return builder.toString();
     }
 
@@ -84,16 +84,14 @@ public class Action implements Compilable {
         StringBuilder builder = new StringBuilder()
                 .append(" ")
                 .append(action)
-                .append("=\"")
+                .append("=" + QUOTE)
                 .append(xPath);
 
         if (condition != null) {
-            builder
-                    .append("?")
-                    .append(condition);
+            builder.append("?").append(condition);
         }
 
-        builder.append("\" ");
+        builder.append(QUOTE);
         return builder.toString();
     }
 

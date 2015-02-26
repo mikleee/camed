@@ -8,4 +8,8 @@ public class CAMConstants {
     public static final String CAM_NAMESPACE_URI = "http://www.oasis-open.org/committees/cam";
 
     public static final Namespace CAM_NAMESPACE = Namespace.getNamespace(CAM_NAMESPACE_PREFIX, CAM_NAMESPACE_URI);
+
+    public static final String QUOTE = "\"";
+    public static final String ELEMENT = "as:Element";
+    public static final String ATTRIBUTE = "as:Attribute";
 }

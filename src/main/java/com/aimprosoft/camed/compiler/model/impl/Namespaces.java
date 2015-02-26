@@ -1,10 +1,13 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.jdom.Namespace;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 /**
  * author m.tkachenko
@@ -28,9 +31,9 @@ public class Namespaces implements Compilable {
         for (Namespace ns : namespacesMap.values()) {
             builder
                     .append("<as:namespace ")
-                    .append("prefix=\"")
+                    .append("prefix=" + QUOTE)
                     .append(ns.getPrefix())
-                    .append("\">")
+                    .append(QUOTE + ">")
                     .append(ns.getURI())
                     .append("</as:namespace>\n");
         }

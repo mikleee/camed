@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -35,13 +36,13 @@ public class Structure implements Compilable {
         StringBuilder builder = new StringBuilder("<as:Structure ");
 
         if (id != null) {
-            builder.append(" ID=" + QUOTE).append(StringEscapeUtils.escapeXml(id)).append(QUOTE + " ");
+            builder.append(" ID=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(id)).append(CAMConstants.QUOTE + " ");
         }
         if (reference != null) {
-            builder.append(" reference=" + QUOTE).append(StringEscapeUtils.escapeXml(reference)).append(QUOTE + " ");
+            builder.append(" reference=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(reference)).append(CAMConstants.QUOTE + " ");
         }
         if (taxonomy != null) {
-            builder.append(" taxonomy=" + QUOTE).append(StringEscapeUtils.escapeXml(taxonomy)).append(QUOTE + " ");
+            builder.append(" taxonomy=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(taxonomy)).append(CAMConstants.QUOTE + " ");
         }
         builder.append(">\n");
 

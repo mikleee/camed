@@ -1,25 +1,25 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
-import com.aimprosoft.camed.compiler.constants.TaxonomyType;
-import com.aimprosoft.camed.compiler.model.*;
+import com.aimprosoft.camed.compiler.model.Compilable;
+import com.aimprosoft.camed.compiler.model.Include;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;
-import com.aimprosoft.camed.compiler.util.*;
-import org.jaxen.SimpleNamespaceContext;
-import org.jdom.Attribute;
+import com.aimprosoft.camed.compiler.util.CommonUtils;
+import com.aimprosoft.camed.compiler.util.DocumentFactory;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.jdom.output.XMLOutputter;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CAMTemplate implements Compilable {
 
-    private String version = "0.1"; //todo
-    private Integer camLevel = 1;
+    private final static String version = "0.1"; //todo
+    private final static Integer camLevel = 1;
 
     private Header header;
     private Namespaces namespaces;
@@ -31,11 +31,8 @@ public class CAMTemplate implements Compilable {
 
     private String tempFilesDirPath;
     private String templatePath;
-    private String compilePath;
 
     private ConstraintManager constraintManager;
-
-    private static Parser parser = new Parser();
 
     public Document getTemplateDocument() {
         return templateDocument;
@@ -45,7 +42,7 @@ public class CAMTemplate implements Compilable {
         this.templateDocument = doc;
     }
 
-    public void writeToCXF(String fileName, boolean full) {
+    public void writeToCXF(String fileName) {
         OutputStreamWriter writer = null;
         try {
             File file = CommonUtils.findFile(fileName);
@@ -60,11 +57,11 @@ public class CAMTemplate implements Compilable {
         }
     }
 
-    public Element toDoc(boolean full) throws Exception {
+    public Element toDoc() throws Exception {
 
         String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
 
-        writeToCXF(fileName, full);
+        writeToCXF(fileName);
 
         DocumentFactory df = new DocumentFactory(this);
         Document results = df.createDocument(fileName);
@@ -117,14 +114,6 @@ public class CAMTemplate implements Compilable {
 
     public void setConstraintManager(ConstraintManager constraintManager) {
         this.constraintManager = constraintManager;
-    }
-
-    public String getCompilePath() {
-        return compilePath;
-    }
-
-    public void setCompilePath(String compilePath) {
-        this.compilePath = compilePath;
     }
 
     @Override

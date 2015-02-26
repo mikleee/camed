@@ -30,7 +30,7 @@ public class CamCompiler {
 
     public void compile(File inputFile) throws Exception {
         CAMTemplate template = prepareTemplate(inputFile);
-        Element element = template.toDoc(false);
+        Element element = template.toDoc();
         writePretty(new File(compilePath), element);
     }
 
@@ -38,7 +38,6 @@ public class CamCompiler {
         Document doc = new DocumentFactory().createDocument(inputFile);
         CAMTemplate result = ModelFactory.createCAMTemplate(doc);
 
-        result.setCompilePath(compilePath);
         result.setTempFilesDirPath(tempFilesDirPath);
         result.setTemplatePath(inputFile.getAbsolutePath());
         return result;

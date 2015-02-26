@@ -13,9 +13,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         long start = System.currentTimeMillis();
 
+        {
+            new CamCompiler(root + "resorces\\output", root + "resorces\\input\\result.cxx").compile(input);
+            TestCase.test(root, input);
+        }
 
-      new CamCompiler(root + "resorces\\output", root + "resorces\\input\\result.cxx").compile(input);
-        TestCase.test(root, input);
         System.out.println("total time: " + (System.currentTimeMillis() - start));
     }
 

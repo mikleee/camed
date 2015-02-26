@@ -241,7 +241,7 @@ public class DocumentFactory {
     }
 
     private boolean isCAMTemplate(Document includeDoc) {
-        return includeDoc.getRootElement().getName().equals("CAM") && includeDoc.getRootElement().getNamespace() == CAMConstants.CAMNamespace;
+        return includeDoc.getRootElement().getName().equals("CAM") && includeDoc.getRootElement().getNamespace() == CAMConstants.CAM_NAMESPACE;
     }
 
 }

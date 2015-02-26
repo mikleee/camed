@@ -270,7 +270,7 @@ public class XPathFunctions {
         }
         StringBuilder path = new StringBuilder("../");
         while (!(elem.getName().equals("Structure") && elem.getNamespace()
-                .equals(CAMConstants.CAMNamespace))) {
+                .equals(CAMConstants.CAM_NAMESPACE))) {
             drillDown(attribute, elem, path.toString(), paths, nodes);
             elem = elem.getParentElement();
             path.append("../");

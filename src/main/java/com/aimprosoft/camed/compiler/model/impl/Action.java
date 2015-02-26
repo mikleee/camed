@@ -3,14 +3,9 @@ package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jdom.Element;
-import org.jdom.Namespace;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +47,6 @@ public class Action implements Compilable {
         }
         this.actionParameters = actionParameters;
     }
-
 
 
     @Override

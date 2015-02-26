@@ -75,7 +75,7 @@ public class Xpath {
 
     private void setNamespaceContext(Element elem) throws JDOMException {
         namespaces = new Namespaces(elem);
-        if (!namespaces.getNamespaceList().isEmpty()){
+        if (!namespaces.getNamespaceList().isEmpty()) {
             namespacesExist = true;
         }
         nsContext = resetNamespaceContext();

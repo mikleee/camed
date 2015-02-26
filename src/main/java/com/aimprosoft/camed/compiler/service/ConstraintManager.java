@@ -1,8 +1,8 @@
 package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jdom.Element;
 
@@ -25,10 +25,6 @@ public class ConstraintManager {
 
     public Map<String, List<Constraint>> getGroupedConstraints() {
         return groupedConstraints;
-    }
-
-    public List<Constraint> getConstraints() {
-        return constraints;
     }
 
     private void initConstraints(CAMTemplate template) throws CAMCompilerException {

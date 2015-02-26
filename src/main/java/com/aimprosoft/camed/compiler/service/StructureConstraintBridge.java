@@ -2,8 +2,8 @@ package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.Action;
-import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jdom.Attribute;

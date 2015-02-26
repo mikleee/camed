@@ -27,20 +27,17 @@ public enum ActionType {
     setLength(1),
     makeRecursive(1),
     orderChildren(0),
-    //allowAnyContent,
     useAttribute(0),
     excludeAttribute(0),
     lookup(2),
     printMessage(1),
     applyTemplate(2),
     evaluateVariable(1);
+
     int numOfParams;
 
     ActionType(int numOfParams) {
         this.numOfParams = numOfParams;
     }
 
-    public int getNumOfParams() {
-        return numOfParams;
-    }
 }

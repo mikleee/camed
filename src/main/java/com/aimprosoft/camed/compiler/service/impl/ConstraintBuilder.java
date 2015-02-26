@@ -4,7 +4,6 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
-import com.aimprosoft.camed.compiler.constants.RuleType;
 import com.aimprosoft.camed.compiler.model.impl.Action;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.service.ElementBuilder;
@@ -38,16 +37,10 @@ public class ConstraintBuilder implements ElementBuilder {
         Attribute actionAttribute = element.getAttribute("action");
 
         String condition = element.getAttributeValue("condition"); //todo
-        Element annotation = element.getChild("annotation", CAMConstants.CAMNamespace);
         RuleCategory ruleCategory = condition == null ? RuleCategory.DEFAULT : RuleCategory.CONDITIONAL;
 
-        constraint.setType(RuleType.CONSTRAINT);
         constraint.setCondition(condition);
         constraint.setCategory(ruleCategory);
-
-        if (annotation != null) {
-            constraint.setAnnotation(annotation);
-        }
 
         String xPath;
 
@@ -56,7 +49,7 @@ public class ConstraintBuilder implements ElementBuilder {
             xPath = itemAttribute.getValue();
 
             //noinspection unchecked
-            List<Element> actions = element.getChildren("action", CAMConstants.CAMNamespace);
+            List<Element> actions = element.getChildren("action", CAMConstants.CAM_NAMESPACE);
 
             for (Element action : actions) {
                 try {
@@ -172,8 +165,7 @@ public class ConstraintBuilder implements ElementBuilder {
 
     private Parser.Expression createParserExpression(String inputString) throws CAMCompilerException {
         try {
-            Parser parser = new Parser();
-            parser.makeParser(inputString, true);
+            Parser parser = new Parser(inputString, true);
             return parser.getExpression();
         } catch (Parser.ParserException e) {
             throw new CAMCompilerException(e.getMessage());

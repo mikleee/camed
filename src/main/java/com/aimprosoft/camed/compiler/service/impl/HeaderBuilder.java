@@ -10,7 +10,6 @@ import com.aimprosoft.camed.compiler.service.ElementBuilder;
 public class HeaderBuilder implements ElementBuilder {
 
 
-
     @Override
     public Header build() throws CAMCompilerException {
         return null;

@@ -1,10 +1,8 @@
 package com.aimprosoft.camed.compiler.model;
 
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,14 +46,6 @@ public class Include {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public Include(List<Element> list, String URI, boolean ignoreRoot) {
-        document = list.get(0).getParentElement();
-        uri = URI;
-        this.ignoreRoot = ignoreRoot;
-        addToElements(document.getChildren());
-    }
-
     public Element getDocument() {
         return document;
     }
@@ -64,21 +54,12 @@ public class Include {
         this.document = document;
     }
 
-
     public boolean isIgnoreRoot() {
         return ignoreRoot;
     }
 
     public void setIgnoreRoot(boolean ignoreRoot) {
         this.ignoreRoot = ignoreRoot;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
     }
 
     public boolean containsElement(Object object) {
@@ -93,34 +74,6 @@ public class Include {
 
     public boolean isRoot(Object element) {
         return (document.equals(element));
-    }
-
-    public Element toXML(String path) {
-        Element incl = new Element("include", CAMConstants.CAMNamespace);
-        if (ignoreRoot)
-            incl.setAttribute("ignoreRoot", "yes");
-
-        String text = getUri();
-        String templatePath = new File(path).getParent();
-        String includePath = null;
-
-        if (getUri().startsWith("file:/")) {
-            includePath = new File(getUri()).getParent();
-        }
-
-        if (!templatePath.equals(includePath)) {
-            File includeFile = new File(getUri());
-            if (includeFile.renameTo(new File(templatePath, includeFile.getName()))) {
-                text = includeFile.getName();
-            }
-
-
-        }
-
-        incl.setText(text);
-        if (document.getAttribute("name") != null)
-            incl.setAttribute("name", document.getAttributeValue("name"));
-        return incl;
     }
 
 }

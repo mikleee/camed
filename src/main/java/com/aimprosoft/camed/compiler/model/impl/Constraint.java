@@ -1,35 +1,25 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.ActionType;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.constants.RuleType;
-import com.aimprosoft.camed.compiler.model.*;
-import com.aimprosoft.camed.compiler.util.Parser;
-import com.aimprosoft.camed.compiler.util.Parser.ParserException;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.jdom.Attribute;
-import org.jdom.Element;
-import org.jdom.JDOMException;
+import com.aimprosoft.camed.compiler.model.Compilable;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Constraint extends Rule implements Compilable {
+public class Constraint implements Compilable {
+
+    private RuleCategory category;
+    private static final RuleType TYPE = RuleType.CONSTRAINT;
 
     private String condition = "";
     private List<Action> actions = new ArrayList<Action>();
-    private Annotation annotation = null;
 
     private String item = "";
 
     public Constraint() {
         super();
-        setType(RuleType.CONSTRAINT);
     }
 
     public String getCondition() {
@@ -56,20 +46,21 @@ public class Constraint extends Rule implements Compilable {
         return actions.add(arg0);
     }
 
-    public void setAnnotation(Element element) {
-        annotation = new Annotation(element);
-    }
-
-    @Override
     public String getXpath() {
         return getItem();
     }
 
-    @Override
     public void setXpath(String xpath) {
         setItem(xpath);
     }
 
+    public RuleCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(RuleCategory category) {
+        this.category = category;
+    }
 
     @Override
     public String compile() throws CAMCompilerException {

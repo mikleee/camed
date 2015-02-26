@@ -8,8 +8,8 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 public interface Compilable {
 
     String QUOTE = "\"";
-     String ELEMENT = "as:Element";
-     String ATTRIBUTE = "as:Attribute";
+    String ELEMENT = "as:Element";
+    String ATTRIBUTE = "as:Attribute";
 
 
     String compile() throws CAMCompilerException;

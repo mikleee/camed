@@ -12,45 +12,45 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Namespaces implements Cloneable{
+public class Namespaces implements Cloneable {
 
-	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	private List<Namespace> NamespaceList = new ArrayList<Namespace>();
-	
-	S9APIXpath xpath = null;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public Namespaces(Document doc) throws JDOMException {
-		xpath = new S9APIXpath(doc,"");
-		
-		extractNamespaces(doc.getRootElement());
-	}
-	
-	public Namespaces(Element elem) throws JDOMException {
-		xpath = new S9APIXpath(elem.getDocument(),"");
-		extractNamespaces(elem);
-	}
+    private List<Namespace> NamespaceList = new ArrayList<Namespace>();
 
-	private void extractNamespaces(Element elem) {
-		try {
-			NamespaceList = xpath.getDocumentNamespaces();
-		} catch (SaxonApiException e) {
-			logger.error("System Error", e);
-		}
-	}
+    S9APIXpath xpath = null;
 
+    public Namespaces(Document doc) throws JDOMException {
+        xpath = new S9APIXpath(doc, "");
 
-	public List<Namespace> getNamespaceList() {
+        extractNamespaces(doc.getRootElement());
+    }
 
-		return NamespaceList;
-	}
+    public Namespaces(Element elem) throws JDOMException {
+        xpath = new S9APIXpath(elem.getDocument(), "");
+        extractNamespaces(elem);
+    }
+
+    private void extractNamespaces(Element elem) {
+        try {
+            NamespaceList = xpath.getDocumentNamespaces();
+        } catch (SaxonApiException e) {
+            logger.error("System Error", e);
+        }
+    }
 
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		
-		return super.clone();
-	}
+    public List<Namespace> getNamespaceList() {
 
-	
+        return NamespaceList;
+    }
+
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+
+        return super.clone();
+    }
+
+
 }

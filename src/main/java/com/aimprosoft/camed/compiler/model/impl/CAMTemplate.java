@@ -133,7 +133,7 @@ public class CAMTemplate implements Compilable {
                 .append(" version=" + QUOTE).append(version).append(QUOTE).append(">\n");
 
         builder
-                .append(header.compile())
+                .append(header == null ? "" : header.compile()) //todo optional
                 .append(namespaces.compile());
 
 //        parametersToCXF(writer) todo;

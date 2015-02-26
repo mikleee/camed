@@ -45,7 +45,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
 
     private void initHeader() throws CAMCompilerException {
         Element headerNode = JDOMXPathAdapter.newInstance(HEADER_XPATH, template).selectNode();
-        Header header = new Header(headerNode);
+        Header header = headerNode == null ? null : new Header(headerNode);
         template.setHeader(header);
     }
 

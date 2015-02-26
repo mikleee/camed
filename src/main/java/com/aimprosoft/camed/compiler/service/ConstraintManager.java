@@ -18,9 +18,11 @@ public class ConstraintManager {
     private Map<String, List<Constraint>> groupedConstraints;
 
 
+
     public ConstraintManager(CAMTemplate template) throws CAMCompilerException {
         initConstraints(template);
         bindConstraintsToXpath();
+
     }
 
     public Map<String, List<Constraint>> getGroupedConstraints() {
@@ -63,5 +65,25 @@ public class ConstraintManager {
             groupedConstraints.put(xPath, constraintGroup);
         }
     }
+
+//    private Map<String, List<Constraint>> checkConstraints(Map<String, List<Constraint>> groupedConstraints) {
+//        Map<String, List<Constraint>> checkGroupedConstraints = new HashMap<String, List<Constraint>>();
+//        checkGroupedConstraints.putAll(groupedConstraints);
+//
+//
+//        for (String xPath : groupedConstraints.keySet()) {
+//            for (String path : checkGroupedConstraints.keySet()) {
+//                if(xPath.contains("RepairOrderService") ){
+//
+//
+//
+//                }
+//
+//            }
+//        }
+//
+//        return checkGroupedConstraints;
+//
+//    }
 
 }

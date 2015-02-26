@@ -1,7 +1,6 @@
 package com.aimprosoft.camed.compiler.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -10,8 +9,7 @@ import java.util.Stack;
 
 public class Parser {
 
-
-    static Logger logger = LoggerFactory.getLogger(Parser.class);
+    static Logger logger = Logger.getLogger(Parser.class);
 
     private Expression expr;
     private boolean VariableExists = false;

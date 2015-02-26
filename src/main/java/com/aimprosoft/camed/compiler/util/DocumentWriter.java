@@ -2,19 +2,19 @@ package com.aimprosoft.camed.compiler.util;
 
 
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.CAMXMLOutputEngine;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.io.*;
 
 public class DocumentWriter {
 
-    static Logger logger = LoggerFactory.getLogger(DocumentWriter.class);
+    static Logger logger = Logger.getLogger(DocumentWriter.class);
 
     static String ENCODING = "UTF-8";
 

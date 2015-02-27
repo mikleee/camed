@@ -2,14 +2,16 @@ package com.aimprosoft.camed.compiler.constants;
 
 import org.jdom.Namespace;
 
-public class CAMConstants {
+public interface CAMConstants {
 
-    public static final String CAM_NAMESPACE_PREFIX = "as";
-    public static final String CAM_NAMESPACE_URI = "http://www.oasis-open.org/committees/cam";
+    String CAM_NAMESPACE_PREFIX = "as";
+    String CAM_NAMESPACE_URI = "http://www.oasis-open.org/committees/cam";
 
-    public static final Namespace CAM_NAMESPACE = Namespace.getNamespace(CAM_NAMESPACE_PREFIX, CAM_NAMESPACE_URI);
+    Namespace CAM_NAMESPACE = Namespace.getNamespace(CAM_NAMESPACE_PREFIX, CAM_NAMESPACE_URI);
+    Namespace XML_NAMESPACE = Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace");
 
-    public static final String QUOTE = "\"";
-    public static final String ELEMENT = "as:Element";
-    public static final String ATTRIBUTE = "as:Attribute";
+    String QUOTE = "\"";
+    String ELEMENT = "as:Element";
+    String ATTRIBUTE = "as:Attribute";
+    String XMLNS = "xmlns:";
 }

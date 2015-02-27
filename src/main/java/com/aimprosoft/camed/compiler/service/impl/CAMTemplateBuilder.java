@@ -80,6 +80,7 @@ public class CAMTemplateBuilder implements ElementBuilder {
 
     private Set<Namespace> retrieveNamespaces() {
         Set<Namespace> result = new HashSet<Namespace>();
+        result.add(CAMConstants.XML_NAMESPACE);
         Element root = template.getTemplateDocument().getRootElement();
         populateNamespaceList(root, result);
         return result;
@@ -92,13 +93,16 @@ public class CAMTemplateBuilder implements ElementBuilder {
             result.add(namespace);
         }
 
-        List children = element.getChildren();
-
-        if (!children.isEmpty()) {
-            for (Element child : (List<Element>) children) {
-                populateNamespaceList(child, result);
-            }
+        //noinspection unchecked
+        for (Namespace additionalNamespace : (List<Namespace>) element.getAdditionalNamespaces()) {
+            result.add(additionalNamespace);
         }
+
+        //noinspection unchecked
+        for (Element child : (List<Element>) element.getChildren()) {
+            populateNamespaceList(child, result);
+        }
+
     }
 
 }

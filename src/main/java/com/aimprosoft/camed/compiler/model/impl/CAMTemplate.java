@@ -1,7 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
@@ -13,6 +12,8 @@ import org.jdom.Namespace;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+
+import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 public class CAMTemplate implements Compilable {
 
@@ -116,16 +117,16 @@ public class CAMTemplate implements Compilable {
         builder.append("<as:CAM ");
 
         for (Namespace ns : namespaces.getNamespacesMap().values()) {
-            builder.append(" xmlns:").append(ns.getPrefix()).append("=" + CAMConstants.QUOTE).append(ns.getURI()).append(CAMConstants.QUOTE + " ");
+            builder.append(" xmlns:").append(ns.getPrefix()).append("=" + QUOTE).append(ns.getURI()).append(QUOTE + " ");
         }
 
         builder
-                .append(" compiled=" + CAMConstants.QUOTE + "true" + CAMConstants.QUOTE)
-                .append(" CAMlevel=" + CAMConstants.QUOTE).append(camLevel).append(CAMConstants.QUOTE + " ")
-                .append(" version=" + CAMConstants.QUOTE).append(version).append(CAMConstants.QUOTE).append(">\n");
+                .append(" compiled=" + QUOTE + "true" + QUOTE)
+                .append(" CAMlevel=" + QUOTE).append(camLevel).append(QUOTE + " ")
+                .append(" version=" + QUOTE).append(version).append(QUOTE).append(">\n");
 
         builder
-                .append(header == null ? "" : header.compile()) //todo optional
+                .append(header == null ? "" : header.compile())
                 .append(namespaces.compile());
 
 //        parametersToCXF(writer) todo;

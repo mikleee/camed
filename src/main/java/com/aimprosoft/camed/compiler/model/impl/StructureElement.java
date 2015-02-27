@@ -2,13 +2,14 @@ package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.service.StructureConstraintBridge;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
 import java.util.List;
+
+import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 
 public class StructureElement implements Compilable {
@@ -37,7 +38,7 @@ public class StructureElement implements Compilable {
 
     private StringBuilder compile(StringBuilder builder, StructureElement structureElement) throws CAMCompilerException {
         builder
-                .append("<" + CAMConstants.ELEMENT + " ")
+                .append("<as:Element ")
                 .append(populateElement(structureElement));
 
         if (structureElement.isEmpty()) {
@@ -48,7 +49,7 @@ public class StructureElement implements Compilable {
                     .append(populateAttributes(structureElement));
 
             builder = populateChildren(structureElement, builder)
-                    .append("</" + CAMConstants.ELEMENT + ">\n");
+                    .append("</as:Element>\n");
         }
 
         return builder;
@@ -59,7 +60,7 @@ public class StructureElement implements Compilable {
         String compiledConstraints = compileConstraints(constraints);
 
         return new StringBuilder()
-                .append("name=" + CAMConstants.QUOTE).append(structureElement.getElement().getQualifiedName()).append(CAMConstants.QUOTE)
+                .append("name=" + QUOTE).append(structureElement.getElement().getQualifiedName()).append(QUOTE)
                 .append(compiledConstraints);
     }
 
@@ -70,8 +71,8 @@ public class StructureElement implements Compilable {
             List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(attribute, template);
             String compiledConstraints = compileConstraints(constraints);
 
-            builder.append("<" + CAMConstants.ATTRIBUTE + " ")
-                    .append("name=" + CAMConstants.QUOTE).append(attribute.getQualifiedName()).append(CAMConstants.QUOTE)
+            builder.append("<as:Attribute ")
+                    .append("name=" + QUOTE).append(attribute.getQualifiedName()).append(QUOTE)
                     .append(compiledConstraints)
                     .append("/>\n");
         }
@@ -89,7 +90,7 @@ public class StructureElement implements Compilable {
 
     private String compileConstraints(List<Constraint> constraints) throws CAMCompilerException {
         if (constraints == null || constraints.isEmpty()) {
-            return " " + ActionType.makeMandatory + "=" + CAMConstants.QUOTE + "true" + CAMConstants.QUOTE + " "; //todo
+            return " " + ActionType.makeMandatory + "=" + QUOTE + "true" + QUOTE + " "; //todo
         }
 
         StringBuilder builder = new StringBuilder();

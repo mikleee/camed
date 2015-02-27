@@ -1,7 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -9,13 +8,15 @@ import org.jdom.Element;
 
 import java.util.List;
 
+import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
+
 
 public class Structure implements Compilable {
 
     private String id = "";
     private String reference = "";
     private String taxonomy = TaxonomyType.XML.toString();
-    private String taxonomyOther = "";
+    private String taxonomyOther = ""; //todo
     private Element structure;
     private CAMTemplate template;
 
@@ -23,44 +24,34 @@ public class Structure implements Compilable {
         structure = element;
     }
 
-    public Structure(Element structure, TaxonomyType taxonomy, String taxonomyOther) {
-        setStructure(structure);
-//        setTaxonomy(taxonomy);
-        if (taxonomy == TaxonomyType.OTHER) //todo
-            setTaxonomyOther(taxonomyOther);
-
-    }
-
     @Override
     public String compile() throws CAMCompilerException {
-        StringBuilder builder = new StringBuilder("<as:Structure ");
+        StringBuilder builder = compileHead();
 
-        if (id != null) {
-            builder.append(" ID=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(id)).append(CAMConstants.QUOTE + " ");
-        }
-        if (reference != null) {
-            builder.append(" reference=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(reference)).append(CAMConstants.QUOTE + " ");
-        }
-        if (taxonomy != null) {
-            builder.append(" taxonomy=" + CAMConstants.QUOTE).append(StringEscapeUtils.escapeXml(taxonomy)).append(CAMConstants.QUOTE + " ");
-        }
-        builder.append(">\n");
-
-        //todo
-//            if (template != null && template.getParameters().size() > 0) {
-//                out.write("<" + "as:parameters" + ">\n");
-//                for (Parameter param : template.getParameters()) {
-//                    param.toCXF(out);
-//                }
-//                out.write("</" + "as:parameters" + ">\n");
-//            }
-
+        //noinspection unchecked
         for (Element structureContent : (List<Element>) structure.getChildren()) {
             compile(builder, structureContent);
         }
 
         builder.append("</as:Structure>\n");
         return builder.toString();
+    }
+
+    private StringBuilder compileHead() {
+        StringBuilder builder = new StringBuilder("<as:Structure ");
+
+        if (id != null) {
+            builder.append(" ID=" + QUOTE).append(StringEscapeUtils.escapeXml(id)).append(QUOTE + " ");
+        }
+        if (reference != null) {
+            builder.append(" reference=" + QUOTE).append(StringEscapeUtils.escapeXml(reference)).append(QUOTE + " ");
+        }
+        if (taxonomy != null) {
+            builder.append(" taxonomy=" + QUOTE).append(StringEscapeUtils.escapeXml(taxonomy)).append(QUOTE + " "); //todo
+        }
+
+        builder.append(">\n");
+        return builder;
     }
 
     private StringBuilder compile(StringBuilder builder, Element element) throws CAMCompilerException {
@@ -70,9 +61,6 @@ public class Structure implements Compilable {
         return builder;
     }
 
-    public String getID() {
-        return id;
-    }
 
     public void setID(String id) {
         this.id = id;
@@ -88,10 +76,6 @@ public class Structure implements Compilable {
         return structure;
     }
 
-    public void setStructure(Element structure) {
-        this.structure = structure;
-    }
-
     public void setTemplate(CAMTemplate template) {
         this.template = template;
     }
@@ -99,10 +83,6 @@ public class Structure implements Compilable {
     public void setTaxonomy(String taxonomy) {
         this.taxonomy = taxonomy;
 //        structure.setAttribute("taxonomy", taxonomy);
-    }
-
-    public String getTaxonomyOther() {
-        return taxonomyOther;
     }
 
     public void setTaxonomyOther(String taxonomyOther) {

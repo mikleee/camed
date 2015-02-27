@@ -1,6 +1,5 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.jdom.Namespace;
 

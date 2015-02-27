@@ -11,7 +11,5 @@ public interface CAMConstants {
     Namespace XML_NAMESPACE = Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace");
 
     String QUOTE = "\"";
-    String ELEMENT = "as:Element";
-    String ATTRIBUTE = "as:Attribute";
-    String XMLNS = "xmlns:";
+
 }

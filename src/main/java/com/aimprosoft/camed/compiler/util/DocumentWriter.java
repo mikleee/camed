@@ -9,7 +9,6 @@ import org.jdom.output.CAMXMLOutputEngine;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-
 import java.io.*;
 
 public class DocumentWriter {

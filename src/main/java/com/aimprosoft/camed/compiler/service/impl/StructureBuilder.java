@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.compiler.service.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Structure;
@@ -26,13 +27,12 @@ public class StructureBuilder implements ElementBuilder {
     private Element element;
     private CAMTemplate template;
 
-    public StructureBuilder(Element element) {
-        this.element = element;
-    }
 
-    public StructureBuilder(Element element, CAMTemplate template) {
-        this.element = element;
+    public StructureBuilder(CAMTemplate template) {
         this.template = template;
+        this.element = template.getTemplateDocument().getRootElement()
+                .getChild("AssemblyStructure", CAMConstants.CAM_NAMESPACE)
+                .getChild("Structure", CAMConstants.CAM_NAMESPACE);
     }
 
     @Override

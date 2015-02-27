@@ -3,15 +3,8 @@ package com.aimprosoft.camed.compiler.model.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.service.ConstraintManager;
-import com.aimprosoft.camed.compiler.util.CommonUtils;
-import com.aimprosoft.camed.compiler.util.DocumentFactory;
 import org.jdom.Document;
-import org.jdom.Element;
 import org.jdom.Namespace;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 
 import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
@@ -26,9 +19,6 @@ public class CAMTemplate implements Compilable {
 
     private Document templateDocument;
 
-    private String tempFilesDirPath;
-    private String templatePath;
-
     private ConstraintManager constraintManager;
 
     public Document getTemplateDocument() {
@@ -37,48 +27,6 @@ public class CAMTemplate implements Compilable {
 
     public CAMTemplate(Document doc) {
         this.templateDocument = doc;
-    }
-
-    public void writeToCXF(String fileName) {
-        OutputStreamWriter writer = null;
-        try {
-            File file = CommonUtils.findFile(fileName);
-            writer = new OutputStreamWriter(new FileOutputStream(file));
-
-            writer.write(this.compile());
-
-        } catch (Exception e) {
-            e.printStackTrace(); //todo
-        } finally {
-            CommonUtils.closeQuietly(writer);
-        }
-    }
-
-    public Element toDoc() throws Exception {
-
-        String fileName = CommonUtils.generateTempFileName(tempFilesDirPath);
-
-        writeToCXF(fileName);
-
-        DocumentFactory df = new DocumentFactory(this);
-        Document results = df.createDocument(fileName);
-
-        Element elem = results.getRootElement();
-        elem.detach();
-
-        return elem;
-    }
-
-    public void setTempFilesDirPath(String tempFilesDirPath) {
-        this.tempFilesDirPath = tempFilesDirPath;
-    }
-
-    public String getTemplatePath() {
-        return templatePath;
-    }
-
-    public void setTemplatePath(String templatePath) {
-        this.templatePath = templatePath;
     }
 
     public void setHeader(Header header) {

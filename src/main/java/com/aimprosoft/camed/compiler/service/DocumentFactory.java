@@ -1,4 +1,4 @@
-package com.aimprosoft.camed.compiler.util;
+package com.aimprosoft.camed.compiler.service;
 
 
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
@@ -10,10 +10,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.DOMBuilder;
 import org.jdom.input.SAXBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 
 public class DocumentFactory {
@@ -27,18 +24,18 @@ public class DocumentFactory {
 
     private CAMTemplate template;
 
-    public Document createDocument(String fileNameString) throws JDOMException, IOException {
+    public static Document createDocument(File file) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         builder.setValidation(false);
         builder.setIgnoringElementContentWhitespace(true);
-        return (builder.build(new File(findFile(template.getTemplatePath(), fileNameString))));
+        return builder.build(file);
     }
 
-    public Document createDocument(File file) throws JDOMException, IOException {
+    public static Document createDocument(String string) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         builder.setValidation(false);
         builder.setIgnoringElementContentWhitespace(true);
-        return (builder.build(file));
+        return builder.build(new StringReader(string));
     }
 
     public Document createDocument(InputStream inputStream) throws JDOMException, IOException {
@@ -76,17 +73,6 @@ public class DocumentFactory {
         } else {
             throw new FileNotFoundException("Filename of file not found = " + filename);
         }
-    }
-
-    public Document includeDocument(String fileNameString) throws JDOMException, IOException {
-        SAXBuilder builder = new SAXBuilder();
-        builder.setValidation(false);
-        builder.setIgnoringElementContentWhitespace(true);
-        //builder.setXMLFilter(new CamFilter());
-        Document temp = builder.build(new File(findFile(template.getTemplatePath(), fileNameString)));
-        Element e = temp.getRootElement();
-        stripContent(e);
-        return temp;
     }
 
     public Document includeDocument(URL fileNameURL) throws JDOMException, IOException {

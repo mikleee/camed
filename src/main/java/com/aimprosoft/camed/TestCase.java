@@ -1,9 +1,9 @@
 package com.aimprosoft.camed;
 
-import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.Constraint;
+import com.aimprosoft.camed.compiler.service.DocumentFactory;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
-import com.aimprosoft.camed.compiler.util.DocumentFactory;
 import org.jdom.Document;
 
 import java.io.*;

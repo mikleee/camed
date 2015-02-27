@@ -1,5 +1,6 @@
 package org.jdom.output;
 
+import com.aimprosoft.camed.compiler.util.NamespaceComparator;
 import org.apache.log4j.Logger;
 import org.jdom.*;
 

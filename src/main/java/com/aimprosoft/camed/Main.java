@@ -16,7 +16,8 @@ public class Main {
         long start = System.currentTimeMillis();
 
         {
-            new CAMCompiler(input).compileToFile(output);
+            CAMCompiler camCompiler = new CAMCompiler(input);
+            camCompiler.compileAndSave();
             TestCase.test(input, output);
         }
 

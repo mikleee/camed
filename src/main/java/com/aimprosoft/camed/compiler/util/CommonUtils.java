@@ -1,5 +1,7 @@
 package com.aimprosoft.camed.compiler.util;
 
+import java.io.File;
+
 /**
  * @author mtkachenko.
  */
@@ -23,6 +25,13 @@ public class CommonUtils {
 
     public static boolean isNotEmpty(String s) {
         return !isEmpty(s);
+    }
+
+    public static File changeFileExtension(File file, String newExtension) {
+        String path = file.getAbsolutePath();
+        int extIndex = path.lastIndexOf('.');
+        path = path.substring(0, extIndex + 1) + newExtension;
+        return new File(path);
     }
 
 }

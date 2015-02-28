@@ -1,12 +1,15 @@
-package org.jdom.output;
+package com.aimprosoft.camed.compiler.service;
 
-import com.aimprosoft.camed.compiler.util.NamespaceComparator;
 import org.apache.log4j.Logger;
 import org.jdom.*;
+import org.jdom.output.EscapeStrategy;
+import org.jdom.output.Format;
 
 import javax.xml.transform.Result;
 import java.io.*;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 import java.util.TreeSet;
 
 
@@ -17,72 +20,35 @@ public class CAMXMLOutputEngine implements Cloneable {
 
     // For normal output
     private Format userFormat = Format.getRawFormat();
-
     // For xml:space="preserve"
     protected static final Format preserveFormat = Format.getRawFormat();
-
     // What's currently in use
     protected Format currentFormat = userFormat;
-
-    /**
-     * Whether output escaping is enabled for the being processed
-     * Element - default is <code>true</code>
-     */
+    //Whether output escaping is enabled for the being processed
+    //Element - default is true
     private boolean escapeOutput = true;
 
-    // * * * * * * * * * * Constructors * * * * * * * * * *
-    // * * * * * * * * * * Constructors * * * * * * * * * *
 
-    /**
-     * This will create an <code>XMLOutputter</code> with the default
-     * {@link org.jdom.output.Format} matching {@link org.jdom.output.Format#getRawFormat}.
-     */
     public CAMXMLOutputEngine() {
     }
 
-    /**
-     * This will create an <code>XMLOutputter</code> with the specified
-     * format characteristics.  Note the format object is cloned internally
-     * before use.
-     */
     public CAMXMLOutputEngine(Format format) {
-        userFormat = (Format) format.clone();
+        userFormat = format;
         currentFormat = userFormat;
     }
 
-    /**
-     * This will create an <code>XMLOutputter</code> with all the
-     * options as set in the given <code>XMLOutputter</code>.  Note
-     * that <code>XMLOutputter two = (XMLOutputter)one.clone();</code>
-     * would work equally well.
-     *
-     * @param that the XMLOutputter to clone
-     */
     public CAMXMLOutputEngine(CAMXMLOutputEngine that) {
-        this.userFormat = (Format) that.userFormat.clone();
+        this.userFormat = that.userFormat;
         currentFormat = userFormat;
     }
 
-    // * * * * * * * * * * Set parameters methods * * * * * * * * * *
-    // * * * * * * * * * * Set parameters methods * * * * * * * * * *
-
-    /**
-     * Sets the new format logic for the outputter.  Note the Format
-     * object is cloned internally before use.
-     *
-     * @param newFormat the format to use for output
-     */
     public void setFormat(Format newFormat) {
-        this.userFormat = (Format) newFormat.clone();
+        this.userFormat = newFormat;
         this.currentFormat = userFormat;
     }
 
-    /**
-     * Returns the current format in use by the outputter.  Note the
-     * Format object returned is a clone of the one used internally.
-     */
     public Format getFormat() {
-        return (Format) userFormat.clone();
+        return userFormat;
     }
 
     // * * * * * * * * * * Output to a OutputStream * * * * * * * * * *
@@ -97,8 +63,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param out <code>OutputStream</code> to use.
      * @throws java.io.IOException - if there's any problem writing.
      */
-    public void output(Document doc, OutputStream out)
-            throws IOException {
+    public void output(Document doc, OutputStream out) throws IOException {
         Writer writer = makeWriter(out);
         output(doc, writer);  // output() flushes
     }
@@ -219,16 +184,14 @@ public class CAMXMLOutputEngine implements Cloneable {
      * Get an OutputStreamWriter, using prefered encoding
      * (see {@link org.jdom.output.Format#setEncoding}).
      */
-    private Writer makeWriter(OutputStream out)
-            throws java.io.UnsupportedEncodingException {
-        return makeWriter(out, userFormat.encoding);
+    private Writer makeWriter(OutputStream out) throws UnsupportedEncodingException {
+        return makeWriter(out, userFormat.getEncoding());
     }
 
     /**
      * Get an OutputStreamWriter, use specified encoding.
      */
-    private static Writer makeWriter(OutputStream out, String enc)
-            throws java.io.UnsupportedEncodingException {
+    private static Writer makeWriter(OutputStream out, String enc) throws UnsupportedEncodingException {
         // "UTF-8" is not recognized before JDK 1.1.6, so we'll translate
         // into "UTF8" which works with all JDKs.
         if ("UTF-8".equals(enc)) {
@@ -261,7 +224,7 @@ public class CAMXMLOutputEngine implements Cloneable {
     @SuppressWarnings("StatementWithEmptyBody")
     public void output(Document doc, Writer out) throws IOException {
 
-        printDeclaration(out, doc, userFormat.encoding);
+        printDeclaration(out, doc, userFormat.getEncoding());
 
         // Print out root element, as well as any root level
         // comments and processing instructions,
@@ -271,8 +234,7 @@ public class CAMXMLOutputEngine implements Cloneable {
 
         for (Object obj : content) {
             if (obj instanceof Element) {
-                printElement(out, doc.getRootElement(), 0,
-                        createNamespaceStack());
+                printElement(out, doc.getRootElement(), 0, createNamespaceStack());
             } else if (obj instanceof Comment) {
                 printComment(out, (Comment) obj);
             } else if (obj instanceof ProcessingInstruction) {
@@ -281,7 +243,7 @@ public class CAMXMLOutputEngine implements Cloneable {
                 printDocType(out, doc.getDocType());
                 // Always print line separator after declaration, helps the
                 // output look better and is semantically inconsequential
-                out.write(currentFormat.lineSeparator);
+                out.write(currentFormat.getLineSeparator());
             } else {
                 // XXX if we get here then we have a illegal content, for
                 //     now we'll just ignore it
@@ -293,7 +255,7 @@ public class CAMXMLOutputEngine implements Cloneable {
 
         // Output final line separator
         // We output this no matter what the newline flags say
-        out.write(currentFormat.lineSeparator);
+        out.write(currentFormat.getLineSeparator());
 
         out.flush();
     }
@@ -334,8 +296,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param element <code>Element</code> to output.
      * @param out     <code>Writer</code> to use.
      */
-    public void outputElementContent(Element element, Writer out)
-            throws IOException {
+    public void outputElementContent(Element element, Writer out) throws IOException {
         List<?> content = element.getContent();
         printContentRange(out, content, 0, content.size(),
                 0, createNamespaceStack());
@@ -351,8 +312,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param list <code>List</code> of nodes.
      * @param out  <code>Writer</code> to use.
      */
-    public void output(List<Object> list, Writer out)
-            throws IOException {
+    public void output(List<Object> list, Writer out) throws IOException {
         printContentRange(out, list, 0, list.size(),
                 0, createNamespaceStack());
         out.flush();
@@ -398,9 +358,8 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param pi  <code>ProcessingInstruction</code> to output.
      * @param out <code>Writer</code> to use.
      */
-    public void output(ProcessingInstruction pi, Writer out)
-            throws IOException {
-        boolean currentEscapingPolicy = currentFormat.ignoreTrAXEscapingPIs;
+    public void output(ProcessingInstruction pi, Writer out) throws IOException {
+        boolean currentEscapingPolicy = currentFormat.getIgnoreTrAXEscapingPIs();
 
         // Output PI verbatim, disregarding TrAX escaping PIs.
         currentFormat.setIgnoreTrAXEscapingPIs(true);
@@ -588,14 +547,13 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param out      <code>Writer</code> to use.
      * @param encoding The encoding to add to the declaration
      */
-    protected void printDeclaration(Writer out, Document doc,
-                                    String encoding) throws IOException {
+    protected void printDeclaration(Writer out, Document doc, String encoding) throws IOException {
 
         // Only print the declaration if it's not being omitted
-        if (!userFormat.omitDeclaration) {
+        if (!userFormat.getOmitDeclaration()) {
             // Assume 1.0 version
             out.write("<?xml version=\"1.0\"");
-            if (!userFormat.omitEncoding) {
+            if (!userFormat.getOmitEncoding()) {
                 out.write(" encoding=\"" + encoding + "\"");
             }
             out.write("?>");
@@ -603,7 +561,7 @@ public class CAMXMLOutputEngine implements Cloneable {
             // Print new line after decl always, even if no other new lines
             // Helps the output look better and is semantically
             // inconsequential
-            out.write(currentFormat.lineSeparator);
+            out.write(currentFormat.getLineSeparator());
         }
     }
 
@@ -613,8 +571,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param docType <code>Document</code> whose declaration to write.
      * @param out     <code>Writer</code> to use.
      */
-    protected void printDocType(Writer out, DocType docType)
-            throws IOException {
+    protected void printDocType(Writer out, DocType docType) throws IOException {
 
         String publicID = docType.getPublicID();
         String systemID = docType.getSystemID();
@@ -639,7 +596,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
         if ((internalSubset != null) && (!internalSubset.equals(""))) {
             out.write(" [");
-            out.write(currentFormat.lineSeparator);
+            out.write(currentFormat.getLineSeparator());
             out.write(docType.getInternalSubset());
             out.write("]");
         }
@@ -652,8 +609,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param comment <code>Comment</code> to write.
      * @param out     <code>Writer</code> to use.
      */
-    protected void printComment(Writer out, Comment comment)
-            throws IOException {
+    protected void printComment(Writer out, Comment comment) throws IOException {
         out.write("<!--");
         out.write(comment.getText());
         out.write("-->");
@@ -665,12 +621,11 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param pi  <code>ProcessingInstruction</code> to write.
      * @param out <code>Writer</code> to use.
      */
-    protected void printProcessingInstruction(Writer out, ProcessingInstruction pi
-    ) throws IOException {
+    protected void printProcessingInstruction(Writer out, ProcessingInstruction pi) throws IOException {
         String target = pi.getTarget();
         boolean piProcessed = false;
 
-        if (!currentFormat.ignoreTrAXEscapingPIs) {
+        if (!currentFormat.getIgnoreTrAXEscapingPIs()) {
             if (target.equals(Result.PI_DISABLE_OUTPUT_ESCAPING)) {
                 escapeOutput = false;
                 piProcessed = true;
@@ -706,8 +661,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param entity <code>EntityRef</code> to output.
      * @param out    <code>Writer</code> to use.
      */
-    protected void printEntityRef(Writer out, EntityRef entity)
-            throws IOException {
+    protected void printEntityRef(Writer out, EntityRef entity) throws IOException {
         out.write("&");
         out.write(entity.getName());
         out.write(";");
@@ -720,9 +674,9 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param out   <code>Writer</code> to use.
      */
     protected void printCDATA(Writer out, CDATA cdata) throws IOException {
-        String str = (currentFormat.mode == Format.TextMode.NORMALIZE)
+        String str = (currentFormat.getTextMode() == Format.TextMode.NORMALIZE)
                 ? cdata.getTextNormalize()
-                : ((currentFormat.mode == Format.TextMode.TRIM) ?
+                : ((currentFormat.getTextMode() == Format.TextMode.TRIM) ?
                 cdata.getText().trim() : cdata.getText());
         out.write("<![CDATA[");
         out.write(str);
@@ -736,9 +690,9 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param out  <code>Writer</code> to use.
      */
     protected void printText(Writer out, Text text) throws IOException {
-        String str = (currentFormat.mode == Format.TextMode.NORMALIZE)
+        String str = (currentFormat.getTextMode() == Format.TextMode.NORMALIZE)
                 ? text.getTextNormalize()
-                : ((currentFormat.mode == Format.TextMode.TRIM) ?
+                : ((currentFormat.getTextMode() == Format.TextMode.TRIM) ?
                 text.getText().trim() : text.getText());
         out.write(escapeElementEntities(str));
     }
@@ -748,9 +702,9 @@ public class CAMXMLOutputEngine implements Cloneable {
      * trims interior whitespace, etc. if necessary.
      */
     private void printString(Writer out, String str) throws IOException {
-        if (currentFormat.mode == Format.TextMode.NORMALIZE) {
+        if (currentFormat.getTextMode() == Format.TextMode.NORMALIZE) {
             str = Text.normalizeString(str);
-        } else if (currentFormat.mode == Format.TextMode.TRIM) {
+        } else if (currentFormat.getTextMode() == Format.TextMode.TRIM) {
             str = str.trim();
         }
         out.write(escapeElementEntities(str));
@@ -812,7 +766,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         int size = content.size();
         if (start >= size) {
             // Case content is empty or all insignificant whitespace
-            if (currentFormat.expandEmptyElements) {
+            if (currentFormat.getExpandEmptyElements()) {
                 out.write("></");
                 printQualifiedName(out, element);
                 out.write(">");
@@ -865,10 +819,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param namespaces <code>List</code> stack of Namespaces in scope.
      */
     @SuppressWarnings("StatementWithEmptyBody")
-    private void printContentRange(Writer out, List<?> content,
-                                   int start, int end, int level,
-                                   NamespaceStack namespaces)
-            throws IOException {
+    private void printContentRange(Writer out, List<?> content, int start, int end, int level, NamespaceStack namespaces) throws IOException {
         boolean firstNode; // Flag for 1st node in content
         Object next;       // Node we're about to print
         int first, index;  // Indexes into the list of content
@@ -931,8 +882,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param end     index of last content node (exclusive).
      * @param out     <code>Writer</code> to use.
      */
-    private void printTextRange(Writer out, List<?> content, int start, int end
-    ) throws IOException {
+    private void printTextRange(Writer out, List<?> content, int start, int end) throws IOException {
         String previous; // Previous text printed
         Object node;     // Next node to print
         String next;     // Next text to print
@@ -969,8 +919,8 @@ public class CAMXMLOutputEngine implements Cloneable {
                 // Determine if we need to pad the output (padding is
                 // only need in trim or normalizing mode)
                 if (previous != null) { // Not 1st node
-                    if (currentFormat.mode == Format.TextMode.NORMALIZE ||
-                            currentFormat.mode == Format.TextMode.TRIM) {
+                    if (currentFormat.getTextMode() == Format.TextMode.NORMALIZE ||
+                            currentFormat.getTextMode() == Format.TextMode.TRIM) {
                         if ((endsWithWhite(previous)) ||
                                 (startsWithWhite(next))) {
                             out.write(" ");
@@ -999,9 +949,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param ns  <code>Namespace</code> to print definition of
      * @param out <code>Writer</code> to use.
      */
-    private void printNamespace(Writer out, Namespace ns,
-                                NamespaceStack namespaces)
-            throws IOException {
+    private void printNamespace(Writer out, Namespace ns, NamespaceStack namespaces) throws IOException {
         String prefix = ns.getPrefix();
         String uri = ns.getURI();
 
@@ -1027,9 +975,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param attributes <code>List</code> of Attribute objcts
      * @param out        <code>Writer</code> to use
      */
-    protected void printAttributes(Writer out, List<?> attributes, Element parent,
-                                   NamespaceStack namespaces)
-            throws IOException {
+    protected void printAttributes(Writer out, List<?> attributes, Element parent, NamespaceStack namespaces) throws IOException {
 
         // I do not yet handle the case where the same prefix maps to
         // two different URIs. For attributes on the same element
@@ -1068,9 +1014,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
     }
 
-    private void printAdditionalNamespaces(Writer out, Element element,
-                                           NamespaceStack namespaces)
-            throws IOException {
+    private void printAdditionalNamespaces(Writer out, Element element, NamespaceStack namespaces) throws IOException {
         List<?> list = element.getAdditionalNamespaces();
         if (list != null) {
 //            for (int i = 0; i < list.size(); i++) {
@@ -1098,8 +1042,8 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param out <code>Writer</code> to use
      */
     private void newline(Writer out) throws IOException {
-        if (currentFormat.indent != null) {
-            out.write(currentFormat.lineSeparator);
+        if (currentFormat.getIndent() != null) {
+            out.write(currentFormat.getLineSeparator());
         }
     }
 
@@ -1111,13 +1055,13 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param level current indent level (number of tabs)
      */
     private void indent(Writer out, int level) throws IOException {
-        if (currentFormat.indent == null ||
-                currentFormat.indent.equals("")) {
+        if (currentFormat.getIndent() == null ||
+                currentFormat.getIndent().equals("")) {
             return;
         }
 
         for (int i = 0; i < level; i++) {
-            out.write(currentFormat.indent);
+            out.write(currentFormat.getIndent());
         }
     }
 
@@ -1132,9 +1076,9 @@ public class CAMXMLOutputEngine implements Cloneable {
 
         int index = start;
         int size = content.size();
-        if (currentFormat.mode == Format.TextMode.TRIM_FULL_WHITE
-                || currentFormat.mode == Format.TextMode.NORMALIZE
-                || currentFormat.mode == Format.TextMode.TRIM) {
+        if (currentFormat.getTextMode() == Format.TextMode.TRIM_FULL_WHITE
+                || currentFormat.getTextMode() == Format.TextMode.NORMALIZE
+                || currentFormat.getTextMode() == Format.TextMode.TRIM) {
             while (index < size) {
                 if (!isAllWhitespace(content.get(index))) {
                     return index;
@@ -1156,9 +1100,9 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
 
         int index = start;
-        if (currentFormat.mode == Format.TextMode.TRIM_FULL_WHITE
-                || currentFormat.mode == Format.TextMode.NORMALIZE
-                || currentFormat.mode == Format.TextMode.TRIM) {
+        if (currentFormat.getTextMode() == Format.TextMode.TRIM_FULL_WHITE
+                || currentFormat.getTextMode() == Format.TextMode.NORMALIZE
+                || currentFormat.getTextMode() == Format.TextMode.TRIM) {
             while (index >= 0) {
                 if (!isAllWhitespace(content.get(index - 1)))
                     break;
@@ -1244,7 +1188,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         StringBuffer buffer;
         char ch;
         String entity;
-        EscapeStrategy strategy = currentFormat.escapeStrategy;
+        EscapeStrategy strategy = currentFormat.getEscapeStrategy();
 
         buffer = null;
         for (int i = 0; i < str.length(); i++) {
@@ -1325,7 +1269,7 @@ public class CAMXMLOutputEngine implements Cloneable {
         StringBuffer buffer;
         char ch;
         String entity;
-        EscapeStrategy strategy = currentFormat.escapeStrategy;
+        EscapeStrategy strategy = currentFormat.getEscapeStrategy();
 
         buffer = null;
         for (int i = 0; i < str.length(); i++) {
@@ -1344,7 +1288,7 @@ public class CAMXMLOutputEngine implements Cloneable {
                     entity = "&#xD;";
                     break;
                 case '\n':
-                    entity = currentFormat.lineSeparator;
+                    entity = currentFormat.getLineSeparator();
                     break;
                 default:
                     if (strategy.shouldEscape(ch)) {
@@ -1409,8 +1353,8 @@ public class CAMXMLOutputEngine implements Cloneable {
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < userFormat.lineSeparator.length(); i++) {
-            char ch = userFormat.lineSeparator.charAt(i);
+        for (int i = 0; i < userFormat.getLineSeparator().length(); i++) {
+            char ch = userFormat.getLineSeparator().charAt(i);
             switch (ch) {
                 case '\r':
                     buffer.append("\\r");
@@ -1430,36 +1374,19 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
 
         return (
-                "XMLOutputter[omitDeclaration = " + userFormat.omitDeclaration + ", " +
-                        "encoding = " + userFormat.encoding + ", " +
-                        "omitEncoding = " + userFormat.omitEncoding + ", " +
-                        "indent = '" + userFormat.indent + "'" + ", " +
-                        "expandEmptyElements = " + userFormat.expandEmptyElements + ", " +
+                "XMLOutputter[omitDeclaration = " + userFormat.getOmitDeclaration() + ", " +
+                        "encoding = " + userFormat.getEncoding() + ", " +
+                        "omitEncoding = " + userFormat.getOmitEncoding() + ", " +
+                        "indent = '" + userFormat.getIndent() + "'" + ", " +
+                        "expandEmptyElements = " + userFormat.getExpandEmptyElements() + ", " +
                         "lineSeparator = '" + buffer.toString() + "', " +
-                        "textMode = " + userFormat.mode + "]"
+                        "textMode = " + userFormat.getTextMode() + "]"
         );
     }
 
-    /**
-     * Factory for making new NamespaceStack objects.  The NamespaceStack
-     * created is actually an inner class extending the package protected
-     * NamespaceStack, as a way to make NamespaceStack "friendly" toward
-     * subclassers.
-     */
-    private NamespaceStack createNamespaceStack() {
-        // actually returns a XMLOutputter.NamespaceStack (see below)
-        return new NamespaceStack();
-    }
 
-    /**
-     * Our own null subclass of NamespaceStack.  This plays a little
-     * trick with Java access protection.  We want subclasses of
-     * XMLOutputter to be able to override protected methods that
-     * declare a NamespaceStack parameter, but we don't want to
-     * declare the parent NamespaceStack class as public.
-     */
-    protected class NamespaceStack
-            extends org.jdom.output.NamespaceStack {
+    private NamespaceStack createNamespaceStack() {
+        return new NamespaceStack();
     }
 
     // Support method to print a name without using elt.getQualifiedName()
@@ -1487,13 +1414,72 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
     }
 
-    // * * * * * * * * * * Deprecated methods * * * * * * * * * *
 
-    /* The methods below here are deprecations of protected methods.  We
-     * don't usually deprecate protected methods, so they're commented out.
-     * They're left here in case this mass deprecation causes people trouble.
-     * Since we're getting close to 1.0 it's actually better for people to
-     * raise issues early though.
-     */
+    private class NamespaceStack {
 
+        private static final String CVS_ID =
+                "@(#) $RCSfile: NamespaceStack.java,v $ $Revision: 1.13 $ $Date: 2004/02/06 09:28:32 $ $Name: jdom_1_0 $";
+
+        private Stack prefixes;
+        private Stack uris;
+
+        public NamespaceStack() {
+            prefixes = new Stack();
+            uris = new Stack();
+        }
+
+        @SuppressWarnings("unchecked")
+        public void push(Namespace ns) {
+            prefixes.push(ns.getPrefix());
+            uris.push(ns.getURI());
+        }
+
+        public String pop() {
+            String prefix = (String) prefixes.pop();
+            uris.pop();
+
+            return prefix;
+        }
+
+        public int size() {
+            return prefixes.size();
+        }
+
+        public String getURI(String prefix) {
+            int index = prefixes.lastIndexOf(prefix);
+            if (index == -1) {
+                return null;
+            }
+            return (String) uris.elementAt(index);
+        }
+
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            String separator = System.getProperty("line.separator");
+            builder
+                    .append("Stack: ")
+                    .append(prefixes.size())
+                    .append(separator);
+            for (int i = 0; i < prefixes.size(); i++) {
+                builder
+                        .append(prefixes.elementAt(i))
+                        .append("&")
+                        .append(uris.elementAt(i))
+                        .append(separator);
+            }
+            return builder.toString();
+        }
+
+    }
+
+    private class NamespaceComparator implements Comparator<Namespace>, Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public int compare(Namespace ns1, Namespace ns2) {
+            return ns1.getPrefix().compareToIgnoreCase(ns2.getPrefix());
+        }
+
+    }
 }

@@ -1,0 +1,54 @@
+<as:CAM xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+        xmlns:as="http://www.oasis-open.org/committees/cam"
+        xmlns:tns="https://globalordering.daimler.com/start/dms/interface/DMS_GO_DialogInterface/v1"
+        CAMlevel="1" version="1.0">
+    <as:Header>
+        <as:Description>Generated for CreatePortalSession by XSD 2 CAM generator v2.04</as:Description>
+        <as:Owner>To be Completed</as:Owner>
+        <as:Version>0.1</as:Version>
+        <as:DateTime>2014-10-30T10:52:57</as:DateTime>
+    </as:Header>
+    <as:AssemblyStructure>
+        <as:Structure taxonomy="XML" ID="CreatePortalSession" reference="">
+            <env:Envelope>
+                <env:Header/>
+                <env:Body>
+                    <tns:CreatePortalSession>
+                        <tns:MajorVersion>%string%</tns:MajorVersion>
+                        <tns:Language>%string%</tns:Language>
+                        <tns:UserId>%string%</tns:UserId>
+                    </tns:CreatePortalSession>
+                </env:Body>
+            </env:Envelope>
+        </as:Structure>
+    </as:AssemblyStructure>
+    <as:BusinessUseContext>
+        <as:Rules>
+            <as:default>
+                <as:context>
+
+                    <as:constraint action="makeNillable(//env:Body/tns:CreatePortalSession,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Body,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Header,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreatePortalSession/tns:Language,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreatePortalSession/tns:MajorVersion,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreatePortalSession/tns:UserId,xsd)"/>
+                    <as:constraint action="makeOptional(//env:Body/tns:CreatePortalSession)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Body)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Header)"/>
+                    <as:constraint action="makeOptional(//tns:CreatePortalSession/tns:Language)"/>
+                    <as:constraint action="makeOptional(//tns:CreatePortalSession/tns:MajorVersion)"/>
+                    <as:constraint action="makeOptional(//tns:CreatePortalSession/tns:UserId)"/>
+
+                    <as:constraint condition="not(./tns:MajorVersion[matches(.,'^[1-9][0-9]*$')])"
+                                   action="printMessage(//tns:CreatePortalSession,The MajorVersion element in the CreatePortalSession is required and should be a positive number.)"/>
+                    <as:constraint condition="not(./tns:Language[matches(.,'^(de)|(en)|(es)|(fr)|(it)|(pt)$')])"
+                                   action="printMessage(//tns:CreatePortalSession,The Language element in the CreatePortalSession is required and should have value from the enumerated list ('de', 'en', 'es', 'fr', 'it', 'pt').)"/>
+                    <as:constraint condition="not(./tns:UserId[matches(.,'^[0-9a-zA-Z]{1,8}$')])"
+                                   action="printMessage(//tns:CreatePortalSession,The UserId element in the CreatePortalSession is required and should have an AlphaNumeric value (length: [1-8]).)"/>
+
+                </as:context>
+            </as:default>
+        </as:Rules>
+    </as:BusinessUseContext>
+</as:CAM>

@@ -1,0 +1,64 @@
+<as:CAM xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+        xmlns:as="http://www.oasis-open.org/committees/cam"
+        xmlns:tns="https://globalordering.daimler.com/start/dms/interface/DMS_GO_DialogInterface/v1"
+        CAMlevel="1" version="1.0">
+    <as:Header>
+        <as:Description>Generated for CreateDialogSession by XSD 2 CAM generator v2.04</as:Description>
+        <as:Owner>To be Completed</as:Owner>
+        <as:Version>0.1</as:Version>
+        <as:DateTime>2014-10-30T11:17:42</as:DateTime>
+    </as:Header>
+    <as:AssemblyStructure>
+        <as:Structure taxonomy="XML" ID="CreateDialogSession" reference="">
+            <env:Envelope>
+                <env:Header/>
+                <env:Body>
+                    <tns:CreateDialogSession>
+                        <tns:MajorVersion>%string%</tns:MajorVersion>
+                        <tns:PortalSessionId>%string%</tns:PortalSessionId>
+                        <tns:BusinessTransactionId>%string%</tns:BusinessTransactionId>
+                        <tns:FunctionalData>
+                            <tns:MajorVersion>%string%</tns:MajorVersion>
+                        </tns:FunctionalData>
+                    </tns:CreateDialogSession>
+                </env:Body>
+            </env:Envelope>
+        </as:Structure>
+    </as:AssemblyStructure>
+    <as:BusinessUseContext>
+        <as:Rules>
+            <as:default>
+                <as:context>
+
+                    <as:constraint action="makeNillable(//env:Body/tns:CreateDialogSession,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Body,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Header,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreateDialogSession/tns:BusinessTransactionId,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreateDialogSession/tns:FunctionalData,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreateDialogSession/tns:MajorVersion,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:CreateDialogSession/tns:PortalSessionId,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:FunctionalData/tns:MajorVersion,xsd)"/>
+                    <as:constraint action="makeOptional(//env:Body/tns:CreateDialogSession)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Body)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Header)"/>
+                    <as:constraint action="makeOptional(//tns:CreateDialogSession/tns:BusinessTransactionId)"/>
+                    <as:constraint action="makeOptional(//tns:CreateDialogSession/tns:FunctionalData)"/>
+                    <as:constraint action="makeOptional(//tns:CreateDialogSession/tns:MajorVersion)"/>
+                    <as:constraint action="makeOptional(//tns:CreateDialogSession/tns:PortalSessionId)"/>
+                    <as:constraint action="makeOptional(//tns:FunctionalData/tns:MajorVersion)"/>
+
+                    <as:constraint condition="not(./tns:MajorVersion[matches(.,'^[1-9][0-9]*$')])"
+                                   action="printMessage(//tns:CreateDialogSession,The MajorVersion element in the CreateDialogSession is required and should be a positive number.)"/>
+                    <as:constraint condition="not(./tns:PortalSessionId[matches(.,'^[0-9a-zA-Z]{1,30}$')])"
+                                   action="printMessage(//tns:CreateDialogSession,The PortalSessionId element in the CreateDialogSession is required and should have an AlphaNumeric value (length: [1-30]).)"/>
+                    <as:constraint condition="not(./tns:BusinessTransactionId[matches(.,'^[0-9a-zA-Z]{1,30}$')])"
+                                   action="printMessage(//tns:CreateDialogSession,The BusinessTransactionId element in the CreateDialogSession is required and should have an AlphaNumeric value (length: [1-30]).)"/>
+                    <as:constraint condition="not(./tns:MajorVersion[matches(.,'^[1-9][0-9]*$')])"
+                                   action="printMessage(//tns:FunctionalData,The MajorVersion element in the FunctionalData is required and should be a positive number.)"/>
+
+
+                </as:context>
+            </as:default>
+        </as:Rules>
+    </as:BusinessUseContext>
+</as:CAM>

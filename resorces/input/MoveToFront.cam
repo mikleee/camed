@@ -1,0 +1,54 @@
+<as:CAM xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+        xmlns:as="http://www.oasis-open.org/committees/cam"
+        xmlns:tns="https://globalordering.daimler.com/start/dms/interface/DMS_GO_DialogInterface/v1"
+        CAMlevel="1" version="1.0">
+    <as:Header>
+        <as:Description>Generated for MoveToFront by XSD 2 CAM generator v2.04</as:Description>
+        <as:Owner>To be Completed</as:Owner>
+        <as:Version>0.1</as:Version>
+        <as:DateTime>2014-10-30T11:39:53</as:DateTime>
+    </as:Header>
+    <as:AssemblyStructure>
+        <as:Structure taxonomy="XML" ID="MoveToFront" reference="">
+            <env:Envelope>
+                <env:Header/>
+                <env:Body>
+                    <tns:MoveToFront>
+                        <tns:MajorVersion>%string%</tns:MajorVersion>
+                        <tns:PortalSessionId>%string%</tns:PortalSessionId>
+                        <tns:DialogSessionId>%string%</tns:DialogSessionId>
+                    </tns:MoveToFront>
+                </env:Body>
+            </env:Envelope>
+        </as:Structure>
+    </as:AssemblyStructure>
+    <as:BusinessUseContext>
+        <as:Rules>
+            <as:default>
+                <as:context>
+
+                    <as:constraint action="makeNillable(//env:Body/tns:MoveToFront,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Body,xsd)"/>
+                    <as:constraint action="makeNillable(//env:Envelope/env:Header,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:MoveToFront/tns:DialogSessionId,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:MoveToFront/tns:MajorVersion,xsd)"/>
+                    <as:constraint action="makeNillable(//tns:MoveToFront/tns:PortalSessionId,xsd)"/>
+                    <as:constraint action="makeOptional(//env:Body/tns:MoveToFront)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Body)"/>
+                    <as:constraint action="makeOptional(//env:Envelope/env:Header)"/>
+                    <as:constraint action="makeOptional(//tns:MoveToFront/tns:DialogSessionId)"/>
+                    <as:constraint action="makeOptional(//tns:MoveToFront/tns:MajorVersion)"/>
+                    <as:constraint action="makeOptional(//tns:MoveToFront/tns:PortalSessionId)"/>
+
+                    <as:constraint condition="not(./tns:MajorVersion[matches(.,'^[1-9][0-9]*$')])"
+                                   action="printMessage(//tns:MoveToFront,The MajorVersion element in the MoveToFront is required and should be a positive number.)"/>
+                    <as:constraint condition="not(./tns:DialogSessionId[matches(.,'^[0-9a-zA-Z]{1,30}$')])"
+                                   action="printMessage(//tns:MoveToFront,The DialogSessionId element in the MoveToFront is required and should have an AlphaNumeric value (length: [1-30]).)"/>
+                    <as:constraint condition="not(./tns:PortalSessionId[matches(.,'^[0-9a-zA-Z]{1,30}$')])"
+                                   action="printMessage(//tns:MoveToFront,The PortalSessionId element in the MoveToFront is required and should have an AlphaNumeric value (length: [1-30]).)"/>
+
+                </as:context>
+            </as:default>
+        </as:Rules>
+    </as:BusinessUseContext>
+</as:CAM>

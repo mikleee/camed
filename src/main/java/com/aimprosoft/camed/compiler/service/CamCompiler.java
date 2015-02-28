@@ -5,7 +5,6 @@ import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.jdom.Document;
 import org.jdom.JDOMException;
-import org.jdom.output.CAMXMLOutputEngine;
 import org.jdom.output.Format;
 
 import java.io.*;
@@ -15,11 +14,16 @@ public class CamCompiler {
 
     private final static String ENCODING = "UTF-8";
 
+    private CAMXMLOutputEngine outputEngine;
+
     private CAMTemplate inputTemplate;
     private Document outputTemplate;
+    private File inputFile;
 
 
     public CamCompiler(File inputFile) throws JDOMException, CAMCompilerException, IOException {
+        initOutputEngine();
+        this.inputFile = inputFile;
         inputTemplate = initInputTemplate(inputFile);
         outputTemplate = compile();
     }
@@ -39,13 +43,17 @@ public class CamCompiler {
         return DocumentFactory.createDocument(compiledTemplate);
     }
 
-    public void compileToFile(File outputFile) throws CAMCompilerException {
+    public void compileAndSave() throws CAMCompilerException {
+        File outputFile = CommonUtils.changeFileExtension(inputFile, "cxx");
+        compileAndSave(outputFile);
+    }
+
+    public void compileAndSave(File outputFile) throws CAMCompilerException {
         Writer writer = null;
 
         try {
             writer = new OutputStreamWriter(new FileOutputStream(outputFile), ENCODING);
-            CAMXMLOutputEngine camxmlOutputEngine = prepareCAMOutputEngine();
-            camxmlOutputEngine.output(outputTemplate.getRootElement(), writer);
+            outputEngine.output(outputTemplate.getRootElement(), writer);
         } catch (IOException e) {
             throw new CAMCompilerException("Cant write to " + outputFile.getAbsolutePath());
         } finally {
@@ -53,9 +61,9 @@ public class CamCompiler {
         }
     }
 
-    private CAMXMLOutputEngine prepareCAMOutputEngine() {
+    private void initOutputEngine() {
         Format format = createPrettyFormat();
-        return new CAMXMLOutputEngine(format);
+        this.outputEngine = new CAMXMLOutputEngine(format);
     }
 
     private Format createPrettyFormat() {

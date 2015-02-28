@@ -1,6 +1,6 @@
 package com.aimprosoft.camed;
 
-import com.aimprosoft.camed.compiler.service.CAMCompiler;
+import com.aimprosoft.camed.compiler.service.CamCompiler;
 
 import java.io.File;
 
@@ -17,7 +17,7 @@ public class Main {
         long start = System.currentTimeMillis();
 
         {
-            CAMCompiler camCompiler = new CAMCompiler(input);
+            CamCompiler camCompiler = new CamCompiler(input);
             camCompiler.compileAndSave(output);
 //            camCompiler.compileAndSave();
 //            TestCase.test(input, output);

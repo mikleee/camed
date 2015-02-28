@@ -15,11 +15,11 @@ import java.util.List;
 public class TestCase {
 
 
-    public static void test(String root, File input) throws Exception {
-        Document doc = new DocumentFactory().createDocument(input);
+    public static void test(File input, File compiled) throws Exception {
+        Document doc = DocumentFactory.createDocument(input);
         CAMTemplate result = ModelFactory.createCAMTemplate(doc);
 
-        String compiledTemplate = compilesTemplate(root, input);
+        String compiledTemplate = compilesTemplate(compiled);
 
         int i = 0;
         for (List<Constraint> group : result.getConstraintManager().getGroupedConstraints().values()) {
@@ -28,7 +28,7 @@ public class TestCase {
                 if (condition == null) {
                     continue;
                 }
-                condition = condition.replaceAll("'", "&apos;").replaceAll(">", "&gt;").replaceAll("<", "&lt;");
+                condition = condition.replaceAll(">", "&gt;").replaceAll("<", "&lt;");
                 if (!compiledTemplate.contains(condition)) {
                     System.out.println("Condition : " + condition + " was not added");
                     i++;
@@ -39,8 +39,7 @@ public class TestCase {
         System.out.println("total count " + i);
     }
 
-    private static String compilesTemplate(String root, File input) throws IOException {
-        File compiled = new File(root + "resorces\\output\\temp_cxf_output_.xml");
+    private static String compilesTemplate(File compiled) throws IOException {
         Reader reader = new BufferedReader(new FileReader(compiled));
 
         StringBuilder compiledString = new StringBuilder();

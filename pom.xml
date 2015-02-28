@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.aimprosoft.mtkachenko</groupId>
+    <groupId>com.aimprosoft</groupId>
     <artifactId>cam-compiler</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>cam-compiler</finalName>
+        <finalName>cam-compiler-1.0</finalName>
     </build>
 
 </project>

@@ -61,7 +61,7 @@ public class Parser {
         try {
             while (parser.nextToken() != StreamTokenizer.TT_EOF) {
                 if (parser.ttype == '(') {
-                    Character c = Character.valueOf((char) parser.ttype);
+                    Character c = (char) parser.ttype;
                     if (logger.isDebugEnabled())
                         logger.debug("openbracket(");
                     brackets++;
@@ -74,7 +74,7 @@ public class Parser {
                     if (logger.isDebugEnabled())
                         logger.debug("brackets:" + brackets + " round:" + roundBrackets);
                 } else if (parser.ttype == '[') {
-                    Character c = Character.valueOf((char) parser.ttype);
+                    Character c = (char) parser.ttype;
                     if (logger.isDebugEnabled())
                         logger.debug("openbracket[");
                     brackets++;
@@ -83,7 +83,7 @@ public class Parser {
                     if (logger.isDebugEnabled())
                         logger.debug("brackets:" + brackets + " square:" + squareBrackets);
                 } else if (parser.ttype == ')') {
-                    Character c = Character.valueOf((char) parser.ttype);
+                    Character c = (char) parser.ttype;
                     if (logger.isDebugEnabled())
                         logger.debug("closebracket)");
                     if (brackets == 0) {
@@ -101,7 +101,7 @@ public class Parser {
                     if (logger.isDebugEnabled())
                         logger.debug("brackets:" + brackets + " Round Brackets:" + roundBrackets);
                 } else if (parser.ttype == ']') {
-                    Character c = Character.valueOf((char) parser.ttype);
+                    Character c = (char) parser.ttype;
                     if (logger.isDebugEnabled())
                         logger.debug("closebracket]");
                     if (brackets == 0) {

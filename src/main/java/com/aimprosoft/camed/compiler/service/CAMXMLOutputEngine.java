@@ -1,22 +1,20 @@
 package com.aimprosoft.camed.compiler.service;
 
-import org.apache.log4j.Logger;
 import org.jdom.*;
 import org.jdom.output.EscapeStrategy;
 import org.jdom.output.Format;
 
 import javax.xml.transform.Result;
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 import java.util.TreeSet;
 
 
-@SuppressWarnings("UnusedDeclaration")
 public class CAMXMLOutputEngine implements Cloneable {
-
-    private final static Logger logger = Logger.getLogger(CAMXMLOutputEngine.class);
 
     // For normal output
     private Format userFormat = Format.getRawFormat();
@@ -28,248 +26,11 @@ public class CAMXMLOutputEngine implements Cloneable {
     //Element - default is true
     private boolean escapeOutput = true;
 
-
-    public CAMXMLOutputEngine() {
-    }
-
     public CAMXMLOutputEngine(Format format) {
         userFormat = format;
         currentFormat = userFormat;
     }
 
-    public CAMXMLOutputEngine(CAMXMLOutputEngine that) {
-        this.userFormat = that.userFormat;
-        currentFormat = userFormat;
-    }
-
-    public void setFormat(Format newFormat) {
-        this.userFormat = newFormat;
-        this.currentFormat = userFormat;
-    }
-
-    public Format getFormat() {
-        return userFormat;
-    }
-
-    // * * * * * * * * * * Output to a OutputStream * * * * * * * * * *
-    // * * * * * * * * * * Output to a OutputStream * * * * * * * * * *
-
-    /**
-     * This will print the <code>Document</code> to the given output stream.
-     * The characters are printed using the encoding specified in the
-     * constructor, or a default of UTF-8.
-     *
-     * @param doc <code>Document</code> to format.
-     * @param out <code>OutputStream</code> to use.
-     * @throws java.io.IOException - if there's any problem writing.
-     */
-    public void output(Document doc, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(doc, writer);  // output() flushes
-    }
-
-    /**
-     * Print out the <code>{@link org.jdom.DocType}</code>.
-     *
-     * @param doctype <code>DocType</code> to output.
-     * @param out     <code>OutputStream</code> to use.
-     */
-    public void output(DocType doctype, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(doctype, writer);  // output() flushes
-    }
-
-    /**
-     * Print out an <code>{@link org.jdom.Element}</code>, including
-     * its <code>{@link org.jdom.Attribute}</code>s, and all
-     * contained (child) elements, etc.
-     *
-     * @param element <code>Element</code> to output.
-     * @param out     <code>Writer</code> to use.
-     */
-    public void output(Element element, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(element, writer);  // output() flushes
-    }
-
-    /**
-     * This will handle printing out an <code>{@link
-     * org.jdom.Element}</code>'s content only, not including its tag, and
-     * attributes.  This can be useful for printing the content of an
-     * element that contains HTML, like "&lt;description&gt;JDOM is
-     * &lt;b&gt;fun&gt;!&lt;/description&gt;".
-     *
-     * @param element <code>Element</code> to output.
-     * @param out     <code>OutputStream</code> to use.
-     */
-    public void outputElementContent(Element element, OutputStream out)
-            throws IOException {
-        Writer writer = makeWriter(out);
-        outputElementContent(element, writer);  // output() flushes
-    }
-
-    /**
-     * This will handle printing out a list of nodes.
-     * This can be useful for printing the content of an element that
-     * contains HTML, like "&lt;description&gt;JDOM is
-     * &lt;b&gt;fun&gt;!&lt;/description&gt;".
-     *
-     * @param list <code>List</code> of nodes.
-     * @param out  <code>OutputStream</code> to use.
-     */
-    public void output(List<Object> list, OutputStream out)
-            throws IOException {
-        Writer writer = makeWriter(out);
-        output(list, writer);  // output() flushes
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.CDATA}</code> node.
-     *
-     * @param cdata <code>CDATA</code> to output.
-     * @param out   <code>OutputStream</code> to use.
-     */
-    public void output(CDATA cdata, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(cdata, writer);  // output() flushes
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.Text}</code> node.  Perfoms
-     * the necessary entity escaping and whitespace stripping.
-     *
-     * @param text <code>Text</code> to output.
-     * @param out  <code>OutputStream</code> to use.
-     */
-    public void output(Text text, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(text, writer);  // output() flushes
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.Comment}</code>.
-     *
-     * @param comment <code>Comment</code> to output.
-     * @param out     <code>OutputStream</code> to use.
-     */
-    public void output(Comment comment, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(comment, writer);  // output() flushes
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.ProcessingInstruction}</code>.
-     *
-     * @param pi  <code>ProcessingInstruction</code> to output.
-     * @param out <code>OutputStream</code> to use.
-     */
-    public void output(ProcessingInstruction pi, OutputStream out)
-            throws IOException {
-        Writer writer = makeWriter(out);
-        output(pi, writer);  // output() flushes
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.EntityRef}</code>.
-     *
-     * @param entity <code>EntityRef</code> to output.
-     * @param out    <code>OutputStream</code> to use.
-     */
-    public void output(EntityRef entity, OutputStream out) throws IOException {
-        Writer writer = makeWriter(out);
-        output(entity, writer);  // output() flushes
-    }
-
-    /**
-     * Get an OutputStreamWriter, using prefered encoding
-     * (see {@link org.jdom.output.Format#setEncoding}).
-     */
-    private Writer makeWriter(OutputStream out) throws UnsupportedEncodingException {
-        return makeWriter(out, userFormat.getEncoding());
-    }
-
-    /**
-     * Get an OutputStreamWriter, use specified encoding.
-     */
-    private static Writer makeWriter(OutputStream out, String enc) throws UnsupportedEncodingException {
-        // "UTF-8" is not recognized before JDK 1.1.6, so we'll translate
-        // into "UTF8" which works with all JDKs.
-        if ("UTF-8".equals(enc)) {
-            enc = "UTF-8";
-        }
-
-        return new BufferedWriter(
-                (new OutputStreamWriter(
-                        new BufferedOutputStream(out), enc))
-        );
-    }
-
-    // * * * * * * * * * * Output to a Writer * * * * * * * * * *
-    // * * * * * * * * * * Output to a Writer * * * * * * * * * *
-
-    /**
-     * This will print the <code>Document</code> to the given Writer.
-     * <p/>
-     * <p>
-     * Warning: using your own Writer may cause the outputter's
-     * preferred character encoding to be ignored.  If you use
-     * encodings other than UTF-8, we recommend using the method that
-     * takes an OutputStream instead.
-     * </p>
-     *
-     * @param doc <code>Document</code> to format.
-     * @param out <code>Writer</code> to use.
-     * @throws java.io.IOException - if there's any problem writing.
-     */
-    @SuppressWarnings("StatementWithEmptyBody")
-    public void output(Document doc, Writer out) throws IOException {
-
-        printDeclaration(out, doc, userFormat.getEncoding());
-
-        // Print out root element, as well as any root level
-        // comments and processing instructions,
-        // starting with no indentation
-        List<?> content = doc.getContent();
-        int size = content.size();
-
-        for (Object obj : content) {
-            if (obj instanceof Element) {
-                printElement(out, doc.getRootElement(), 0, createNamespaceStack());
-            } else if (obj instanceof Comment) {
-                printComment(out, (Comment) obj);
-            } else if (obj instanceof ProcessingInstruction) {
-                printProcessingInstruction(out, (ProcessingInstruction) obj);
-            } else if (obj instanceof DocType) {
-                printDocType(out, doc.getDocType());
-                // Always print line separator after declaration, helps the
-                // output look better and is semantically inconsequential
-                out.write(currentFormat.getLineSeparator());
-            } else {
-                // XXX if we get here then we have a illegal content, for
-                //     now we'll just ignore it
-            }
-
-            newline(out);
-            indent(out, 0);
-        }
-
-        // Output final line separator
-        // We output this no matter what the newline flags say
-        out.write(currentFormat.getLineSeparator());
-
-        out.flush();
-    }
-
-    /**
-     * Print out the <code>{@link org.jdom.DocType}</code>.
-     *
-     * @param doctype <code>DocType</code> to output.
-     * @param out     <code>Writer</code> to use.
-     */
-    public void output(DocType doctype, Writer out) throws IOException {
-        printDocType(out, doctype);
-        out.flush();
-    }
 
     /**
      * Print out an <code>{@link org.jdom.Element}</code>, including
@@ -284,323 +45,6 @@ public class CAMXMLOutputEngine implements Cloneable {
         // namespace stack with the namespaces
         printElement(out, element, 0, createNamespaceStack());
         out.flush();
-    }
-
-    /**
-     * This will handle printing out an <code>{@link
-     * org.jdom.Element}</code>'s content only, not including its tag, and
-     * attributes.  This can be useful for printing the content of an
-     * element that contains HTML, like "&lt;description&gt;JDOM is
-     * &lt;b&gt;fun&gt;!&lt;/description&gt;".
-     *
-     * @param element <code>Element</code> to output.
-     * @param out     <code>Writer</code> to use.
-     */
-    public void outputElementContent(Element element, Writer out) throws IOException {
-        List<?> content = element.getContent();
-        printContentRange(out, content, 0, content.size(),
-                0, createNamespaceStack());
-        out.flush();
-    }
-
-    /**
-     * This will handle printing out a list of nodes.
-     * This can be useful for printing the content of an element that
-     * contains HTML, like "&lt;description&gt;JDOM is
-     * &lt;b&gt;fun&gt;!&lt;/description&gt;".
-     *
-     * @param list <code>List</code> of nodes.
-     * @param out  <code>Writer</code> to use.
-     */
-    public void output(List<Object> list, Writer out) throws IOException {
-        printContentRange(out, list, 0, list.size(),
-                0, createNamespaceStack());
-        out.flush();
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.CDATA}</code> node.
-     *
-     * @param cdata <code>CDATA</code> to output.
-     * @param out   <code>Writer</code> to use.
-     */
-    public void output(CDATA cdata, Writer out) throws IOException {
-        printCDATA(out, cdata);
-        out.flush();
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.Text}</code> node.  Perfoms
-     * the necessary entity escaping and whitespace stripping.
-     *
-     * @param text <code>Text</code> to output.
-     * @param out  <code>Writer</code> to use.
-     */
-    public void output(Text text, Writer out) throws IOException {
-        printText(out, text);
-        out.flush();
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.Comment}</code>.
-     *
-     * @param comment <code>Comment</code> to output.
-     * @param out     <code>Writer</code> to use.
-     */
-    public void output(Comment comment, Writer out) throws IOException {
-        printComment(out, comment);
-        out.flush();
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.ProcessingInstruction}</code>.
-     *
-     * @param pi  <code>ProcessingInstruction</code> to output.
-     * @param out <code>Writer</code> to use.
-     */
-    public void output(ProcessingInstruction pi, Writer out) throws IOException {
-        boolean currentEscapingPolicy = currentFormat.getIgnoreTrAXEscapingPIs();
-
-        // Output PI verbatim, disregarding TrAX escaping PIs.
-        currentFormat.setIgnoreTrAXEscapingPIs(true);
-        printProcessingInstruction(out, pi);
-        currentFormat.setIgnoreTrAXEscapingPIs(currentEscapingPolicy);
-
-        out.flush();
-    }
-
-    /**
-     * Print out a <code>{@link org.jdom.EntityRef}</code>.
-     *
-     * @param entity <code>EntityRef</code> to output.
-     * @param out    <code>Writer</code> to use.
-     */
-    public void output(EntityRef entity, Writer out) throws IOException {
-        printEntityRef(out, entity);
-        out.flush();
-    }
-
-    // * * * * * * * * * * Output to a String * * * * * * * * * *
-    // * * * * * * * * * * Output to a String * * * * * * * * * *
-
-    /**
-     * Return a string representing a document.  Uses an internal
-     * StringWriter. Warning: a String is Unicode, which may not match
-     * the outputter's specified encoding.
-     *
-     * @param doc <code>Document</code> to format.
-     */
-    public String outputString(Document doc) {
-        StringWriter out = new StringWriter();
-        try {
-            output(doc, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing a DocType. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param doctype <code>DocType</code> to format.
-     */
-    public String outputString(DocType doctype) {
-        StringWriter out = new StringWriter();
-        try {
-            output(doctype, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing an element. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param element <code>Element</code> to format.
-     */
-    public String outputString(Element element) {
-        StringWriter out = new StringWriter();
-        try {
-            output(element, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing a list of nodes.  The list is
-     * assumed to contain legal JDOM nodes.
-     *
-     * @param list <code>List</code> to format.
-     */
-    public String outputString(List<Object> list) {
-        StringWriter out = new StringWriter();
-        try {
-            output(list, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing a CDATA node. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param cdata <code>CDATA</code> to format.
-     */
-    public String outputString(CDATA cdata) {
-        StringWriter out = new StringWriter();
-        try {
-            output(cdata, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing a Text node. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param text <code>Text</code> to format.
-     */
-    public String outputString(Text text) {
-        StringWriter out = new StringWriter();
-        try {
-            output(text, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-
-    /**
-     * Return a string representing a comment. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param comment <code>Comment</code> to format.
-     */
-    public String outputString(Comment comment) {
-        StringWriter out = new StringWriter();
-        try {
-            output(comment, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing a PI. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param pi <code>ProcessingInstruction</code> to format.
-     */
-    public String outputString(ProcessingInstruction pi) {
-        StringWriter out = new StringWriter();
-        try {
-            output(pi, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    /**
-     * Return a string representing an entity. Warning: a String is
-     * Unicode, which may not match the outputter's specified
-     * encoding.
-     *
-     * @param entity <code>EntityRef</code> to format.
-     */
-    public String outputString(EntityRef entity) {
-        StringWriter out = new StringWriter();
-        try {
-            output(entity, out);  // output() flushes
-        } catch (IOException e) {
-            logger.debug("IO Exception", e);
-        }
-        return out.toString();
-    }
-
-    // * * * * * * * * * * Internal printing methods * * * * * * * * * *
-    // * * * * * * * * * * Internal printing methods * * * * * * * * * *
-
-    /**
-     * This will handle printing of the declaration.
-     * Assumes XML version 1.0 since we don't directly know.
-     *
-     * @param doc      <code>Document</code> whose declaration to write.
-     * @param out      <code>Writer</code> to use.
-     * @param encoding The encoding to add to the declaration
-     */
-    protected void printDeclaration(Writer out, Document doc, String encoding) throws IOException {
-
-        // Only print the declaration if it's not being omitted
-        if (!userFormat.getOmitDeclaration()) {
-            // Assume 1.0 version
-            out.write("<?xml version=\"1.0\"");
-            if (!userFormat.getOmitEncoding()) {
-                out.write(" encoding=\"" + encoding + "\"");
-            }
-            out.write("?>");
-
-            // Print new line after decl always, even if no other new lines
-            // Helps the output look better and is semantically
-            // inconsequential
-            out.write(currentFormat.getLineSeparator());
-        }
-    }
-
-    /**
-     * This handle printing the DOCTYPE declaration if one exists.
-     *
-     * @param docType <code>Document</code> whose declaration to write.
-     * @param out     <code>Writer</code> to use.
-     */
-    protected void printDocType(Writer out, DocType docType) throws IOException {
-
-        String publicID = docType.getPublicID();
-        String systemID = docType.getSystemID();
-        String internalSubset = docType.getInternalSubset();
-        boolean hasPublic = false;
-
-        out.write("<!DOCTYPE ");
-        out.write(docType.getElementName());
-        if (publicID != null) {
-            out.write(" PUBLIC \"");
-            out.write(publicID);
-            out.write("\"");
-            hasPublic = true;
-        }
-        if (systemID != null) {
-            if (!hasPublic) {
-                out.write(" SYSTEM");
-            }
-            out.write(" \"");
-            out.write(systemID);
-            out.write("\"");
-        }
-        if ((internalSubset != null) && (!internalSubset.equals(""))) {
-            out.write(" [");
-            out.write(currentFormat.getLineSeparator());
-            out.write(docType.getInternalSubset());
-            out.write("]");
-        }
-        out.write(">");
     }
 
     /**
@@ -684,20 +128,6 @@ public class CAMXMLOutputEngine implements Cloneable {
     }
 
     /**
-     * This will handle printing of <code>{@link org.jdom.Text}</code> strings.
-     *
-     * @param text <code>Text</code> to write.
-     * @param out  <code>Writer</code> to use.
-     */
-    protected void printText(Writer out, Text text) throws IOException {
-        String str = (currentFormat.getTextMode() == Format.TextMode.NORMALIZE)
-                ? text.getTextNormalize()
-                : ((currentFormat.getTextMode() == Format.TextMode.TRIM) ?
-                text.getText().trim() : text.getText());
-        out.write(escapeElementEntities(str));
-    }
-
-    /**
      * This will handle printing a string.  Escapes the element entities,
      * trims interior whitespace, etc. if necessary.
      */
@@ -755,7 +185,7 @@ public class CAMXMLOutputEngine implements Cloneable {
 
         // Print out attributes
         if (attributes != null)
-            printAttributes(out, attributes, element, namespaces);
+            printAttributes(out, attributes, namespaces);
 
         // Depending on the settings (newlines, textNormalize, etc), we may
         // or may not want to print all of the content, so determine the
@@ -975,7 +405,7 @@ public class CAMXMLOutputEngine implements Cloneable {
      * @param attributes <code>List</code> of Attribute objcts
      * @param out        <code>Writer</code> to use
      */
-    protected void printAttributes(Writer out, List<?> attributes, Element parent, NamespaceStack namespaces) throws IOException {
+    protected void printAttributes(Writer out, List<?> attributes, NamespaceStack namespaces) throws IOException {
 
         // I do not yet handle the case where the same prefix maps to
         // two different URIs. For attributes on the same element
@@ -1417,9 +847,6 @@ public class CAMXMLOutputEngine implements Cloneable {
 
     private class NamespaceStack {
 
-        private static final String CVS_ID =
-                "@(#) $RCSfile: NamespaceStack.java,v $ $Revision: 1.13 $ $Date: 2004/02/06 09:28:32 $ $Name: jdom_1_0 $";
-
         private Stack prefixes;
         private Stack uris;
 
@@ -1482,4 +909,5 @@ public class CAMXMLOutputEngine implements Cloneable {
         }
 
     }
+
 }

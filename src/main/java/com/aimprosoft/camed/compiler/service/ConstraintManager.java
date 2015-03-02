@@ -49,12 +49,12 @@ public class ConstraintManager {
         groupedConstraints = new HashMap<String, List<Constraint>>();
 
         for (int i = 0; i < constraints.size(); i++) {
-            String xPath = constraints.get(i).getItem();
+            String xPath = constraints.get(i).getXPath();
             List<Constraint> constraintGroup = new ArrayList<Constraint>();
             constraintGroup.add(constraints.get(i));
 
             for (int j = i + 1; j < constraints.size(); ) {
-                String thatXPath = constraints.get(j).getItem();
+                String thatXPath = constraints.get(j).getXPath();
 
                 if (xPath.equals(thatXPath)) {
                     constraintGroup.add(constraints.get(j));

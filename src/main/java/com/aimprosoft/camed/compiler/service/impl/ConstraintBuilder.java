@@ -118,7 +118,7 @@ public class ConstraintBuilder implements ElementBuilder {
                     String actionValue = actionAttribute.getValue();
 
                     String parameters = actionValue.substring(
-                            actionValue.indexOf('(') + constraint.getItem().length() + 2,
+                            actionValue.indexOf('(') + constraint.getXPath().length() + 2,
                             actionValue.lastIndexOf(')')
                     );
 
@@ -135,7 +135,7 @@ public class ConstraintBuilder implements ElementBuilder {
             throw new CAMCompilerException("Constraint malformed");
         }
 
-        constraint.setItem(xPath);
+        constraint.setXPath(xPath);
         return constraint;
     }
 

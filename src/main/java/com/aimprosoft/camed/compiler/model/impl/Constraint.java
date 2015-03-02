@@ -16,7 +16,7 @@ public class Constraint implements Compilable {
     private String condition = "";
     private List<Action> actions = new ArrayList<Action>();
 
-    private String item = "";
+    private String xPath = "";
 
     public Constraint() {
         super();
@@ -30,20 +30,20 @@ public class Constraint implements Compilable {
         this.condition = condition;
     }
 
-    public String getItem() {
-        return item;
+    public String getXPath() {
+        return xPath;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setXPath(String xPath) {
+        this.xPath = xPath;
     }
 
     public List<Action> getActions() {
         return actions;
     }
 
-    public boolean addAction(Action arg0) {
-        return actions.add(arg0);
+    public boolean addAction(Action action) {
+        return actions.add(action);
     }
 
     public RuleCategory getCategory() {

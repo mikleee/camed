@@ -57,7 +57,7 @@ public class StructureElement implements Compilable {
 
     private StringBuilder populateElement(StructureElement structureElement) throws CAMCompilerException {
         List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(structureElement.getElement(), template);
-        String compiledConstraints = compileConstraints(constraints);
+        String compiledConstraints = compileConstraints(constraints, element);
 
         return new StringBuilder()
                 .append("name=" + QUOTE).append(structureElement.getElement().getQualifiedName()).append(QUOTE)
@@ -86,6 +86,14 @@ public class StructureElement implements Compilable {
             childWrapper.compile(builder, childWrapper);
         }
         return builder;
+    }
+
+    private String compileConstraints(List<Constraint> constraints, Element element) throws CAMCompilerException {
+        String additionalConstraints = "";
+        if (element.getContent().isEmpty()) {
+            additionalConstraints = " " + ActionType.setValue + "=" + QUOTE + QUOTE + " ";
+        }
+        return additionalConstraints + compileConstraints(constraints);
     }
 
     private String compileConstraints(List<Constraint> constraints) throws CAMCompilerException {

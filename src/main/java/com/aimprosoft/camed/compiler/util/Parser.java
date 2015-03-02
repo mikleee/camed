@@ -9,8 +9,6 @@ import java.util.Stack;
 
 public class Parser {
 
-    static Logger logger = Logger.getLogger(Parser.class);
-
     private Expression expr;
     private boolean VariableExists = false;
     private Boolean ignoreSingleQuote = Boolean.FALSE;
@@ -62,8 +60,6 @@ public class Parser {
             while (parser.nextToken() != StreamTokenizer.TT_EOF) {
                 if (parser.ttype == '(') {
                     Character c = (char) parser.ttype;
-                    if (logger.isDebugEnabled())
-                        logger.debug("openbracket(");
                     brackets++;
                     if (roundBrackets == 0)
                         roundBrackets++;
@@ -71,21 +67,13 @@ public class Parser {
                         roundBrackets++;
                         expr.setPart(c.toString());
                     }
-                    if (logger.isDebugEnabled())
-                        logger.debug("brackets:" + brackets + " round:" + roundBrackets);
                 } else if (parser.ttype == '[') {
                     Character c = (char) parser.ttype;
-                    if (logger.isDebugEnabled())
-                        logger.debug("openbracket[");
                     brackets++;
                     squareBrackets++;
                     expr.setPart(c.toString());
-                    if (logger.isDebugEnabled())
-                        logger.debug("brackets:" + brackets + " square:" + squareBrackets);
                 } else if (parser.ttype == ')') {
                     Character c = (char) parser.ttype;
-                    if (logger.isDebugEnabled())
-                        logger.debug("closebracket)");
                     if (brackets == 0) {
                         throw new ParserException("Brackets do not match\n");
                     }
@@ -98,12 +86,8 @@ public class Parser {
                     } else {
                         roundBrackets--;
                     }
-                    if (logger.isDebugEnabled())
-                        logger.debug("brackets:" + brackets + " Round Brackets:" + roundBrackets);
                 } else if (parser.ttype == ']') {
                     Character c = (char) parser.ttype;
-                    if (logger.isDebugEnabled())
-                        logger.debug("closebracket]");
                     if (brackets == 0) {
                         throw new ParserException("Brackets do not match\n");
                     }
@@ -114,11 +98,8 @@ public class Parser {
                     squareBrackets--;
                     expr.setPart(c.toString());
 
-                    if (logger.isDebugEnabled())
-                        logger.debug("brackets:" + brackets + " Square Brackets:" + squareBrackets);
                 } else if (parser.ttype == ',') {
-                    if (logger.isDebugEnabled())
-                        logger.debug("comma");
+
                     if (roundBrackets == 1)
                         expr.incrementParam();
                     else
@@ -126,41 +107,24 @@ public class Parser {
 
                 } else if (parser.ttype == '$') {
 
-                    if (logger.isDebugEnabled())
-                        logger.debug("variable:");
                     VariableExists = true;
                     expr.setPart("$");
 
                 } else if (parser.ttype == '\\') {
-
-                    if (logger.isDebugEnabled())
-                        logger.debug("\\");
                     expr.setPart("\\");
-
                 } else if (parser.ttype == '"') {
-                    if (logger.isDebugEnabled())
-                        logger.debug("literal:" + parser.sval);
                     expr.setPart(parser.sval);
                 } else if (ignoreSingleQuote.equals(Boolean.FALSE) && parser.ttype == '\'') {
-                    if (logger.isDebugEnabled())
-                        logger.debug("literal(false):" + parser.sval);
                     expr.setPart("'" + parser.sval + "'");
                 } else if (parser.ttype == '\'') {
-                    if (logger.isDebugEnabled())
-                        logger.debug("literal(true):" + parser.sval);
                     expr.setPart("'" + parser.sval + "'");
                 } else if (parser.ttype == StreamTokenizer.TT_WORD) {
                     if (brackets == 0) {
-                        if (logger.isDebugEnabled())
-                            logger.debug("Expresion: " + parser.sval);
                         expr.setName(parser.sval);
                     } else {
-                        if (logger.isDebugEnabled())
-                            logger.debug("sval: " + parser.sval);
                         expr.setPart(parser.sval);
                     }
-                } else if (logger.isDebugEnabled())
-                    logger.debug("Error: " + (char) parser.ttype + "sval: " + parser.sval);
+                }
             }
         } catch (IOException e) {
             throw new ParserException("IOException:" + e.getMessage());
@@ -170,9 +134,7 @@ public class Parser {
         if (!(stack.empty())) {
             throw new ParserException("Brackets do not match\n" + stack);
         }
-        if (logger.isDebugEnabled()) {
-            logger.debug(expr.getName() + ":" + expr.getPart(0) + "-" + expr.getPart(1));
-        }
+
     }
 
     public Expression getExpression() {

@@ -1,7 +1,5 @@
 package com.aimprosoft.camed.compiler.util;
 
-import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
@@ -14,9 +12,7 @@ public class Parser {
     private Boolean ignoreSingleQuote = Boolean.FALSE;
 
     public Parser() {
-
     }
-
 
     public Parser(String inputString) throws ParserException {
         makeParser(inputString);

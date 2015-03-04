@@ -48,6 +48,7 @@ public class StructureConstraintBridge {
                 for (String variation : variations) {
                     if (variation.equals(boundXPath)) {
                         result.addAll(groupedConstraints.get(boundXPath));
+                        break;
                     }
                 }
 
@@ -68,6 +69,7 @@ public class StructureConstraintBridge {
                 for (String variation : variations) {
                     if (variation.equals(boundXPath)) {
                         result.addAll(groupedConstraints.get(boundXPath));
+                        break;
                     }
                 }
 

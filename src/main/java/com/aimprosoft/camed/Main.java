@@ -22,8 +22,8 @@ public class Main {
 //            camCompiler.compileAndSave();
 //            TestCase.test(input, output);
         }
-
-        System.out.println("total time: " + (System.currentTimeMillis() - start));
+        TimeTracker.total = System.currentTimeMillis() - start;
+        TimeTracker.report();
     }
 
 

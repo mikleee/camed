@@ -328,6 +328,11 @@ public class XPathFunctions {
         return name.substring(0, index);
     }
 
+
+    public static boolean isAttributePath(String xPath) {
+        return xPath.contains("/@");
+    }
+
     public static String getParentXpath(String attributeXpath) {
         int index = attributeXpath.indexOf("/@");
         String result = attributeXpath.substring(0, index);

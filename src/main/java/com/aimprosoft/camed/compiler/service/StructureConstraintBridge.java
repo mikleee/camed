@@ -5,7 +5,6 @@ import com.aimprosoft.camed.compiler.model.impl.Action;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.util.XPathFunctions;
-import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
@@ -39,25 +38,22 @@ public class StructureConstraintBridge {
 
     private List<Constraint> getConstraints(Element element, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
+        Map<String, List<Element>> groupedElements = template.getConstraintManager().getGroupedElements();
         String currentXpath = XPathFunctions.fullXpathWithPosition(element);
 
         List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
+            if (!XPathFunctions.isAttributePath(boundXPath)) {
 
-            if (boundXPath.contains("/@")) {
-                continue;
-            }
-
-            List<Element> matchedNodes = JDOMXPathAdapter.newInstance(boundXPath, template).selectNodes();
-            for (Element matchedNode : matchedNodes) {
-
-                String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
-                if (currentXpath.equals(xPathOfCandidate)) {
-                    result.addAll(groupedConstraints.get(boundXPath));
+                List<Element> matchedNodes = groupedElements.get(boundXPath);
+                for (Element matchedNode : matchedNodes) {
+                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
+                    if (currentXpath.equals(xPathOfCandidate)) {
+                        result.addAll(groupedConstraints.get(boundXPath));
+                    }
                 }
 
             }
-
         }
 
         return assignOrderNumbers(result);
@@ -65,25 +61,22 @@ public class StructureConstraintBridge {
 
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
+        Map<String, List<Attribute>> groupedAttributes = template.getConstraintManager().getGroupedAttributes();
         String currentXpath = XPathFunctions.fullXpathWithPosition(attribute);
 
         List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
+            if (XPathFunctions.isAttributePath(boundXPath)) {
 
-            if (!boundXPath.contains("/@" + attribute.getQualifiedName())) {
-                continue;
-            }
-
-            List<Attribute> matchedAttributes = JDOMXPathAdapter.newInstance(boundXPath, template).selectAttributes();
-            for (Attribute matchedAttribute : matchedAttributes) {
-
-                String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
-                if (currentXpath.equals(xPathOfCandidate)) {
-                    result.addAll(groupedConstraints.get(boundXPath));
+                List<Attribute> matchedAttributes = groupedAttributes.get(boundXPath);
+                for (Attribute matchedAttribute : matchedAttributes) {
+                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
+                    if (currentXpath.equals(xPathOfCandidate)) {
+                        result.addAll(groupedConstraints.get(boundXPath));
+                    }
                 }
 
             }
-
         }
 
         return assignOrderNumbers(result);

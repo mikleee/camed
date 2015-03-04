@@ -1,8 +1,10 @@
 package com.aimprosoft.camed.compiler.service;
 
+import com.aimprosoft.camed.TimeTracker;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
+import com.aimprosoft.camed.compiler.util.XPathFunctions;
 import com.aimprosoft.camed.compiler.xpath.JDOMXPathAdapter;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -14,9 +16,8 @@ import java.util.Map;
 
 public class ConstraintManager {
 
-    private static final String CONTEXT_PATH = "//as:context";
-    private List<Constraint> constraints;
-    private Map<String, List<Constraint>> groupedConstraints;
+    private List<Constraint> constraints = new ArrayList<Constraint>();
+    private Map<String, List<Constraint>> groupedConstraints = new HashMap<String, List<Constraint>>();
     private Map<String, List<Element>> groupedElements = new HashMap<String, List<Element>>();
     private Map<String, List<Attribute>> groupedAttributes = new HashMap<String, List<Attribute>>();
 
@@ -26,18 +27,18 @@ public class ConstraintManager {
     }
 
     private ConstraintManager(CAMTemplate template) throws CAMCompilerException {
+        long start = System.currentTimeMillis();
         initConstraints(template);
         bindConstraintsToXpath();
-        bindElementsToXpath(template);
-        bindAttributesToXpath(template);
-
+        TimeTracker.constraintManagerInit = System.currentTimeMillis() - start;
+        groupElements(template);
     }
 
     public Map<String, List<Constraint>> getGroupedConstraints() {
         return groupedConstraints;
     }
 
-    public Map<String, List<Element>> groupedElements() {
+    public Map<String, List<Element>> getGroupedElements() {
         return groupedElements;
     }
 
@@ -46,22 +47,16 @@ public class ConstraintManager {
     }
 
     private void initConstraints(CAMTemplate template) throws CAMCompilerException {
-        constraints = new ArrayList<Constraint>();
-
-        Element contextNode = JDOMXPathAdapter.newInstance(CONTEXT_PATH, template).selectNode();
+        Element contextNode = template.getContextElement();
         //noinspection unchecked
         for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
-            constraints.add(ModelFactory.createConstraint(constraintNode)); //todo
+            constraints.add(ModelFactory.createConstraint(constraintNode));
         }
-
     }
 
     private void bindConstraintsToXpath() {
-        List<Constraint> constraints = new ArrayList<Constraint>(this.constraints);
-
-        groupedConstraints = new HashMap<String, List<Constraint>>();
-
         for (int i = 0; i < constraints.size(); i++) {
+
             String xPath = constraints.get(i).getXPath();
             List<Constraint> constraintGroup = new ArrayList<Constraint>();
             constraintGroup.add(constraints.get(i));
@@ -75,36 +70,21 @@ public class ConstraintManager {
                 } else {
                     j++;
                 }
-
             }
 
             groupedConstraints.put(xPath, constraintGroup);
         }
     }
 
-    private void bindElementsToXpath(CAMTemplate template) throws CAMCompilerException {
-        long start = System.currentTimeMillis();
+    private void groupElements(CAMTemplate template) throws CAMCompilerException {
         for (String boundXPath : groupedConstraints.keySet()) {
-            if(boundXPath.contains("/@")){
-                continue;
+            JDOMXPathAdapter jdomxPathAdapter = JDOMXPathAdapter.newInstance(boundXPath, template);
+            if (XPathFunctions.isAttributePath(boundXPath)) {
+                groupedAttributes.put(boundXPath, jdomxPathAdapter.selectAttributes());
+            } else {
+                groupedElements.put(boundXPath, jdomxPathAdapter.selectNodes());
             }
-            List<Element> matchedElements = JDOMXPathAdapter.newInstance(boundXPath, template).selectNodes() ;
-            groupedElements.put(boundXPath,matchedElements);
         }
-        System.out.println("bindElementsToXpath work time " + (System.currentTimeMillis() - start));
-    }
-
-    private void bindAttributesToXpath(CAMTemplate template) throws CAMCompilerException {
-        long start = System.currentTimeMillis();
-
-        for (String boundXPath : groupedConstraints.keySet()) {
-            if(!boundXPath.contains("/@")){
-                continue;
-            }
-            List<Attribute> matchedAttributes = JDOMXPathAdapter.newInstance(boundXPath, template).selectAttributes();
-            groupedAttributes.put(boundXPath, matchedAttributes);
-        }
-        System.out.println("bindAttributesToXpath work time " + (System.currentTimeMillis() - start));
     }
 
 }

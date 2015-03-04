@@ -86,7 +86,7 @@ public class ConstraintBuilder implements ElementBuilder {
 
                     constraint.addAction(result);
                 } catch (CAMCompilerException e) {
-                    throw new CAMCompilerException("Parser Exception:\nAction = " + action.getTextNormalize() + "\n" + e.getMessage());
+                    throw new CAMCompilerException("Parser Exception: Action = " + action.getTextNormalize() + " " + e.getMessage());
                 }
             }
         } else if (actionAttribute != null) {
@@ -129,7 +129,7 @@ public class ConstraintBuilder implements ElementBuilder {
 
                 constraint.addAction(result);
             } catch (CAMCompilerException e) {
-                throw new CAMCompilerException("Parser Exception:\nAction = " + actionAttribute + "\n" + e.getMessage());
+                throw new CAMCompilerException("Parser Exception: Action = " + actionAttribute + " " + e.getMessage());
             }
         } else {
             throw new CAMCompilerException("Constraint malformed");

@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
+import com.aimprosoft.camed.TimeTracker;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
@@ -26,6 +27,7 @@ public class Structure implements Compilable {
 
     @Override
     public String compile() throws CAMCompilerException {
+        long start = System.currentTimeMillis();
         StringBuilder builder = compileHead();
 
         //noinspection unchecked
@@ -34,6 +36,7 @@ public class Structure implements Compilable {
         }
 
         builder.append("</as:Structure>\n");
+        TimeTracker.structureCcmpilation = System.currentTimeMillis() - start;
         return builder.toString();
     }
 

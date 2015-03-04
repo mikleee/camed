@@ -11,6 +11,7 @@ import org.jdom.Element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * author m.tkachenko
@@ -38,17 +39,14 @@ public class StructureConstraintBridge {
 
     private List<Constraint> getConstraints(Element element, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
-        Map<String, List<Element>> groupedElements = template.getConstraintManager().getGroupedElements();
-        String currentXpath = XPathFunctions.fullXpathWithPosition(element);
+        Set<String> variations = XPathFunctions.getXpathVariation(element);
 
         List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
             if (!XPathFunctions.isAttributePath(boundXPath)) {
 
-                List<Element> matchedNodes = groupedElements.get(boundXPath);
-                for (Element matchedNode : matchedNodes) {
-                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedNode);
-                    if (currentXpath.equals(xPathOfCandidate)) {
+                for (String variation : variations) {
+                    if (variation.equals(boundXPath)) {
                         result.addAll(groupedConstraints.get(boundXPath));
                     }
                 }
@@ -61,17 +59,14 @@ public class StructureConstraintBridge {
 
     private List<Constraint> getConstraints(Attribute attribute, CAMTemplate template) throws CAMCompilerException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
-        Map<String, List<Attribute>> groupedAttributes = template.getConstraintManager().getGroupedAttributes();
-        String currentXpath = XPathFunctions.fullXpathWithPosition(attribute);
+        Set<String> variations = XPathFunctions.getXpathVariation(attribute);
 
         List<Constraint> result = new ArrayList<Constraint>();
         for (String boundXPath : groupedConstraints.keySet()) {
             if (XPathFunctions.isAttributePath(boundXPath)) {
 
-                List<Attribute> matchedAttributes = groupedAttributes.get(boundXPath);
-                for (Attribute matchedAttribute : matchedAttributes) {
-                    String xPathOfCandidate = XPathFunctions.fullXpathWithPosition(matchedAttribute);
-                    if (currentXpath.equals(xPathOfCandidate)) {
+                for (String variation : variations) {
+                    if (variation.equals(boundXPath)) {
                         result.addAll(groupedConstraints.get(boundXPath));
                     }
                 }

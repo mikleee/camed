@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.compiler.service;
 
+import com.aimprosoft.camed.TimeTracker;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
@@ -28,12 +29,16 @@ public class CamCompiler {
     }
 
     private CAMTemplate initInputTemplate(File inputFile) throws CAMCompilerException {
+        long start = System.currentTimeMillis();
         Document doc = DocumentFactory.createDocument(inputFile);
+        TimeTracker.parseInitTemplate = System.currentTimeMillis() - start;
         return ModelFactory.createCAMTemplate(doc);
     }
 
     private Document compile() throws CAMCompilerException {
+        long start = System.currentTimeMillis();
         String compiledTemplate = inputTemplate.compile();
+        TimeTracker.parseCompiledTemplate = System.currentTimeMillis() - start;
         return DocumentFactory.createDocument(compiledTemplate);
     }
 

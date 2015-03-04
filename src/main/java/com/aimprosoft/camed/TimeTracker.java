@@ -9,6 +9,9 @@ public class TimeTracker {
 
     public static long total;
     public static long constraintManagerInit;
+    public static long structureCcmpilation;
+    public static long parseInitTemplate;
+    public static long parseCompiledTemplate;
 
     public static void report() throws IllegalAccessException {
         Field[] fields = TimeTracker.class.getFields();

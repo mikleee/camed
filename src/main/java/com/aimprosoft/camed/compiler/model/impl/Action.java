@@ -5,7 +5,6 @@ import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public class Action implements Compilable {
         StringBuilder builder = new StringBuilder()
                 .append(" ")
                 .append(action.toString())
-                .append(orderNumber != 0 ? "_" + orderNumber : StringUtils.EMPTY)
+                .append(orderNumber != 0 ? "_" + orderNumber : "")
                 .append("=" + QUOTE)
                 .append(param.isEmpty() ? "true" : param);
 

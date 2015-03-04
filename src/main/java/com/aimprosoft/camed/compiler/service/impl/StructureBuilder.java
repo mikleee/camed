@@ -78,7 +78,7 @@ public class StructureBuilder implements ElementBuilder {
     private String defineReference() throws CAMCompilerException {
         String result = element.getAttributeValue(REFERENCE);
         if (result == null) {
-            result = StringUtils.EMPTY;
+            result = "";
         }
         if (element.getChildren().size() > 1) {
             throw new CAMCompilerException("Structure should only have one root node");

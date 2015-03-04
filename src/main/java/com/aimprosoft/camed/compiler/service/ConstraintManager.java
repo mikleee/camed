@@ -1,6 +1,5 @@
 package com.aimprosoft.camed.compiler.service;
 
-import com.aimprosoft.camed.TimeTracker;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
@@ -22,10 +21,8 @@ public class ConstraintManager {
     }
 
     private ConstraintManager(CAMTemplate template) throws CAMCompilerException {
-        long start = System.currentTimeMillis();
         initConstraints(template);
         bindConstraintsToXpath();
-        TimeTracker.constraintManagerInit = System.currentTimeMillis() - start;
     }
 
     public Map<String, List<Constraint>> getGroupedConstraints() {

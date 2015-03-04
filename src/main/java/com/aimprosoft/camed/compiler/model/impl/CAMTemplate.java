@@ -77,9 +77,7 @@ public class CAMTemplate implements Compilable {
     @Override
     public String compile() throws CAMCompilerException {
 
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("<as:CAM ");
+        StringBuilder builder = new StringBuilder("<as:CAM ");
 
         for (Namespace ns : namespaces.getNamespacesMap().values()) {
             builder.append(" xmlns:").append(ns.getPrefix()).append("=" + QUOTE).append(ns.getURI()).append(QUOTE + " ");
@@ -94,15 +92,10 @@ public class CAMTemplate implements Compilable {
                 .append(header == null ? "" : header.compile())
                 .append(namespaces.compile());
 
-//        parametersToCXF(writer) todo;
-
         builder
                 .append("<as:AssemblyStructure>\n")
                 .append(structure.compile())
                 .append("</as:AssemblyStructure>\n");
-
-
-//        extensionsToCXF(writer) todo;
 
         return builder.append("</as:CAM>\n").toString();
     }

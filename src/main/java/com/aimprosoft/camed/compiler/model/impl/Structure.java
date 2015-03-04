@@ -36,7 +36,7 @@ public class Structure implements Compilable {
         }
 
         builder.append("</as:Structure>\n");
-        TimeTracker.structureCcmpilation = System.currentTimeMillis() - start;
+        TimeTracker.structureCompilation = System.currentTimeMillis() - start;
         return builder.toString();
     }
 

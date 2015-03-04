@@ -32,14 +32,20 @@ public class CamCompiler {
         long start = System.currentTimeMillis();
         Document doc = DocumentFactory.createDocument(inputFile);
         TimeTracker.parseInitTemplate = System.currentTimeMillis() - start;
-        return ModelFactory.createCAMTemplate(doc);
+        start = System.currentTimeMillis();
+        CAMTemplate result = ModelFactory.createCAMTemplate(doc);
+        TimeTracker.templateBuilding = System.currentTimeMillis() - start;
+        return result;
     }
 
     private Document compile() throws CAMCompilerException {
         long start = System.currentTimeMillis();
         String compiledTemplate = inputTemplate.compile();
+        TimeTracker.templateCompilation = System.currentTimeMillis() - start;
+        start = System.currentTimeMillis();
+        Document result = DocumentFactory.createDocument(compiledTemplate);
         TimeTracker.parseCompiledTemplate = System.currentTimeMillis() - start;
-        return DocumentFactory.createDocument(compiledTemplate);
+        return result;
     }
 
     public void compileAndSave() throws CAMCompilerException {

@@ -90,7 +90,8 @@ public class StructureElement implements Compilable {
 
     private String compileConstraints(List<Constraint> constraints, Element element) throws CAMCompilerException {
         String additionalConstraints = "";
-        if (element.getContent().isEmpty()) {
+        String elementText = element.getTextTrim();
+        if (element.getChildren().size() == 0 && !elementText.endsWith("%") && !elementText.endsWith("%")) {
             additionalConstraints = " " + ActionType.setValue + "=" + QUOTE + QUOTE + " ";
         }
         return additionalConstraints + compileConstraints(constraints);

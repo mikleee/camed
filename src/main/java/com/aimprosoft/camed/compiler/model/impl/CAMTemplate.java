@@ -13,7 +13,7 @@ import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 public class CAMTemplate implements Compilable {
 
-    private final static String version = "0.1"; //todo
+    private final static String version = "1.0";
     private final static Integer camLevel = 1;
 
     private Header header;

@@ -13,8 +13,8 @@ import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
 
 public class CAMTemplate implements Compilable {
 
-    private final static String version = "1.0";
-    private final static Integer camLevel = 1;
+    private String version = "1.0";
+    private String camLevel = "1";
 
     private Header header;
     private Namespaces namespaces;
@@ -29,6 +29,8 @@ public class CAMTemplate implements Compilable {
     }
 
     public CAMTemplate(Document doc) {
+        this.version = doc.getRootElement().getAttribute("version").getValue();
+        this.camLevel = doc.getRootElement().getAttribute("CAMlevel").getValue();
         this.templateDocument = doc;
     }
 

@@ -4,9 +4,9 @@ import com.aimprosoft.camed.CamException;
 import com.aimprosoft.camed.constants.ParseStrategy;
 import com.aimprosoft.camed.model.Compilable;
 import com.aimprosoft.camed.model.impl.CamTemplate;
+import com.aimprosoft.camed.service.ConstraintManager;
 import com.aimprosoft.camed.service.ModelFactory;
 import com.aimprosoft.camed.service.builder.ElementBuilder;
-import com.aimprosoft.camed.service.compiler.ConstraintManager;
 import org.jdom.Document;
 
 /**

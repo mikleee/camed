@@ -1,9 +1,8 @@
-package com.aimprosoft.camed.service.compiler;
+package com.aimprosoft.camed.service;
 
 import com.aimprosoft.camed.CamException;
 import com.aimprosoft.camed.constants.ParseStrategy;
 import com.aimprosoft.camed.model.impl.Constraint;
-import com.aimprosoft.camed.service.ModelFactory;
 import org.jdom.Element;
 
 import java.util.ArrayList;

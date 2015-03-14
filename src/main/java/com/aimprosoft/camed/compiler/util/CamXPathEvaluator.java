@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-public class CamsXPathEvaluator {
+public class CamXPathEvaluator {
     private ByteArrayOutputStream out = null;
     private XPathEvaluator eval = null;
     private InputSource inputSource = null;
     private ByteArrayInputStream input = null;
     private Map<String, Namespace> namespacesMap = null;
 
-    public CamsXPathEvaluator(Element node, Map<String, Namespace> namespacesMap) throws IOException {
+    public CamXPathEvaluator(Element node, Map<String, Namespace> namespacesMap) throws IOException {
         this.out = new ByteArrayOutputStream();
         XMLOutputter xmlOut = new XMLOutputter();
         xmlOut.output(node, out);

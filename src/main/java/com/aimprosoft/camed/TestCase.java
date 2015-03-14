@@ -1,6 +1,6 @@
 package com.aimprosoft.camed;
 
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.service.DocumentFactory;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
@@ -17,7 +17,7 @@ public class TestCase {
 
     public static void test(File input, File compiled) throws Exception {
         Document doc = DocumentFactory.createDocument(input);
-        CAMTemplate result = ModelFactory.createCAMTemplate(doc);
+        CamTemplate result = ModelFactory.createCAMTemplate(doc);
 
         String compiledTemplate = compilesTemplate(compiled);
 

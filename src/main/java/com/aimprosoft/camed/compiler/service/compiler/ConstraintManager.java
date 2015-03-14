@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.compiler.service.compiler;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import org.jdom.Element;
@@ -17,11 +17,11 @@ public class ConstraintManager {
     private Map<String, List<Constraint>> groupedConstraints = new HashMap<String, List<Constraint>>();
 
 
-    public static ConstraintManager newInstance(CAMTemplate template) throws CAMCompilerException {
+    public static ConstraintManager newInstance(CamTemplate template) throws CAMCompilerException {
         return new ConstraintManager(template);
     }
 
-    private ConstraintManager(CAMTemplate template) throws CAMCompilerException {
+    private ConstraintManager(CamTemplate template) throws CAMCompilerException {
         initConstraints(template);
         bindConstraintsToXpath();
     }
@@ -30,7 +30,7 @@ public class ConstraintManager {
         return groupedConstraints;
     }
 
-    private void initConstraints(CAMTemplate template) throws CAMCompilerException {
+    private void initConstraints(CamTemplate template) throws CAMCompilerException {
         Element contextNode = template.getContextElement();
         //noinspection unchecked
         for (Element constraintNode : (List<Element>) contextNode.getChildren()) {

@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.service.builder.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Header;
 import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import org.jdom.Element;
@@ -15,7 +15,7 @@ public class HeaderBuilder implements ElementBuilder<Compilable> {
 
     private Element element;
 
-    public HeaderBuilder(CAMTemplate template) {
+    public HeaderBuilder(CamTemplate template) {
         this.element = template.getTemplateDocument().getRootElement();
     }
 

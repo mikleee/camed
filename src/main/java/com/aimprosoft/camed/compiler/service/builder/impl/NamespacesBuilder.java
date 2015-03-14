@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.service.builder.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
 import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import org.jdom.Element;
@@ -18,7 +18,7 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
 
     private Element element;
 
-    public NamespacesBuilder(CAMTemplate template) {
+    public NamespacesBuilder(CamTemplate template) {
         element = template.getTemplateDocument().getRootElement();
     }
 

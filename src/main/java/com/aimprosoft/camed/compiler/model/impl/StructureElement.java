@@ -14,14 +14,14 @@ import static com.aimprosoft.camed.compiler.constants.CamConstants.QUOTE;
 
 public class StructureElement implements Compilable {
 
-    private CAMTemplate template;
+    private CamsTemplate template;
     private Element element;
     private List<Attribute> attributes;
     private List<Element> children;
 
 
     @SuppressWarnings("unchecked")
-    public StructureElement(Element element, CAMTemplate template) {
+    public StructureElement(Element element, CamsTemplate template) {
         this.attributes = (List<Attribute>) element.getAttributes();
         this.children = (List<Element>) element.getChildren();
         this.template = template;

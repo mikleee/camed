@@ -11,7 +11,7 @@ import org.jdom.Namespace;
 import static com.aimprosoft.camed.compiler.constants.CamConstants.CAM_NAMESPACE;
 import static com.aimprosoft.camed.compiler.constants.CamConstants.QUOTE;
 
-public class CAMTemplate implements Compilable {
+public class CamsTemplate implements Compilable {
 
     private String version = "1.0";
     private String camLevel = "1";
@@ -28,7 +28,7 @@ public class CAMTemplate implements Compilable {
         return templateDocument;
     }
 
-    public CAMTemplate(Document doc) {
+    public CamsTemplate(Document doc) {
         this.version = doc.getRootElement().getAttribute("version").getValue();
         this.camLevel = doc.getRootElement().getAttribute("CAMlevel").getValue();
         this.templateDocument = doc;

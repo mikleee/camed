@@ -2,7 +2,7 @@ package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamsTemplate;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import com.aimprosoft.camed.compiler.service.compiler.ConstraintManager;
@@ -13,14 +13,14 @@ import org.jdom.Document;
  */
 public class CAMTemplateBuilder implements ElementBuilder<Compilable> {
 
-    private CAMTemplate template;
+    private CamsTemplate template;
 
     public CAMTemplateBuilder(Document document) {
-        template = new CAMTemplate(document);
+        template = new CamsTemplate(document);
     }
 
     @Override
-    public CAMTemplate build() throws CamException {
+    public CamsTemplate build() throws CamException {
         template.setStructure(ModelFactory.createStructure(template));
         template.setNamespaces(ModelFactory.createNamespaces(template));
         template.setHeader(ModelFactory.createHeader(template));

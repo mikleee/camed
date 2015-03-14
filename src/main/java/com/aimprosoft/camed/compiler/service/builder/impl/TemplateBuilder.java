@@ -11,11 +11,11 @@ import org.jdom.Document;
 /**
  * author m.tkachenko
  */
-public class CAMTemplateBuilder implements ElementBuilder<Compilable> {
+public class TemplateBuilder implements ElementBuilder<Compilable> {
 
     private CamTemplate template;
 
-    public CAMTemplateBuilder(Document document) {
+    public TemplateBuilder(Document document) {
         template = new CamTemplate(document);
     }
 

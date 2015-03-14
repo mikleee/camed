@@ -21,11 +21,11 @@ public class ModelFactory {
     }
 
     public static CamTemplate createCAMTemplate(Document document) throws CamException {
-        return new CAMTemplateBuilder(document).build();
+        return new TemplateBuilder(document).build();
     }
 
     public static DecompiledCAMTemplate createDecompiledCAMTemplate(Document document) throws CamException {
-        return new DecompiledCAMTemplateBuilder(document).build();
+        return new DecompiledTemplateBuilder(document).build();
     }
 
     public static Constraint createConstraint(Element element) throws CamException {

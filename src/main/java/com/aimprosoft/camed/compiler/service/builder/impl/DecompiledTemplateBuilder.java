@@ -8,11 +8,11 @@ import org.jdom.Document;
 /**
  * author m.tkachenko
  */
-public class DecompiledCAMTemplateBuilder implements ElementBuilder<DecompiledCAMTemplate> {
+public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCAMTemplate> {
 
     private DecompiledCAMTemplate template;
 
-    public DecompiledCAMTemplateBuilder(Document document) {
+    public DecompiledTemplateBuilder(Document document) {
 
     }
 

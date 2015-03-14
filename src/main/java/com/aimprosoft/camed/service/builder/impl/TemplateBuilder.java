@@ -1,6 +1,7 @@
 package com.aimprosoft.camed.service.builder.impl;
 
 import com.aimprosoft.camed.CamException;
+import com.aimprosoft.camed.constants.ParseStrategy;
 import com.aimprosoft.camed.model.Compilable;
 import com.aimprosoft.camed.model.impl.CamTemplate;
 import com.aimprosoft.camed.service.ModelFactory;
@@ -24,7 +25,7 @@ public class TemplateBuilder implements ElementBuilder<Compilable> {
         template.setStructure(ModelFactory.createStructure(template));
         template.setNamespaces(ModelFactory.createNamespaces(template));
         template.setHeader(ModelFactory.createHeader(template));
-        template.setConstraintManager(ConstraintManager.newInstance(template));
+        template.setConstraintManager(ConstraintManager.newInstance(template.getContextElement(), ParseStrategy.COMPILE));
         return template;
     }
 

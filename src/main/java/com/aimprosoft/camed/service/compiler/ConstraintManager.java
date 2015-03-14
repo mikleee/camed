@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.service.compiler;
 
 import com.aimprosoft.camed.CamException;
-import com.aimprosoft.camed.model.impl.CamTemplate;
+import com.aimprosoft.camed.constants.ParseStrategy;
 import com.aimprosoft.camed.model.impl.Constraint;
 import com.aimprosoft.camed.service.ModelFactory;
 import org.jdom.Element;
@@ -17,12 +17,12 @@ public class ConstraintManager {
     private Map<String, List<Constraint>> groupedConstraints = new HashMap<String, List<Constraint>>();
 
 
-    public static ConstraintManager newInstance(CamTemplate template) throws CamException {
-        return new ConstraintManager(template);
+    public static ConstraintManager newInstance(Element element, ParseStrategy strategy) throws CamException {
+        return new ConstraintManager(element, strategy);
     }
 
-    private ConstraintManager(CamTemplate template) throws CamException {
-        initConstraints(template);
+    private ConstraintManager(Element element, ParseStrategy strategy) throws CamException {
+        initConstraints(element, strategy);
         bindConstraintsToXpath();
     }
 
@@ -30,12 +30,23 @@ public class ConstraintManager {
         return groupedConstraints;
     }
 
-    private void initConstraints(CamTemplate template) throws CamException {
-        Element contextNode = template.getContextElement();
+    private void initConstraints(Element element, ParseStrategy strategy) throws CamException {
+        if (strategy == ParseStrategy.COMPILE) {
+            initRawTemplateConstraints(element);
+        } else if (strategy == ParseStrategy.DECOMPILE) {
+            initCompiledTemplateConstraints(element);
+        }
+    }
+
+    private void initRawTemplateConstraints(Element contextNode) throws CamException {
         //noinspection unchecked
         for (Element constraintNode : (List<Element>) contextNode.getChildren()) {
             constraints.add(ModelFactory.createConstraint(constraintNode));
         }
+    }
+
+    private void initCompiledTemplateConstraints(Element element) throws CamException {
+        //todo
     }
 
     private void bindConstraintsToXpath() {

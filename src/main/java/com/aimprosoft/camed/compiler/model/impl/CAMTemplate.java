@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.model.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.service.ConstraintManager;
+import com.aimprosoft.camed.compiler.service.compiler.ConstraintManager;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;

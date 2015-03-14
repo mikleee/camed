@@ -1,12 +1,13 @@
-package com.aimprosoft.camed.compiler.service.impl;
+package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
+import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.Action;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
-import com.aimprosoft.camed.compiler.service.ElementBuilder;
+import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import com.aimprosoft.camed.compiler.util.Parser;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * author m.tkachenko
  */
-public class ConstraintBuilder implements ElementBuilder {
+public class ConstraintBuilder implements ElementBuilder<Compilable> {
 
     private Constraint constraint;
     private Element element;

@@ -1,16 +1,17 @@
-package com.aimprosoft.camed.compiler.service.impl;
+package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
-import com.aimprosoft.camed.compiler.service.ConstraintManager;
-import com.aimprosoft.camed.compiler.service.ElementBuilder;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
+import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
+import com.aimprosoft.camed.compiler.service.compiler.ConstraintManager;
 import org.jdom.Document;
 
 /**
  * author m.tkachenko
  */
-public class CAMTemplateBuilder implements ElementBuilder {
+public class CAMTemplateBuilder implements ElementBuilder<Compilable> {
 
     private CAMTemplate template;
 

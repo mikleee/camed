@@ -2,6 +2,7 @@ package com.aimprosoft.camed.compiler.service;
 
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
+import com.aimprosoft.camed.compiler.service.compiler.CAMXMLOutputEngine;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
 import org.jdom.Document;
 import org.jdom.output.Format;

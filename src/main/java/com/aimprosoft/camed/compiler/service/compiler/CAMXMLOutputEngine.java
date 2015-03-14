@@ -1,4 +1,4 @@
-package com.aimprosoft.camed.compiler.service;
+package com.aimprosoft.camed.compiler.service.compiler;
 
 import org.jdom.*;
 import org.jdom.output.EscapeStrategy;

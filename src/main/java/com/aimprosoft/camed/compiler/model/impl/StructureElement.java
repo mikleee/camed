@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.model.impl;
 import com.aimprosoft.camed.compiler.CAMCompilerException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.service.StructureConstraintBridge;
+import com.aimprosoft.camed.compiler.service.compiler.StructureConstraintBridge;
 import org.jdom.Attribute;
 import org.jdom.Element;
 

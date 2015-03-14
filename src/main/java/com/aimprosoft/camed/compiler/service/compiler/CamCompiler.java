@@ -15,7 +15,7 @@ public class CamCompiler {
 
     private final static String ENCODING = "UTF-8";
 
-    private CAMXMLOutputEngine outputEngine;
+    private OutputEngine outputEngine;
 
     private CamTemplate inputTemplate;
     private Document outputTemplate;
@@ -59,7 +59,7 @@ public class CamCompiler {
 
     private void initOutputEngine() {
         Format format = createPrettyFormat();
-        this.outputEngine = new CAMXMLOutputEngine(format);
+        this.outputEngine = new OutputEngine(format);
     }
 
     private Format createPrettyFormat() {

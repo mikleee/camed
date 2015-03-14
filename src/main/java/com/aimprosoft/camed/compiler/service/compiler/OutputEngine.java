@@ -14,7 +14,7 @@ import java.util.Stack;
 import java.util.TreeSet;
 
 
-public class CAMXMLOutputEngine implements Cloneable {
+public class OutputEngine implements Cloneable {
 
     // For normal output
     private Format userFormat = Format.getRawFormat();
@@ -26,7 +26,7 @@ public class CAMXMLOutputEngine implements Cloneable {
     //Element - default is true
     private boolean escapeOutput = true;
 
-    public CAMXMLOutputEngine(Format format) {
+    public OutputEngine(Format format) {
         userFormat = format;
         currentFormat = userFormat;
     }

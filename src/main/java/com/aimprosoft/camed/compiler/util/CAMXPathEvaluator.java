@@ -1,4 +1,4 @@
-package com.aimprosoft.camed.compiler.xpath;
+package com.aimprosoft.camed.compiler.util;
 
 import net.sf.saxon.xpath.XPathEvaluator;
 import org.jdom.Element;

@@ -1,4 +1,4 @@
-package com.aimprosoft.camed;
+package com.aimprosoft.camed.run;
 
 import java.lang.reflect.Field;
 

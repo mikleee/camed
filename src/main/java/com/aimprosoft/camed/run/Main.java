@@ -1,4 +1,4 @@
-package com.aimprosoft.camed;
+package com.aimprosoft.camed.run;
 
 import com.aimprosoft.camed.compiler.service.compiler.CamCompiler;
 

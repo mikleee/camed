@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.DecompiledCAMTemplate;
 import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import org.jdom.Document;
@@ -17,7 +17,7 @@ public class DecompiledCAMTemplateBuilder implements ElementBuilder<DecompiledCA
     }
 
     @Override
-    public DecompiledCAMTemplate build() throws CAMCompilerException {
+    public DecompiledCAMTemplate build() throws CamException {
 
         return null;
     }

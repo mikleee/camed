@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
@@ -20,7 +20,7 @@ public class CAMTemplateBuilder implements ElementBuilder<Compilable> {
     }
 
     @Override
-    public CAMTemplate build() throws CAMCompilerException {
+    public CAMTemplate build() throws CamException {
         template.setStructure(ModelFactory.createStructure(template));
         template.setNamespaces(ModelFactory.createNamespaces(template));
         template.setHeader(ModelFactory.createHeader(template));

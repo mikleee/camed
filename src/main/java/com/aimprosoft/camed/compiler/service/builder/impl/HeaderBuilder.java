@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CamException;
-import com.aimprosoft.camed.compiler.constants.CamConstants;
+import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Header;
@@ -21,7 +21,7 @@ public class HeaderBuilder implements ElementBuilder<Compilable> {
 
     @Override
     public Header build() throws CamException {
-        Element headerNode = element.getChild("Header", CamConstants.CAM_NAMESPACE);
+        Element headerNode = element.getChild("Header", CAMConstants.CAM_NAMESPACE);
         return headerNode == null ? null : new Header(headerNode);
     }
 

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.constants.RuleType;
 import com.aimprosoft.camed.compiler.model.Compilable;
@@ -55,7 +55,7 @@ public class Constraint implements Compilable {
     }
 
     @Override
-    public String compile() throws CAMCompilerException {
+    public String compile() throws CamException {
 
         StringBuilder result = new StringBuilder();
 

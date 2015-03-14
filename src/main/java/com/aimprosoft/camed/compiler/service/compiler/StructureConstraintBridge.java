@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.compiler;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.impl.Action;
 import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Constraint;
@@ -27,7 +27,7 @@ public class StructureConstraintBridge {
         return instance;
     }
 
-    public List<Constraint> findNodeConstraints(Object node, CamTemplate template) throws CAMCompilerException {
+    public List<Constraint> findNodeConstraints(Object node, CamTemplate template) throws CamException {
         if (node instanceof Element) {
             return getConstraints((Element) node, template);
         } else if (node instanceof Attribute) {
@@ -37,7 +37,7 @@ public class StructureConstraintBridge {
         }
     }
 
-    private List<Constraint> getConstraints(Element element, CamTemplate template) throws CAMCompilerException {
+    private List<Constraint> getConstraints(Element element, CamTemplate template) throws CamException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
         Set<String> variations = XPathFunctions.getXpathVariation(element);
 
@@ -58,7 +58,7 @@ public class StructureConstraintBridge {
         return assignOrderNumbers(result);
     }
 
-    private List<Constraint> getConstraints(Attribute attribute, CamTemplate template) throws CAMCompilerException {
+    private List<Constraint> getConstraints(Attribute attribute, CamTemplate template) throws CamException {
         Map<String, List<Constraint>> groupedConstraints = template.getConstraintManager().getGroupedConstraints();
         Set<String> variations = XPathFunctions.getXpathVariation(attribute);
 

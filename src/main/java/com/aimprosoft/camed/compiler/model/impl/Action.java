@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -49,7 +49,7 @@ public class Action implements Compilable {
 
 
     @Override
-    public String compile() throws CAMCompilerException {
+    public String compile() throws CamException {
         String result;
 
         if (action == ActionType.setChoice || action == ActionType.makeRepeatable) {

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
@@ -31,7 +31,7 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
 
 
     @Override
-    public Constraint build() throws CAMCompilerException {
+    public Constraint build() throws CamException {
         validate();
 
         Attribute itemAttribute = element.getAttribute("item");
@@ -86,8 +86,8 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
                     }
 
                     constraint.addAction(result);
-                } catch (CAMCompilerException e) {
-                    throw new CAMCompilerException("Parser Exception: Action = " + action.getTextNormalize() + " " + e.getMessage());
+                } catch (CamException e) {
+                    throw new CamException("Parser Exception: Action = " + action.getTextNormalize() + " " + e.getMessage());
                 }
             }
         } else if (actionAttribute != null) {
@@ -129,11 +129,11 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
                 }
 
                 constraint.addAction(result);
-            } catch (CAMCompilerException e) {
-                throw new CAMCompilerException("Parser Exception: Action = " + actionAttribute + " " + e.getMessage());
+            } catch (CamException e) {
+                throw new CamException("Parser Exception: Action = " + actionAttribute + " " + e.getMessage());
             }
         } else {
-            throw new CAMCompilerException("Constraint malformed");
+            throw new CamException("Constraint malformed");
         }
 
         constraint.setXPath(xPath);
@@ -141,9 +141,9 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
     }
 
 
-    private void validate() throws CAMCompilerException {
+    private void validate() throws CamException {
         if (!element.getName().equals("constraint")) {
-            throw new CAMCompilerException("Element should be a Constraint: " + element.getName());
+            throw new CamException("Element should be a Constraint: " + element.getName());
         }
     }
 
@@ -164,12 +164,12 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
         return params;
     }
 
-    private Parser.Expression createParserExpression(String inputString) throws CAMCompilerException {
+    private Parser.Expression createParserExpression(String inputString) throws CamException {
         try {
             Parser parser = new Parser(inputString, true);
             return parser.getExpression();
         } catch (Parser.ParserException e) {
-            throw new CAMCompilerException(e.getMessage());
+            throw new CamException(e.getMessage());
         }
     }
 

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.*;
 import com.aimprosoft.camed.compiler.service.builder.impl.*;
@@ -12,27 +12,27 @@ import org.jdom.Element;
  */
 public class ModelFactory {
 
-    public static Namespaces createNamespaces(CamTemplate template) throws CAMCompilerException {
+    public static Namespaces createNamespaces(CamTemplate template) throws CamException {
         return new NamespacesBuilder(template).build();
     }
 
-    public static Structure createStructure(CamTemplate template) throws CAMCompilerException {
+    public static Structure createStructure(CamTemplate template) throws CamException {
         return new StructureBuilder(template).build();
     }
 
-    public static CamTemplate createCAMTemplate(Document document) throws CAMCompilerException {
+    public static CamTemplate createCAMTemplate(Document document) throws CamException {
         return new CamTemplateBuilder(document).build();
     }
 
-    public static DecompiledCamTemplate createDecompiledCAMTemplate(Document document) throws CAMCompilerException {
+    public static DecompiledCamTemplate createDecompiledCAMTemplate(Document document) throws CamException {
         return new DecompiledCamTemplateBuilder(document).build();
     }
 
-    public static Constraint createConstraint(Element element) throws CAMCompilerException {
+    public static Constraint createConstraint(Element element) throws CamException {
         return new ConstraintBuilder(element).build();
     }
 
-    public static Header createHeader(CamTemplate template) throws CAMCompilerException {
+    public static Header createHeader(CamTemplate template) throws CamException {
         return new HeaderBuilder(template).build();
     }
 }

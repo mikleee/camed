@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.CAMConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
@@ -23,7 +23,7 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
     }
 
     @Override
-    public Namespaces build() throws CAMCompilerException {
+    public Namespaces build() throws CamException {
         Map<String, Namespace> map = new HashMap<String, Namespace>();
 
         for (Namespace ns : retrieveNamespaces()) {

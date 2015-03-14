@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.compiler;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.service.DocumentFactory;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
@@ -22,36 +22,36 @@ public class CamCompiler {
     private File inputFile;
 
 
-    public CamCompiler(File inputFile) throws CAMCompilerException {
+    public CamCompiler(File inputFile) throws CamException {
         initOutputEngine();
         this.inputFile = inputFile;
         inputTemplate = initInputTemplate(inputFile);
         outputTemplate = compile();
     }
 
-    private CamTemplate initInputTemplate(File inputFile) throws CAMCompilerException {
+    private CamTemplate initInputTemplate(File inputFile) throws CamException {
         Document doc = DocumentFactory.createDocument(inputFile);
         return ModelFactory.createCAMTemplate(doc);
     }
 
-    private Document compile() throws CAMCompilerException {
+    private Document compile() throws CamException {
         String compiledTemplate = inputTemplate.compile();
         return DocumentFactory.createDocument(compiledTemplate);
     }
 
-    public void compileAndSave() throws CAMCompilerException {
+    public void compileAndSave() throws CamException {
         File outputFile = CommonUtils.changeFileExtension(inputFile, "cxx");
         compileAndSave(outputFile);
     }
 
-    public void compileAndSave(File outputFile) throws CAMCompilerException {
+    public void compileAndSave(File outputFile) throws CamException {
         Writer writer = null;
 
         try {
             writer = createBufferedWriter(outputFile);
             outputEngine.output(outputTemplate.getRootElement(), writer);
         } catch (IOException e) {
-            throw new CAMCompilerException("Cant write to " + outputFile.getAbsolutePath());
+            throw new CamException("Cant write to " + outputFile.getAbsolutePath());
         } finally {
             CommonUtils.closeQuietly(writer);
         }

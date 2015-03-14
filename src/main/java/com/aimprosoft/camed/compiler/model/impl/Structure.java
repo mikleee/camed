@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -25,7 +25,7 @@ public class Structure implements Compilable {
     }
 
     @Override
-    public String compile() throws CAMCompilerException {
+    public String compile() throws CamException {
         StringBuilder builder = compileHead();
 
         //noinspection unchecked
@@ -54,7 +54,7 @@ public class Structure implements Compilable {
         return builder;
     }
 
-    private StringBuilder compile(StringBuilder builder, Element element) throws CAMCompilerException {
+    private StringBuilder compile(StringBuilder builder, Element element) throws CamException {
         StructureElement wrapper = new StructureElement(element, template);
         builder.append(wrapper.compile());
 

@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
@@ -33,7 +33,7 @@ public class StructureBuilder implements ElementBuilder<Compilable> {
     }
 
     @Override
-    public Structure build() throws CAMCompilerException {
+    public Structure build() throws CamException {
         Map<String, String> taxonomies = defineTaxonomies();
         String id = defineId();
         String reference = defineReference();
@@ -49,14 +49,14 @@ public class StructureBuilder implements ElementBuilder<Compilable> {
     }
 
 
-    private Map<String, String> defineTaxonomies() throws CAMCompilerException {
+    private Map<String, String> defineTaxonomies() throws CamException {
         Map<String, String> result = new HashMap<String, String>();
 
         String taxonomy = element.getAttributeValue(TAXONOMY);
         String taxonomyOther = element.getAttributeValue(TAXONOMY_OTHER);
 
         if (TaxonomyType.isOther(taxonomy) && CommonUtils.isEmpty(taxonomy)) {
-            throw new CAMCompilerException("taxonomyOther should be populated if taxonomy = OTHER");
+            throw new CamException("taxonomyOther should be populated if taxonomy = OTHER");
         }
 
         result.put(TAXONOMY, taxonomy);
@@ -72,13 +72,13 @@ public class StructureBuilder implements ElementBuilder<Compilable> {
         return result;
     }
 
-    private String defineReference() throws CAMCompilerException {
+    private String defineReference() throws CamException {
         String result = element.getAttributeValue(REFERENCE);
         if (result == null) {
             result = "";
         }
         if (element.getChildren().size() > 1) {
-            throw new CAMCompilerException("Structure should only have one root node");
+            throw new CamException("Structure should only have one root node");
         }
         return result;
     }

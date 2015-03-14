@@ -1,10 +1,10 @@
 package com.aimprosoft.camed.compiler.service.builder;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 
 /**
  * author m.tkachenko
  */
 public interface ElementBuilder<T> {
-    T build() throws CAMCompilerException;
+    T build() throws CamException;
 }

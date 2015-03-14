@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
+import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.service.compiler.StructureConstraintBridge;
@@ -30,13 +30,13 @@ public class StructureElement implements Compilable {
 
 
     @Override
-    public String compile() throws CAMCompilerException {
+    public String compile() throws CamException {
         StringBuilder builder = new StringBuilder();
         return compile(builder, this).toString();
     }
 
 
-    private StringBuilder compile(StringBuilder builder, StructureElement structureElement) throws CAMCompilerException {
+    private StringBuilder compile(StringBuilder builder, StructureElement structureElement) throws CamException {
         builder
                 .append("<as:Element ")
                 .append(populateElement(structureElement));
@@ -55,7 +55,7 @@ public class StructureElement implements Compilable {
         return builder;
     }
 
-    private StringBuilder populateElement(StructureElement structureElement) throws CAMCompilerException {
+    private StringBuilder populateElement(StructureElement structureElement) throws CamException {
         List<Constraint> constraints = StructureConstraintBridge.getInstance().findNodeConstraints(structureElement.getElement(), template);
         String compiledConstraints = compileConstraints(constraints, element);
 
@@ -64,7 +64,7 @@ public class StructureElement implements Compilable {
                 .append(compiledConstraints);
     }
 
-    private StringBuilder populateAttributes(StructureElement structureElement) throws CAMCompilerException {
+    private StringBuilder populateAttributes(StructureElement structureElement) throws CamException {
         StringBuilder builder = new StringBuilder();
 
         for (Attribute attribute : structureElement.getAttributes()) {
@@ -80,7 +80,7 @@ public class StructureElement implements Compilable {
         return builder;
     }
 
-    private StringBuilder populateChildren(StructureElement structureElement, StringBuilder builder) throws CAMCompilerException {
+    private StringBuilder populateChildren(StructureElement structureElement, StringBuilder builder) throws CamException {
         for (Element child : structureElement.getChildren()) {
             StructureElement childWrapper = new StructureElement(child, template);
             childWrapper.compile(builder, childWrapper);
@@ -88,7 +88,7 @@ public class StructureElement implements Compilable {
         return builder;
     }
 
-    private String compileConstraints(List<Constraint> constraints, Element element) throws CAMCompilerException {
+    private String compileConstraints(List<Constraint> constraints, Element element) throws CamException {
         String additionalConstraints = "";
         String elementText = element.getTextTrim();
         if (element.getChildren().size() == 0 && !elementText.endsWith("%") && !elementText.endsWith("%")) {
@@ -97,7 +97,7 @@ public class StructureElement implements Compilable {
         return additionalConstraints + compileConstraints(constraints);
     }
 
-    private String compileConstraints(List<Constraint> constraints) throws CAMCompilerException {
+    private String compileConstraints(List<Constraint> constraints) throws CamException {
         if (constraints == null || constraints.isEmpty()) {
             return " " + ActionType.makeMandatory + "=" + QUOTE + "true" + QUOTE + " "; //todo
         }

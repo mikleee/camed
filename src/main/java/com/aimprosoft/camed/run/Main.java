@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.run;
 
-import com.aimprosoft.camed.compiler.service.compiler.CamCompiler;
+import com.aimprosoft.camed.service.compiler.CamCompiler;
 
 import java.io.File;
 

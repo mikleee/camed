@@ -2,7 +2,7 @@ package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.ActionType;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.CamConstants;
 import com.aimprosoft.camed.compiler.constants.RuleCategory;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.Action;
@@ -50,7 +50,7 @@ public class ConstraintBuilder implements ElementBuilder<Compilable> {
             xPath = itemAttribute.getValue();
 
             //noinspection unchecked
-            List<Element> actions = element.getChildren("action", CAMConstants.CAM_NAMESPACE);
+            List<Element> actions = element.getChildren("action", CamConstants.CAM_NAMESPACE);
 
             for (Element action : actions) {
                 try {

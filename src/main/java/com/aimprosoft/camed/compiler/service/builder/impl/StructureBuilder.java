@@ -3,7 +3,7 @@ package com.aimprosoft.camed.compiler.service.builder.impl;
 import com.aimprosoft.camed.compiler.CamException;
 import com.aimprosoft.camed.compiler.constants.TaxonomyType;
 import com.aimprosoft.camed.compiler.model.Compilable;
-import com.aimprosoft.camed.compiler.model.impl.CamsTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Structure;
 import com.aimprosoft.camed.compiler.service.builder.ElementBuilder;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
@@ -24,10 +24,10 @@ public class StructureBuilder implements ElementBuilder<Compilable> {
     private final static String DEFAULT_ID = "default";
 
     private Element element;
-    private CamsTemplate template;
+    private CamTemplate template;
 
 
-    public StructureBuilder(CamsTemplate template) {
+    public StructureBuilder(CamTemplate template) {
         this.template = template;
         this.element = template.getStructureElement();
     }
@@ -83,11 +83,11 @@ public class StructureBuilder implements ElementBuilder<Compilable> {
         return result;
     }
 
-    public CamsTemplate getTemplate() {
+    public CamTemplate getTemplate() {
         return template;
     }
 
-    public void setTemplate(CamsTemplate template) {
+    public void setTemplate(CamTemplate template) {
         this.template = template;
     }
 }

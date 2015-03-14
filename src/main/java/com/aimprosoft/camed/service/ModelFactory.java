@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.service;
 
 import com.aimprosoft.camed.CamException;
-import com.aimprosoft.camed.model.DecompiledCAMTemplate;
+import com.aimprosoft.camed.model.DecompiledCamsTemplate;
 import com.aimprosoft.camed.model.impl.*;
 import com.aimprosoft.camed.service.builder.impl.*;
 import org.jdom.Document;
@@ -24,7 +24,7 @@ public class ModelFactory {
         return new TemplateBuilder(document).build();
     }
 
-    public static DecompiledCAMTemplate createDecompiledCAMTemplate(Document document) throws CamException {
+    public static DecompiledCamsTemplate createDecompiledCAMTemplate(Document document) throws CamException {
         return new DecompiledTemplateBuilder(document).build();
     }
 

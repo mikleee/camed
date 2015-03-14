@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.util;
 
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.constants.CamsConstants;
 import org.jdom.Attribute;
 import org.jdom.Element;
 
@@ -182,7 +182,7 @@ public class XPathFunctions {
         if (elem.getParentElement() == null) {
             return "//" + path;
         }
-        if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CAMConstants.CAM_NAMESPACE))) {
+        if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CamsConstants.CAM_NAMESPACE))) {
             if (!path.startsWith("/")) {
                 path = elem.getParentElement().getQualifiedName() + "/" + path;
             } else {
@@ -194,7 +194,7 @@ public class XPathFunctions {
 
     private static String xpathParentAndAll(Attribute attr) {
         String path = "@" + attr.getQualifiedName();
-        if (!(attr.getParent().getName().equals("Structure") && attr.getParent().getNamespace().equals(CAMConstants.CAM_NAMESPACE))) {
+        if (!(attr.getParent().getName().equals("Structure") && attr.getParent().getNamespace().equals(CamsConstants.CAM_NAMESPACE))) {
             if (!path.startsWith("/"))
                 path = attr.getParent().getQualifiedName() + "/" + path;
             else
@@ -237,10 +237,10 @@ public class XPathFunctions {
         Element elem = element;
         String path = "";
         while (!(elem.getName().equals("Structure") && elem.getNamespace()
-                .equals(CAMConstants.CAM_NAMESPACE))) {
+                .equals(CamsConstants.CAM_NAMESPACE))) {
             if (elem.equals(element)) {
                 paths.add(".");
-                if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CAMConstants.CAM_NAMESPACE))) {
+                if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CamsConstants.CAM_NAMESPACE))) {
                     paths.add("/.");
                     paths.add("..");
                 }
@@ -264,13 +264,13 @@ public class XPathFunctions {
         List<Element> nodes = new ArrayList<Element>();
         Element elem = attribute.getParent();
         paths.add(".");
-        if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CAMConstants.CAM_NAMESPACE))) {
+        if (!(elem.getParentElement().getName().equals("Structure") && elem.getParentElement().getNamespace().equals(CamsConstants.CAM_NAMESPACE))) {
             paths.add("/.");
             paths.add("..");
         }
         StringBuilder path = new StringBuilder("../");
         while (!(elem.getName().equals("Structure") && elem.getNamespace()
-                .equals(CAMConstants.CAM_NAMESPACE))) {
+                .equals(CamsConstants.CAM_NAMESPACE))) {
             drillDown(attribute, elem, path.toString(), paths, nodes);
             elem = elem.getParentElement();
             path.append("../");

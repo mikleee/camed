@@ -6,7 +6,7 @@ import org.jdom.Namespace;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
+import static com.aimprosoft.camed.compiler.constants.CamsConstants.QUOTE;
 
 /**
  * author m.tkachenko

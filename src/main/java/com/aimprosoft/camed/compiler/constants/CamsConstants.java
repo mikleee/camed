@@ -2,7 +2,7 @@ package com.aimprosoft.camed.compiler.constants;
 
 import org.jdom.Namespace;
 
-public interface CAMConstants {
+public interface CamsConstants {
 
     String CAM_NAMESPACE_PREFIX = "as";
     String CAM_NAMESPACE_URI = "http://www.oasis-open.org/committees/cam";

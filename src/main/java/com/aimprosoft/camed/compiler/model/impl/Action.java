@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
+import static com.aimprosoft.camed.compiler.constants.CamsConstants.QUOTE;
 
 public class Action implements Compilable {
 

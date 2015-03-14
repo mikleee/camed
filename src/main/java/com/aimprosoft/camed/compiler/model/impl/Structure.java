@@ -8,7 +8,7 @@ import org.jdom.Element;
 
 import java.util.List;
 
-import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
+import static com.aimprosoft.camed.compiler.constants.CamsConstants.QUOTE;
 
 
 public class Structure implements Compilable {

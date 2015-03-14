@@ -18,7 +18,7 @@ public class Structure implements Compilable {
     private String taxonomy = TaxonomyType.XML.toString();
     private String taxonomyOther = ""; //todo
     private Element structure;
-    private CamTemplate template;
+    private CAMTemplate template;
 
     public Structure(Element element) {
         structure = element;
@@ -76,7 +76,7 @@ public class Structure implements Compilable {
         return structure;
     }
 
-    public void setTemplate(CamTemplate template) {
+    public void setTemplate(CAMTemplate template) {
         this.template = template;
     }
 

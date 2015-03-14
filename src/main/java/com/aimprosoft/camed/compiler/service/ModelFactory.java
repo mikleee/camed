@@ -12,15 +12,15 @@ import org.jdom.Element;
  */
 public class ModelFactory {
 
-    public static Namespaces createNamespaces(CamTemplate template) throws CamException {
+    public static Namespaces createNamespaces(CAMTemplate template) throws CamException {
         return new NamespacesBuilder(template).build();
     }
 
-    public static Structure createStructure(CamTemplate template) throws CamException {
+    public static Structure createStructure(CAMTemplate template) throws CamException {
         return new StructureBuilder(template).build();
     }
 
-    public static CamTemplate createCAMTemplate(Document document) throws CamException {
+    public static CAMTemplate createCAMTemplate(Document document) throws CamException {
         return new CamTemplateBuilder(document).build();
     }
 
@@ -32,7 +32,7 @@ public class ModelFactory {
         return new ConstraintBuilder(element).build();
     }
 
-    public static Header createHeader(CamTemplate template) throws CamException {
+    public static Header createHeader(CAMTemplate template) throws CamException {
         return new HeaderBuilder(template).build();
     }
 }

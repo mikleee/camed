@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.compiler.service.compiler;
 
 import com.aimprosoft.camed.compiler.CamException;
-import com.aimprosoft.camed.compiler.model.impl.CamTemplate;
+import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.service.DocumentFactory;
 import com.aimprosoft.camed.compiler.service.ModelFactory;
 import com.aimprosoft.camed.compiler.util.CommonUtils;
@@ -15,9 +15,9 @@ public class CamCompiler {
 
     private final static String ENCODING = "UTF-8";
 
-    private CamXmlOutputEngine outputEngine;
+    private CAMXMLOutputEngine outputEngine;
 
-    private CamTemplate inputTemplate;
+    private CAMTemplate inputTemplate;
     private Document outputTemplate;
     private File inputFile;
 
@@ -29,7 +29,7 @@ public class CamCompiler {
         outputTemplate = compile();
     }
 
-    private CamTemplate initInputTemplate(File inputFile) throws CamException {
+    private CAMTemplate initInputTemplate(File inputFile) throws CamException {
         Document doc = DocumentFactory.createDocument(inputFile);
         return ModelFactory.createCAMTemplate(doc);
     }
@@ -59,7 +59,7 @@ public class CamCompiler {
 
     private void initOutputEngine() {
         Format format = createPrettyFormat();
-        this.outputEngine = new CamXmlOutputEngine(format);
+        this.outputEngine = new CAMXMLOutputEngine(format);
     }
 
     private Format createPrettyFormat() {

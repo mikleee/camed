@@ -1,15 +1,15 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.CAMCompilerException;
-import com.aimprosoft.camed.compiler.constants.CAMConstants;
+import com.aimprosoft.camed.compiler.CamException;
+import com.aimprosoft.camed.compiler.constants.CamConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.service.compiler.ConstraintManager;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
-import static com.aimprosoft.camed.compiler.constants.CAMConstants.CAM_NAMESPACE;
-import static com.aimprosoft.camed.compiler.constants.CAMConstants.QUOTE;
+import static com.aimprosoft.camed.compiler.constants.CamConstants.CAM_NAMESPACE;
+import static com.aimprosoft.camed.compiler.constants.CamConstants.QUOTE;
 
 public class CAMTemplate implements Compilable {
 
@@ -72,12 +72,12 @@ public class CAMTemplate implements Compilable {
 
     public Element getStructureElement() {
         return templateDocument.getRootElement()
-                .getChild("AssemblyStructure", CAMConstants.CAM_NAMESPACE)
-                .getChild("Structure", CAMConstants.CAM_NAMESPACE);
+                .getChild("AssemblyStructure", CamConstants.CAM_NAMESPACE)
+                .getChild("Structure", CamConstants.CAM_NAMESPACE);
     }
 
     @Override
-    public String compile() throws CAMCompilerException {
+    public String compile() throws CamException {
 
         StringBuilder builder = new StringBuilder("<as:CAM ");
 

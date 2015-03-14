@@ -1,6 +1,6 @@
 package com.aimprosoft.camed.compiler.model.impl;
 
-import com.aimprosoft.camed.compiler.constants.CamsConstants;
+import com.aimprosoft.camed.compiler.constants.CamConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import org.jdom.Element;
 
@@ -22,9 +22,9 @@ public class Header implements Compilable {
 
     public Header(Element element) {
         this(
-                element.getChildText("Description", CamsConstants.CAM_NAMESPACE),
-                element.getChildText("Owner", CamsConstants.CAM_NAMESPACE),
-                element.getChildText("Version", CamsConstants.CAM_NAMESPACE)
+                element.getChildText("Description", CamConstants.CAM_NAMESPACE),
+                element.getChildText("Owner", CamConstants.CAM_NAMESPACE),
+                element.getChildText("Version", CamConstants.CAM_NAMESPACE)
         );
     }
 

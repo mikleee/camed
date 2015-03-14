@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.compiler.service.builder.impl;
 
 import com.aimprosoft.camed.compiler.CamException;
-import com.aimprosoft.camed.compiler.constants.CamsConstants;
+import com.aimprosoft.camed.compiler.constants.CamConstants;
 import com.aimprosoft.camed.compiler.model.Compilable;
 import com.aimprosoft.camed.compiler.model.impl.CAMTemplate;
 import com.aimprosoft.camed.compiler.model.impl.Namespaces;
@@ -35,7 +35,7 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
 
     private Set<Namespace> retrieveNamespaces() {
         Set<Namespace> result = new HashSet<Namespace>();
-        result.add(CamsConstants.XML_NAMESPACE);
+        result.add(CamConstants.XML_NAMESPACE);
         populateNamespaceList(element, result);
         return result;
     }

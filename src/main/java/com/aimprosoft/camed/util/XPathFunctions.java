@@ -155,6 +155,16 @@ public class XPathFunctions {
         return parent + path;
     }
 
+    public static String absoluteXpathWithPosition(Element element) {
+
+        String path = "/" + element.getQualifiedName() + "[" + getPosition(element) + "]";
+        String parent = "";
+        if (element.getParentElement() != null) {
+            parent = absoluteXpathWithPosition(element.getParentElement());
+        }
+        return parent + path;
+    }
+
     private static String fullXpathWithPosition(Attribute attribute) {
         String path = "/" + attribute.getParent().getQualifiedName() + "[" + getPosition(attribute.getParent()) + "]" + "/@" + attribute.getQualifiedName();
         Element element = attribute.getParent();

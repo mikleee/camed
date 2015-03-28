@@ -7,6 +7,8 @@ import com.aimprosoft.camed.service.builder.impl.*;
 import org.jdom.Document;
 import org.jdom.Element;
 
+import java.io.File;
+
 /**
  * @author mtkachenko.
  */
@@ -24,8 +26,8 @@ public class ModelFactory {
         return new TemplateBuilder(document).build();
     }
 
-    public static DecompiledCamTemplate createDecompiledCAMTemplate(Document document) throws CamException {
-        return new DecompiledTemplateBuilder(document).build();
+    public static DecompiledCamTemplate createDecompiledCAMTemplate(File file) throws CamException {
+        return new DecompiledTemplateBuilder(file).build();
     }
 
     public static Constraint createConstraint(Element element) throws CamException {

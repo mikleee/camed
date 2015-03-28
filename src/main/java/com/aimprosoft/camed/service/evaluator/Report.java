@@ -15,18 +15,25 @@ public class Report {
     private Map<MismatchType, List<String>> report = new HashMap<MismatchType, List<String>>();
     private List<String> missed;
     private List<String> extra;
+    private List<String> mismatched;
 
-    public Report(ReportType reportType, List<String> missed, List<String> extra) {
+    public Report(ReportType reportType, List<String> missed, List<String> extra, List<String> mismatched) {
         this.reportType = reportType;
         this.missed = missed;
         this.extra = extra;
+        this.mismatched = mismatched;
         buildReport();
     }
 
     private void buildReport() {
-        if (!missed.isEmpty() || !extra.isEmpty()) {
+        if (!missed.isEmpty()) {
             report.put(MismatchType.MISSED, missed);
+        }
+        if (!extra.isEmpty()) {
             report.put(MismatchType.EXTRA, missed);
+        }
+        if (!mismatched.isEmpty()) {
+            report.put(MismatchType.MISMATCHED, mismatched);
         }
     }
 
@@ -39,7 +46,7 @@ public class Report {
     }
 
     private enum MismatchType {
-        MISSED("missed-mismatch-type"), EXTRA("extra-mismatch-type");
+        MISSED("missed-mismatch-type"), EXTRA("extra-mismatch-type"), MISMATCHED("mismatch-mismatch-type");
         private String key;
 
         MismatchType(String key) {

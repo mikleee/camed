@@ -5,6 +5,8 @@ import com.aimprosoft.camed.constants.ReportType;
 import com.aimprosoft.camed.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.service.DocumentFactory;
 import com.aimprosoft.camed.service.ModelFactory;
+import com.aimprosoft.camed.util.XPathFunctions;
+import org.jdom.Attribute;
 import org.jdom.Element;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -55,7 +57,7 @@ public class TemplateEvaluator {
 
             if (compared == null) {
                 missed.add(key);
-            } else if (isStructureElementsHaveDiff(reference, compared)) {
+            } else if (elementsDifferent(reference, compared)) {
                 mismatched.add(key);
             }
 
@@ -68,9 +70,46 @@ public class TemplateEvaluator {
         return new Report(ReportType.STRUCTURE, missed, extra, mismatched);
     }
 
-    private boolean isStructureElementsHaveDiff(Element reference, Element compared) {
-        return reference.getAttributes().size() != compared.getAttributes().size(); //todo
+    private boolean elementsDifferent(Element reference, Element compared) {
+        return elementNamesDifferent(reference, compared) ||
+                attributesCountDifferent(reference, compared) ||
+                attributesDifferent(reference, compared);
+
     }
+
+    private boolean elementNamesDifferent(Element reference, Element compared) {
+        return !reference.getQualifiedName().equals(compared.getQualifiedName());
+    }
+
+
+    private boolean attributesCountDifferent(Element reference, Element compared) {
+        return reference.getAttributes().size() != compared.getAttributes().size();
+    }
+
+    private boolean attributesDifferent(Element reference, Element compared) {
+        List<Attribute> referenceAttributes = new ArrayList<Attribute>(reference.getAttributes()); //todo
+        List<Attribute> comparedAttributes = new ArrayList<Attribute>(compared.getAttributes());
+
+        for (int i = 0; i < referenceAttributes.size(); i++) {
+            Attribute refAttr = referenceAttributes.get(i);
+            String refName = XPathFunctions.normalizeAttributeName(refAttr);
+
+            for (Attribute comparedAttr : comparedAttributes) {
+                String comparedName = XPathFunctions.normalizeAttributeName(refAttr);
+
+                if (refName.equals(comparedName)) {
+                    if (refAttr.getValue().equals(comparedAttr.getValue())) {
+                        referenceAttributes.remove(i--);
+                        comparedAttributes.remove(comparedAttr);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return !referenceAttributes.isEmpty() || !comparedAttributes.isEmpty();
+    }
+
 
     public boolean evaluate(String string1, String string2) throws CamException, ParserConfigurationException {
 

@@ -372,6 +372,11 @@ public class XPathFunctions {
 
     }
 
+    public static String normalizeAttributeName(Attribute attribute) {
+        return attribute.getQualifiedName().replaceAll("_\\d+", "");
+
+    }
+
     private static boolean parentIsNotOnTop(Element element) {
         Element parent = element.getParentElement();
         return !parent.isRootElement() && parentIsNotStructureAndTemp(element);

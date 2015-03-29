@@ -3,18 +3,10 @@ package com.aimprosoft.camed.service.evaluator;
 import com.aimprosoft.camed.CamException;
 import com.aimprosoft.camed.constants.ReportTarget;
 import com.aimprosoft.camed.model.DecompiledCamTemplate;
-import com.aimprosoft.camed.service.DocumentFactory;
 import com.aimprosoft.camed.service.ModelFactory;
-import com.aimprosoft.camed.util.XPathFunctions;
 import org.jdom.Attribute;
 import org.jdom.Element;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,15 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.aimprosoft.camed.util.XPathFunctions.*;
+
 
 /**
  * @author mtkachenko.
  */
 public class TemplateEvaluator {
-
-    Document header;
-    Document namespaces;
-    Document structure;
 
 
     public List<Report> evaluate(File referenceFile, File comparedFile) throws CamException {
@@ -44,8 +34,8 @@ public class TemplateEvaluator {
         return result;
     }
 
-    private List<Report> evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
-        Report missed = new Report(ReportTarget.STRUCTURE, ReportType.MISSED);
+    private Report evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+        Report report = new Report(ReportTarget.STRUCTURE);
 
         Map<String, Element> referenceStructure = new ConcurrentHashMap<String, Element>(referenceTemplate.getStructures());
         Map<String, Element> comparedStructure = new ConcurrentHashMap<String, Element>(comparedTemplate.getStructures());
@@ -55,64 +45,68 @@ public class TemplateEvaluator {
             Element compared = comparedStructure.get(key);
 
             if (compared == null) {
-                missed.add(key);
-            } else if (elementsDifferent(reference, compared)) {
-                mismatched.add(key);
+                report.addMiss(key);
             }
+
+            findAttrDiffs(reference, compared, report);
 
             referenceStructure.remove(key);
             comparedStructure.remove(key);
         }
 
-        List<String> extra = new ArrayList<String>(comparedStructure.keySet());
+        report.addExtras(comparedStructure.keySet());
+        report.addMisses(referenceStructure.keySet());
 
-        return new Report(ReportTarget.STRUCTURE, missed, extra, mismatched);
+        return report;
     }
 
-    private boolean elementsDifferent(Element reference, Element compared) {
-        return elementNamesDifferent(reference, compared) ||
-                attributesCountDifferent(reference, compared) ||
-                attributesDifferent(reference, compared);
-
-    }
-
-    private boolean elementNamesDifferent(Element reference, Element compared) {
-        return !reference.getQualifiedName().equals(compared.getQualifiedName());
-    }
-
-
-    private boolean attributesCountDifferent(Element reference, Element compared) {
-        return reference.getAttributes().size() != compared.getAttributes().size();
-    }
-
-    private boolean attributesDifferent(Element reference, Element compared) { //todo
-        Report report = new Report();
-
+    private void findAttrDiffs(Element reference, Element compared, Report report) { //todo
         List<Attribute> referenceAttributes = new ArrayList<Attribute>(reference.getAttributes());
         List<Attribute> comparedAttributes = new ArrayList<Attribute>(compared.getAttributes());
 
         for (int i = 0; i < referenceAttributes.size(); i++) {
             Attribute refAttr = referenceAttributes.get(i);
-            String refName = XPathFunctions.normalizeAttributeName(refAttr);
+            String refName = normalizeAttributeName(refAttr);
 
-            for (Attribute comparedAttr : comparedAttributes) {
-                String comparedName = XPathFunctions.normalizeAttributeName(refAttr);
+            for (int j = 0; j < comparedAttributes.size(); j++) {
+                Attribute comparedAttr = comparedAttributes.get(j);
+                String comparedName = normalizeAttributeName(comparedAttr);
 
                 if (refName.equals(comparedName)) {
-                    if (refAttr.getValue().equals(comparedAttr.getValue())) {
+                    if (sameAttrContent(refAttr, comparedAttr)) {
                         referenceAttributes.remove(i--);
-                        comparedAttributes.remove(comparedAttr);
+                        comparedAttributes.remove(j);
+                        break;
+                    } else if (nonNumberedAttrPair(refAttr, comparedAttr)) {
+                        report.addMismatch(absoluteXPathByName(comparedAttr));
+                        referenceAttributes.remove(i--);
+                        comparedAttributes.remove(j);
                         break;
                     }
                 }
             }
         }
 
-        return !referenceAttributes.isEmpty() || !comparedAttributes.isEmpty();
+        for (Attribute attr : referenceAttributes) {
+            report.addMiss(absoluteXPathByName(attr));
+        }
+
+        for (Attribute attr : comparedAttributes) {
+            report.addExtra(absoluteXPathByName(attr));
+        }
+
+    }
+
+    private boolean nonNumberedAttrPair(Attribute attr1, Attribute attr2) {
+        return !isNumberedAttribute(attr2) && !isNumberedAttribute(attr1);
+    }
+
+    private boolean sameAttrContent(Attribute attr1, Attribute attr2) {
+        return attr1.getValue().equals(attr2.getValue());
     }
 
 
-    public boolean evaluate(String string1, String string2) throws CamException, ParserConfigurationException {
+/*    public boolean evaluate(String string1, String string2) throws CamException, ParserConfigurationException {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -151,13 +145,17 @@ public class TemplateEvaluator {
 
 
         return documentIn.isEqualNode(documentOut);
-    }
+    }*/
 
     public static void main(String[] args) throws CamException {
-        File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
-        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
+        File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
+        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
+
+        for (Report report : result) {
+            System.out.println(report);
+        }
     }
 
 }

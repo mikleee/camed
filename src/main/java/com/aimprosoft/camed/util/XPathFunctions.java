@@ -355,7 +355,6 @@ public class XPathFunctions {
     }
 
     public static boolean isAttributePresent(Attribute attribute, Element parent) {
-
         String attrName = attribute.getQualifiedName();
 
         if (parent.getAttribute(attrName) != null) {
@@ -369,12 +368,30 @@ public class XPathFunctions {
             }
             return false;
         }
+    }
 
+    public static String absoluteXPathByName(Object node) {
+        if (node instanceof Element) {
+            Element element = (Element) node;
+            Attribute name = element.getAttribute("name");
+            if (name == null) {
+                throw new IllegalArgumentException("Node should contain [name] attribute");
+            }
+            return absoluteXpathWithPosition((Element) node) + "[@name=" + name.getValue() + "]";
+        } else if (node instanceof Attribute) {
+            Attribute attribute = (Attribute) node;
+            return absoluteXPathByName(attribute.getParent()) + "/@" + attribute.getQualifiedName();
+        } else {
+            throw new IllegalArgumentException("Applicable for " + Element.class + ", " + Attribute.class + " types only");
+        }
     }
 
     public static String normalizeAttributeName(Attribute attribute) {
         return attribute.getQualifiedName().replaceAll("_\\d+", "");
+    }
 
+    public static boolean isNumberedAttribute(Attribute attribute) {
+        return attribute.getQualifiedName().matches("[a-zA-Z\\d]*_\\d+");
     }
 
     private static boolean parentIsNotOnTop(Element element) {

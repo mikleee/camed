@@ -3,6 +3,6 @@ package com.aimprosoft.camed.constants;
 /**
  * @author mtkachenko.
  */
-public enum ReportType {
+public enum ReportTarget {
     NAMESPACES, HEADER, STRUCTURE, RULES
 }

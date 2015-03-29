@@ -1,10 +1,9 @@
 package com.aimprosoft.camed.service.evaluator;
 
-import com.aimprosoft.camed.constants.ReportType;
+import com.aimprosoft.camed.constants.ReportTarget;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author mtkachenko.
@@ -12,49 +11,33 @@ import java.util.Map;
 public class Report {
 
     private ReportType reportType;
-    private Map<MismatchType, List<String>> report = new HashMap<MismatchType, List<String>>();
-    private List<String> missed;
-    private List<String> extra;
-    private List<String> mismatched;
+    private ReportTarget reportTarget;
+    private List<String> conflicts = new ArrayList<String>();
 
-    public Report(ReportType reportType, List<String> missed, List<String> extra, List<String> mismatched) {
-        this.reportType = reportType;
-        this.missed = missed;
-        this.extra = extra;
-        this.mismatched = mismatched;
-        buildReport();
+    public Report(ReportTarget reportTarget, ReportType reportType, List<String> conflicts) {
+        this(reportTarget, reportType);
+        this.conflicts = conflicts;
     }
 
-    private void buildReport() {
-        if (!missed.isEmpty()) {
-            report.put(MismatchType.MISSED, missed);
-        }
-        if (!extra.isEmpty()) {
-            report.put(MismatchType.EXTRA, missed);
-        }
-        if (!mismatched.isEmpty()) {
-            report.put(MismatchType.MISMATCHED, mismatched);
-        }
+    public Report(ReportTarget reportTarget, ReportType reportType) {
+        this.reportType = reportType;
+        this.reportTarget = reportTarget;
+    }
+
+    public ReportTarget getReportTarget() {
+        return reportTarget;
+    }
+
+    public List<String> getConfilcts() {
+        return conflicts;
     }
 
     public ReportType getReportType() {
         return reportType;
     }
 
-    public Map<MismatchType, List<String>> getReport() {
-        return report;
+    public void addConflict(String conflictXpath) {
+        conflicts.add(conflictXpath);
     }
 
-    private enum MismatchType {
-        MISSED("missed-mismatch-type"), EXTRA("extra-mismatch-type"), MISMATCHED("mismatch-mismatch-type");
-        private String key;
-
-        MismatchType(String key) {
-            this.key = key;
-        }
-
-        public String getKey() {
-            return key;
-        }
-    }
 }

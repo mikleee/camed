@@ -1,7 +1,7 @@
 package com.aimprosoft.camed.service.evaluator;
 
 import com.aimprosoft.camed.CamException;
-import com.aimprosoft.camed.constants.ReportType;
+import com.aimprosoft.camed.constants.ReportTarget;
 import com.aimprosoft.camed.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.service.DocumentFactory;
 import com.aimprosoft.camed.service.ModelFactory;
@@ -44,9 +44,8 @@ public class TemplateEvaluator {
         return result;
     }
 
-    private Report evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
-        List<String> missed = new ArrayList<String>();
-        List<String> mismatched = new ArrayList<String>();
+    private List<Report> evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+        Report missed = new Report(ReportTarget.STRUCTURE, ReportType.MISSED);
 
         Map<String, Element> referenceStructure = new ConcurrentHashMap<String, Element>(referenceTemplate.getStructures());
         Map<String, Element> comparedStructure = new ConcurrentHashMap<String, Element>(comparedTemplate.getStructures());
@@ -67,7 +66,7 @@ public class TemplateEvaluator {
 
         List<String> extra = new ArrayList<String>(comparedStructure.keySet());
 
-        return new Report(ReportType.STRUCTURE, missed, extra, mismatched);
+        return new Report(ReportTarget.STRUCTURE, missed, extra, mismatched);
     }
 
     private boolean elementsDifferent(Element reference, Element compared) {
@@ -86,8 +85,10 @@ public class TemplateEvaluator {
         return reference.getAttributes().size() != compared.getAttributes().size();
     }
 
-    private boolean attributesDifferent(Element reference, Element compared) {
-        List<Attribute> referenceAttributes = new ArrayList<Attribute>(reference.getAttributes()); //todo
+    private boolean attributesDifferent(Element reference, Element compared) { //todo
+        Report report = new Report();
+
+        List<Attribute> referenceAttributes = new ArrayList<Attribute>(reference.getAttributes());
         List<Attribute> comparedAttributes = new ArrayList<Attribute>(compared.getAttributes());
 
         for (int i = 0; i < referenceAttributes.size(); i++) {
@@ -154,7 +155,7 @@ public class TemplateEvaluator {
 
     public static void main(String[] args) throws CamException {
         File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
-        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result-copy.cxx");
+        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
     }

@@ -40,7 +40,7 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
         return result;
     }
 
-    private void populateNamespaceList(Element element, Set<Namespace> result) {
+    public static void populateNamespaceList(Element element, Collection<Namespace> result) {
         Namespace namespace = element.getNamespace();
 
         if (!namespace.getPrefix().isEmpty()) {

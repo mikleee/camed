@@ -377,7 +377,7 @@ public class XPathFunctions {
             if (name == null) {
                 throw new IllegalArgumentException("Node should contain [name] attribute");
             }
-            return absoluteXpathWithPosition((Element) node) + "[@name=" + name.getValue() + "]";
+            return absoluteXpathWithPosition((Element) node) + "[@name=" + CamConstants.QUOTE + name.getValue() + CamConstants.QUOTE + "]";
         } else if (node instanceof Attribute) {
             Attribute attribute = (Attribute) node;
             return absoluteXPathByName(attribute.getParent()) + "/@" + attribute.getQualifiedName();

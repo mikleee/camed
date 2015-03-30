@@ -1,34 +1,36 @@
 package com.aimprosoft.camed.model;
 
-import com.aimprosoft.camed.model.impl.Header;
-import com.aimprosoft.camed.model.impl.Namespaces;
+import org.jdom.Attribute;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author mtkachenko.
  */
 public class DecompiledCamTemplate {
 
-    private Header header;
-    private Namespaces namespaces;
-
+    private List<Attribute> metaInfo;
+    private Set<Namespace> namespaces;
     private Map<String, Element> structures;
 
-    public Header getHeader() {
-        return header;
+
+    public List<Attribute> getMetaInfo() {
+        return metaInfo;
     }
 
-    public void setHeader(Header header) {
-        this.header = header;
+    public void setMetaInfo(List<Attribute> metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
-    public Namespaces getNamespaces() {
+    public Set<Namespace> getNamespaces() {
         return namespaces;
     }
 
-    public void setNamespaces(Namespaces namespaces) {
+    public void setNamespaces(Set<Namespace> namespaces) {
         this.namespaces = namespaces;
     }
 

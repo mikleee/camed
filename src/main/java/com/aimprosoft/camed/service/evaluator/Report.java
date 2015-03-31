@@ -2,6 +2,9 @@ package com.aimprosoft.camed.service.evaluator;
 
 import com.aimprosoft.camed.constants.ReportTarget;
 import com.aimprosoft.camed.constants.ReportType;
+import com.aimprosoft.camed.model.KeyValuePair;
+import org.jdom.Attribute;
+import org.jdom.Element;
 
 import java.util.*;
 
@@ -11,33 +14,53 @@ import java.util.*;
 public class Report {
 
     private ReportTarget reportTarget;
-    private Map<ReportType, List<String>> conflicts = new LinkedHashMap<ReportType, List<String>>();
+    private Map<ReportType, Map<String, KeyValuePair>> conflicts = new LinkedHashMap<ReportType, Map<String, KeyValuePair>>();
 
     public Report(ReportTarget reportTarget) {
         this.reportTarget = reportTarget;
         for (ReportType reportType : ReportType.values()) {
-            conflicts.put(reportType, new ArrayList<String>());
+            conflicts.put(reportType, new HashMap<String, KeyValuePair>());
         }
     }
 
-    public void addExtra(String conflict) {
-        conflicts.get(ReportType.EXTRAS).add(conflict);
+    public void addExtra(String conflict, Element element) {
+        conflicts.get(ReportType.EXTRAS).put(conflict, new KeyValuePair(element));
     }
 
-    public void addExtras(Collection<String> extras) {
-        conflicts.get(ReportType.EXTRAS).addAll(extras);
+    public void addExtra(String conflict, Attribute attribute) {
+        conflicts.get(ReportType.EXTRAS).put(conflict, new KeyValuePair(attribute));
     }
 
-    public void addMiss(String conflict) {
-        conflicts.get(ReportType.MISSES).add(conflict);
+    public void addExtras(Map<String, Element> extras) {
+        Map<String, KeyValuePair> map = new HashMap<String, KeyValuePair>();
+        for (String key : extras.keySet()) {
+            map.put(key, new KeyValuePair(extras.get(key)));
+        }
+        conflicts.get(ReportType.EXTRAS).putAll(map);
     }
 
-    public void addMisses(Collection<String> misses) {
-        conflicts.get(ReportType.MISSES).addAll(misses);
+    public void addMiss(String conflict, Element element) {
+        conflicts.get(ReportType.MISSES).put(conflict, new KeyValuePair(element));
     }
 
-    public void addMismatch(String conflict) {
-        conflicts.get(ReportType.MISMATCHES).add(conflict);
+    public void addMiss(String conflict, Attribute attribute) {
+        conflicts.get(ReportType.MISSES).put(conflict, new KeyValuePair(attribute));
+    }
+
+    public void addMisses(Map<String, Element> misses) {
+        Map<String, KeyValuePair> map = new HashMap<String, KeyValuePair>();
+        for (String key : misses.keySet()) {
+            map.put(key, new KeyValuePair(misses.get(key)));
+        }
+        conflicts.get(ReportType.MISSES).putAll(map);
+    }
+
+    public void addMismatch(String conflict, Element element) {
+        conflicts.get(ReportType.MISMATCHES).put(conflict, new KeyValuePair(element));
+    }
+
+    public void addMismatch(String conflict, Attribute attribute) {
+        conflicts.get(ReportType.MISMATCHES).put(conflict, new KeyValuePair(attribute));
     }
 
 
@@ -45,7 +68,7 @@ public class Report {
         return reportTarget;
     }
 
-    public Map<ReportType, List<String>> getConflicts() {
+    public Map<ReportType, Map<String, KeyValuePair>> getConflicts() {
         return conflicts;
     }
 
@@ -59,10 +82,11 @@ public class Report {
                 .append(line).append("\n\n");
 
         for (ReportType type : conflicts.keySet()) {
-            List<String> conflictSection = conflicts.get(type);
+            Map<String, KeyValuePair> conflictSection = conflicts.get(type);
             builder.append(type).append(" count: ").append(conflictSection.size()).append("\n\n");
 
-            for (String conflict : conflictSection) {
+            Set list = conflictSection.keySet();
+            for (Object conflict : list) {
                 builder.append(conflict).append("\n");
             }
 

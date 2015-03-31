@@ -6,6 +6,7 @@ import com.aimprosoft.camed.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.service.ModelFactory;
 import org.jdom.Attribute;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
 import java.io.File;
 import java.util.*;
@@ -26,11 +27,11 @@ public class TemplateEvaluator {
         List<Report> result = new LinkedList<Report>();
 
         Report metaInfoReport = evaluateMetaInfo(referenceTemplate, comparedTemplate);
-        //Report namespacesReport = evaluateNamespace(referenceTemplate, comparedTemplate);
+        Report namespacesReport = evaluateNamespace(referenceTemplate, comparedTemplate);
         Report elementNamespaceReport = evaluateCompileNamespace(referenceTemplate, comparedTemplate);
         Report structureReport = evaluateStructures(referenceTemplate, comparedTemplate);
         result.add(metaInfoReport);
-        //result.add(namespacesReport);
+        result.add(namespacesReport);
         result.add(elementNamespaceReport);
         result.add(structureReport);
 
@@ -56,8 +57,8 @@ public class TemplateEvaluator {
 
         }
 
-//        report.addExtras(comparedStructure.keySet()); //todo
-//        report.addMisses(referenceStructure.keySet());
+        report.addExtras(comparedStructure);
+        report.addMisses(referenceStructure);
 
         return report;
     }
@@ -124,14 +125,14 @@ public class TemplateEvaluator {
         return report;
     }
 
-//    private Report evaluateNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
-//        Report report = new Report(ReportTarget.NAMESPACES);
-//        Set<Namespace> refNamespaces = new HashSet<Namespace>(referenceTemplate.getDeclaredNamespaces());
-//        Set<Namespace> refNamespacesCopy = new HashSet<Namespace>(refNamespaces);
-//        Set<Namespace> compileNamespaces = new HashSet<Namespace>(comparedTemplate.getDeclaredNamespaces());
-//        refNamespaces.removeAll(compileNamespaces);
-//        compileNamespaces.removeAll(refNamespacesCopy);
-//
+    private Report evaluateNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+        Report report = new Report(ReportTarget.NAMESPACES);
+        Set<Namespace> refNamespaces = new HashSet<Namespace>(referenceTemplate.getDeclaredNamespaces());
+        Set<Namespace> refNamespacesCopy = new HashSet<Namespace>(refNamespaces);
+        Set<Namespace> compileNamespaces = new HashSet<Namespace>(comparedTemplate.getDeclaredNamespaces());
+        refNamespaces.removeAll(compileNamespaces);
+        compileNamespaces.removeAll(refNamespacesCopy);
+
 //        for (Namespace attr : refNamespaces) {
 //            report.addMiss(attr.toString());
 //        }
@@ -139,9 +140,9 @@ public class TemplateEvaluator {
 //        for (Namespace attr : compileNamespaces) {
 //            report.addExtra(attr.toString(), attr);
 //        }
-//
-//        return report;
-//    }
+
+        return report;
+    }
 
     private Report evaluateCompileNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
         Report report = new Report(ReportTarget.NAMESPACES);

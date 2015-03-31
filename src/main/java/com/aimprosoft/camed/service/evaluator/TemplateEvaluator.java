@@ -8,10 +8,7 @@ import org.jdom.Attribute;
 import org.jdom.Element;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.aimprosoft.camed.util.XPathFunctions.*;
@@ -28,8 +25,15 @@ public class TemplateEvaluator {
         DecompiledCamTemplate comparedTemplate = ModelFactory.createDecompiledCAMTemplate(comparedFile);
         List<Report> result = new LinkedList<Report>();
 
+        Report metaInfoReport = evaluateMetaInfo(referenceTemplate, comparedTemplate);
+        //Report namespacesReport = evaluateNamespace(referenceTemplate, comparedTemplate);
+        Report elementNamespaceReport = evaluateCompileNamespace(referenceTemplate, comparedTemplate);
         Report structureReport = evaluateStructures(referenceTemplate, comparedTemplate);
+        result.add(metaInfoReport);
+        //result.add(namespacesReport);
+        result.add(elementNamespaceReport);
         result.add(structureReport);
+
 
         return result;
     }
@@ -44,18 +48,16 @@ public class TemplateEvaluator {
             Element reference = referenceStructure.get(key);
             Element compared = comparedStructure.get(key);
 
-            if (compared == null) {
-                report.addMiss(key);
+            if (compared != null) {
+                findAttrDiffs(reference, compared, report);
+                comparedStructure.remove(key);
+                referenceStructure.remove(key);
             }
 
-            findAttrDiffs(reference, compared, report);
-
-            referenceStructure.remove(key);
-            comparedStructure.remove(key);
         }
 
-        report.addExtras(comparedStructure.keySet());
-        report.addMisses(referenceStructure.keySet());
+//        report.addExtras(comparedStructure.keySet()); //todo
+//        report.addMisses(referenceStructure.keySet());
 
         return report;
     }
@@ -78,7 +80,7 @@ public class TemplateEvaluator {
                         comparedAttributes.remove(j);
                         break;
                     } else if (nonNumberedAttrPair(refAttr, comparedAttr)) {
-                        report.addMismatch(absoluteXPathByName(comparedAttr));
+                        report.addMismatch(absoluteXPathByName(comparedAttr), comparedAttr);
                         referenceAttributes.remove(i--);
                         comparedAttributes.remove(j);
                         break;
@@ -88,14 +90,86 @@ public class TemplateEvaluator {
         }
 
         for (Attribute attr : referenceAttributes) {
-            report.addMiss(absoluteXPathByName(attr));
+            report.addMiss(absoluteXPathByName(attr), attr);
         }
 
         for (Attribute attr : comparedAttributes) {
-            report.addExtra(absoluteXPathByName(attr));
+            report.addExtra(absoluteXPathByName(attr), attr);
         }
 
     }
+
+
+    private Report evaluateMetaInfo(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+        Report report = new Report(ReportTarget.META_INFO);
+        List<Attribute> refMetaInfo = new ArrayList<Attribute>(referenceTemplate.getMetaInfo());
+        List<Attribute> compileMetaInfo = new ArrayList<Attribute>(comparedTemplate.getMetaInfo());
+
+        for (int i = 0; i < refMetaInfo.size(); i++) {
+            for (int j = 0; j < compileMetaInfo.size(); j++) {
+                if (sameAttrContent(refMetaInfo.get(i), compileMetaInfo.get(j))) {
+                    refMetaInfo.remove(i);
+                    compileMetaInfo.remove(j--);
+                }
+            }
+        }
+
+        for (Attribute attr : refMetaInfo) {
+            report.addMiss(xpath(attr), attr);
+        }
+        for (Attribute attr : compileMetaInfo) {
+            report.addExtra(xpath(attr), attr);
+        }
+
+        return report;
+    }
+
+//    private Report evaluateNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+//        Report report = new Report(ReportTarget.NAMESPACES);
+//        Set<Namespace> refNamespaces = new HashSet<Namespace>(referenceTemplate.getDeclaredNamespaces());
+//        Set<Namespace> refNamespacesCopy = new HashSet<Namespace>(refNamespaces);
+//        Set<Namespace> compileNamespaces = new HashSet<Namespace>(comparedTemplate.getDeclaredNamespaces());
+//        refNamespaces.removeAll(compileNamespaces);
+//        compileNamespaces.removeAll(refNamespacesCopy);
+//
+//        for (Namespace attr : refNamespaces) {
+//            report.addMiss(attr.toString());
+//        }
+//
+//        for (Namespace attr : compileNamespaces) {
+//            report.addExtra(attr.toString(), attr);
+//        }
+//
+//        return report;
+//    }
+
+    private Report evaluateCompileNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+        Report report = new Report(ReportTarget.NAMESPACES);
+        List<Element> refNamespaces = new ArrayList<Element>(referenceTemplate.getCompiledNamespaces());
+        List<Element> compileNamespaces = new ArrayList<Element>(comparedTemplate.getCompiledNamespaces());
+
+        for (int i = 0; i < refNamespaces.size(); i++) {
+            for (int j = 0; j < compileNamespaces.size(); j++) {
+                if (refNamespaces.get(i).getAttribute("prefix").getValue().equals(compileNamespaces.get(j).getAttribute("prefix").getValue()) &&
+                        refNamespaces.get(i).getText().equals(compileNamespaces.get(j).getText())) {
+                    refNamespaces.remove(i--);
+                    compileNamespaces.remove(j);
+                    break;
+                }
+            }
+        }
+
+        for (Element element : refNamespaces) {
+            report.addMiss(xpath(element), element);
+        }
+
+        for (Element element : compileNamespaces) {
+            report.addExtra(xpath(element), element);
+        }
+
+        return report;
+    }
+
 
     private boolean nonNumberedAttrPair(Attribute attr1, Attribute attr2) {
         return !isNumberedAttribute(attr2) && !isNumberedAttribute(attr1);
@@ -148,8 +222,8 @@ public class TemplateEvaluator {
     }*/
 
     public static void main(String[] args) throws CamException {
-        File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
-        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
+        File file = new File("/home/stas/Work/Projects/camed/resorces/compiled-example/UDB-cam.cxx");
+        File file2 = new File("/home/stas/Work/Projects/camed/resorces/output/result.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
 

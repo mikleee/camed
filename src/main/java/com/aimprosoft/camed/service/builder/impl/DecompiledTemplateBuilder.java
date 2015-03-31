@@ -32,11 +32,9 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
         DecompiledCamTemplate decompiledCamTemplate = new DecompiledCamTemplate();
         decompiledCamTemplate.setMetaInfo(rootElement.getAttributes());
 
-        Set<Namespace> namespaces = buildNamespaces();
-        if (invalidNamespaces(namespaces)) {
+        buildNamespaces(decompiledCamTemplate);
+        if (invalidNamespaces(decompiledCamTemplate)) {
             throw new CamException("Namespaces are invalid");
-        } else {
-            decompiledCamTemplate.setNamespaces(namespaces);
         }
 
         decompiledCamTemplate.setStructures(buildStructures());
@@ -63,20 +61,25 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
     }
 
 
-    private Set<Namespace> buildNamespaces() {
-        Set<Namespace> namespaces = new HashSet<Namespace>();
+    private void buildNamespaces(DecompiledCamTemplate template) {
         //noinspection unchecked
-        for (Element child : (List<Element>) rootElement.getChild("Namespaces", CAM_NAMESPACE).getChildren()) {
-            String prefix = child.getAttribute("prefix").getValue();
-            String uri = child.getText();
-            namespaces.add(Namespace.getNamespace(prefix, uri));
-        }
-        return namespaces;
+        List<Element> compiledNamespaces = (List<Element>) rootElement.getChild("Namespaces", CAM_NAMESPACE).getChildren();
+        template.setCompiledNamespaces(compiledNamespaces);
+
+        Set<Namespace> declared = new HashSet<Namespace>();
+        NamespacesBuilder.populateNamespaceList(rootElement, declared);
+        template.setDeclaredNamespaces(new ArrayList<Namespace>(declared));
     }
 
-    public boolean invalidNamespaces(Set<Namespace> namespaces) {
-        List<Namespace> compiled = new ArrayList<Namespace>(namespaces);
-        List<Namespace> declared = initDeclaredNamespaces();
+    public boolean invalidNamespaces(DecompiledCamTemplate template) {
+        List<Namespace> compiled = new ArrayList<Namespace>();
+        List<Namespace> declared = new ArrayList<Namespace>(template.getDeclaredNamespaces());
+
+        for (Element child : template.getCompiledNamespaces()) {
+            String prefix = child.getAttribute("prefix").getValue();
+            String uri = child.getText();
+            compiled.add(Namespace.getNamespace(prefix, uri));
+        }
 
         if (declared.size() != compiled.size() - 1) {
             return false;
@@ -101,12 +104,6 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
         }
 
         return !declared.isEmpty() || !compiled.isEmpty();
-    }
-
-    private List<Namespace> initDeclaredNamespaces() {
-        Set<Namespace> declared = new HashSet<Namespace>();
-        NamespacesBuilder.populateNamespaceList(rootElement, declared);
-        return new ArrayList<Namespace>(declared);
     }
 
     public static void main(String[] args) throws CamException {

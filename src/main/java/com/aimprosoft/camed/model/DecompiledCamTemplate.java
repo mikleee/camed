@@ -14,7 +14,8 @@ import java.util.Set;
 public class DecompiledCamTemplate {
 
     private List<Attribute> metaInfo;
-    private Set<Namespace> namespaces;
+    private List<Namespace> declaredNamespaces;
+    private List<Element> compiledNamespaces;
     private Map<String, Element> structures;
 
 
@@ -26,12 +27,20 @@ public class DecompiledCamTemplate {
         this.metaInfo = metaInfo;
     }
 
-    public Set<Namespace> getNamespaces() {
-        return namespaces;
+    public List<Namespace> getDeclaredNamespaces() {
+        return declaredNamespaces;
     }
 
-    public void setNamespaces(Set<Namespace> namespaces) {
-        this.namespaces = namespaces;
+    public void setDeclaredNamespaces(List<Namespace> declaredNamespaces) {
+        this.declaredNamespaces = declaredNamespaces;
+    }
+
+    public List<Element> getCompiledNamespaces() {
+        return compiledNamespaces;
+    }
+
+    public void setCompiledNamespaces(List<Element> compiledNamespaces) {
+        this.compiledNamespaces = compiledNamespaces;
     }
 
     public Map<String, Element> getStructures() {

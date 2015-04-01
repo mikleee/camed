@@ -5,6 +5,7 @@ import com.aimprosoft.camed.constants.ReportType;
 import com.aimprosoft.camed.model.KeyValuePair;
 import org.jdom.Attribute;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
 import java.util.*;
 
@@ -27,6 +28,10 @@ public class Report {
         conflicts.get(ReportType.EXTRAS).put(conflict, new KeyValuePair(element));
     }
 
+    public void addExtra(String conflict, Namespace namespace) {
+        conflicts.get(ReportType.EXTRAS).put(conflict, new KeyValuePair(namespace));
+    }
+
     public void addExtra(String conflict, Attribute attribute) {
         conflicts.get(ReportType.EXTRAS).put(conflict, new KeyValuePair(attribute));
     }
@@ -41,6 +46,10 @@ public class Report {
 
     public void addMiss(String conflict, Element element) {
         conflicts.get(ReportType.MISSES).put(conflict, new KeyValuePair(element));
+    }
+
+    public void addMiss(String conflict, Namespace namespace) {
+        conflicts.get(ReportType.MISSES).put(conflict, new KeyValuePair(namespace));
     }
 
     public void addMiss(String conflict, Attribute attribute) {

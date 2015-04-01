@@ -2,6 +2,7 @@ package com.aimprosoft.camed.model;
 
 import org.jdom.Attribute;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
 public class KeyValuePair {
 
@@ -11,6 +12,11 @@ public class KeyValuePair {
     public KeyValuePair(Element element) {
         this.key = element.getQualifiedName();
         this.value = element.getValue();
+    }
+
+    public KeyValuePair(Namespace namespace) {
+        this.key = namespace.getPrefix();
+        this.value = namespace.getURI();
     }
 
 

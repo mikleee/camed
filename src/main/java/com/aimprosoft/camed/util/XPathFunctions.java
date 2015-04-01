@@ -165,7 +165,7 @@ public class XPathFunctions {
         return parent + path;
     }
 
-    private static String fullXpathWithPosition(Attribute attribute) {
+    public static String fullXpathWithPosition(Attribute attribute) {
         String path = "/" + attribute.getParent().getQualifiedName() + "[" + getPosition(attribute.getParent()) + "]" + "/@" + attribute.getQualifiedName();
         Element element = attribute.getParent();
         String parent = "";

@@ -6,10 +6,12 @@ import com.aimprosoft.camed.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.service.ModelFactory;
 import org.jdom.Attribute;
 import org.jdom.Element;
-import org.jdom.Namespace;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.aimprosoft.camed.util.XPathFunctions.*;
@@ -27,14 +29,13 @@ public class TemplateEvaluator {
         List<Report> result = new LinkedList<Report>();
 
         Report metaInfoReport = evaluateMetaInfo(referenceTemplate, comparedTemplate);
-        //Report namespacesReport = evaluateDeclaredNamespace(referenceTemplate, comparedTemplate);
-        Report elementNamespaceReport = evaluateCompiledNamespace(referenceTemplate, comparedTemplate);
-        Report structureReport = evaluateStructures(referenceTemplate, comparedTemplate);
         result.add(metaInfoReport);
-        //result.add(namespacesReport);
-        result.add(elementNamespaceReport);
-        result.add(structureReport);
 
+        Report elementNamespaceReport = evaluateCompiledNamespace(referenceTemplate, comparedTemplate);
+        result.add(elementNamespaceReport);
+
+        Report structureReport = evaluateStructures(referenceTemplate, comparedTemplate);
+        result.add(structureReport);
 
         return result;
     }
@@ -54,7 +55,6 @@ public class TemplateEvaluator {
                 comparedStructure.remove(key);
                 referenceStructure.remove(key);
             }
-
         }
 
         report.addExtras(comparedStructure);
@@ -107,11 +107,19 @@ public class TemplateEvaluator {
         List<Attribute> compileMetaInfo = new ArrayList<Attribute>(comparedTemplate.getMetaInfo());
 
         for (int i = 0; i < refMetaInfo.size(); i++) {
+            Attribute ref = refMetaInfo.get(i);
             for (int j = 0; j < compileMetaInfo.size(); j++) {
-                if (sameAttrContent(refMetaInfo.get(i), compileMetaInfo.get(j))) {
-                    refMetaInfo.remove(i);
-                    compileMetaInfo.remove(j--);
+                Attribute comp = compileMetaInfo.get(j);
+
+                if (sameAttrNames(ref, comp)) {
+                    if (!sameAttrContent(ref, comp)) {
+                        report.addMismatch(xpath(comp), comp);
+                    }
+                    refMetaInfo.remove(i--);
+                    compileMetaInfo.remove(j);
+                    break;
                 }
+
             }
         }
 
@@ -125,35 +133,25 @@ public class TemplateEvaluator {
         return report;
     }
 
-//    private Report evaluateDeclaredNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
-//        final String message = "NOT_FOUND_DeclaredNamespace";
-//        Report report = new Report(ReportTarget.DECLARED_NAMESPACES);
-//        Set<Namespace> refNamespaces = new HashSet<Namespace>(referenceTemplate.getDeclaredNamespaces());
-//        Set<Namespace> refNamespacesCopy = new HashSet<Namespace>(refNamespaces);
-//        Set<Namespace> compileNamespaces = new HashSet<Namespace>(comparedTemplate.getDeclaredNamespaces());
-//        refNamespaces.removeAll(compileNamespaces);
-//        compileNamespaces.removeAll(refNamespacesCopy);
-//
-//        for (Namespace namespace : refNamespaces) {
-//            report.addMiss(message, namespace);
-//        }
-//
-//        for (Namespace namespace : compileNamespaces) {
-//            report.addExtra(message, namespace);
-//        }
-//
-//        return report;
-//    }
-
     private Report evaluateCompiledNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
         Report report = new Report(ReportTarget.NAMESPACES);
         List<Element> refNamespaces = new ArrayList<Element>(referenceTemplate.getCompiledNamespaces());
         List<Element> compileNamespaces = new ArrayList<Element>(comparedTemplate.getCompiledNamespaces());
 
+        final String prefix = "prefix";
+
         for (int i = 0; i < refNamespaces.size(); i++) {
             for (int j = 0; j < compileNamespaces.size(); j++) {
-                if (refNamespaces.get(i).getAttribute("prefix").getValue().equals(compileNamespaces.get(j).getAttribute("prefix").getValue()) &&
-                        refNamespaces.get(i).getText().equals(compileNamespaces.get(j).getText())) {
+
+                Attribute refPrefix = refNamespaces.get(i).getAttribute(prefix);
+                Attribute compiledPrefix = compileNamespaces.get(j).getAttribute(prefix);
+                String refUri = refNamespaces.get(i).getText();
+                String compiledUri = compileNamespaces.get(j).getText();
+
+                if (sameAttrContent(refPrefix, compiledPrefix)) {
+                    if (!refUri.equals(compiledUri)) {
+                        report.addMismatch(xpathByAttr(compileNamespaces.get(j), prefix), compileNamespaces.get(j));
+                    }
                     refNamespaces.remove(i--);
                     compileNamespaces.remove(j);
                     break;
@@ -162,11 +160,11 @@ public class TemplateEvaluator {
         }
 
         for (Element element : refNamespaces) {
-            report.addMiss(xpath(element), element);
+            report.addMiss(xpathByAttr(element, prefix), element);
         }
 
         for (Element element : compileNamespaces) {
-            report.addExtra(xpath(element), element);
+            report.addExtra(xpathByAttr(element, prefix), element);
         }
 
         return report;
@@ -178,12 +176,16 @@ public class TemplateEvaluator {
     }
 
     private boolean sameAttrContent(Attribute attr1, Attribute attr2) {
-        return attr1.getValue().equals(attr2.getValue());
+        return !(attr1 == null || attr2 == null) && attr1.getValue().equals(attr2.getValue());
+    }
+
+    private boolean sameAttrNames(Attribute attr1, Attribute attr2) {
+        return attr1.getQualifiedName().equals(attr2.getQualifiedName());
     }
 
     public static void main(String[] args) throws CamException {
-        File file = new File("/home/stas/Work/Projects/camed/resorces/compiled-example/UDB-cam.cxx");
-        File file2 = new File("/home/stas/Work/Projects/camed/resorces/output/result.cxx");
+        File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
+        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
 

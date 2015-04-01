@@ -133,6 +133,26 @@ public class XPathFunctions {
         return parent + path;
     }
 
+    public static String xpathByAttr(Object node, String attrName) {
+
+        if (node instanceof Element) {
+            Element element = (Element) node;
+
+            Attribute attr = element.getAttribute(attrName);
+            if (attr == null) {
+                throw new IllegalArgumentException("Applicable for elements with " + attrName + " attribute  only");
+            }
+
+            return xpath(element) + "[@" + attrName + "=" + CamConstants.QUOTE + attr.getValue() + CamConstants.QUOTE + "]";
+        } else if (node instanceof Attribute) {
+            Attribute attribute = (Attribute) node;
+            Element element = attribute.getParent();
+            return xpathByAttr(element, attrName) + "/@" + attribute.getQualifiedName();
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static String fullXpathWithPosition(Object obj) {
         String path = null;
         if (obj instanceof Element) {

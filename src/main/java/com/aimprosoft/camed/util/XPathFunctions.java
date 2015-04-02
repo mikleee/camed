@@ -140,7 +140,7 @@ public class XPathFunctions {
 
             Attribute attr = element.getAttribute(attrName);
             if (attr == null) {
-                throw new IllegalArgumentException("Applicable for elements with " + attrName + " attribute  only");
+                return xpath(element);
             }
 
             return xpath(element) + "[@" + attrName + "=" + CamConstants.QUOTE + attr.getValue() + CamConstants.QUOTE + "]";
@@ -395,9 +395,9 @@ public class XPathFunctions {
             Element element = (Element) node;
             Attribute name = element.getAttribute("name");
             if (name == null) {
-                throw new IllegalArgumentException("Node should contain [name] attribute");
+                return absoluteXpathWithPosition(element);
             }
-            return absoluteXpathWithPosition((Element) node) + "[@name=" + CamConstants.QUOTE + name.getValue() + CamConstants.QUOTE + "]";
+            return absoluteXpathWithPosition(element) + "[@name=" + CamConstants.QUOTE + name.getValue() + CamConstants.QUOTE + "]";
         } else if (node instanceof Attribute) {
             Attribute attribute = (Attribute) node;
             return absoluteXPathByName(attribute.getParent()) + "/@" + attribute.getQualifiedName();

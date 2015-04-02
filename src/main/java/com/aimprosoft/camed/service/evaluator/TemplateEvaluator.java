@@ -184,8 +184,8 @@ public class TemplateEvaluator {
     }
 
     public static void main(String[] args) throws CamException {
-        File file = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\compiled-example\\UDB-cam.cxx");
-        File file2 = new File("C:\\Users\\Мишаня\\IdeaProjects\\camed\\resorces\\output\\result.cxx");
+        File file = new File("/home/stas/Work/Projects/camed/resorces/compiled-example/UDB-cam.cxx");
+        File file2 = new File("/home/stas/Work/Projects/camed/resorces/output/result.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
 

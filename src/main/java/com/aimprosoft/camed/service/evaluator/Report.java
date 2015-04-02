@@ -72,6 +72,9 @@ public class Report {
         conflicts.get(ReportType.MISMATCHES).put(conflict, new KeyValuePair(attribute));
     }
 
+    public void setConflicts(Map<ReportType, Map<String, KeyValuePair>> conflicts){
+        this.conflicts = conflicts;
+    }
 
     public ReportTarget getReportTarget() {
         return reportTarget;

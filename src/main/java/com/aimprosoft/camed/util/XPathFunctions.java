@@ -1,5 +1,6 @@
 package com.aimprosoft.camed.util;
 
+import com.aimprosoft.camed.CamException;
 import com.aimprosoft.camed.constants.CamConstants;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -133,8 +134,7 @@ public class XPathFunctions {
         return parent + path;
     }
 
-    public static String xpathByAttr(Object node, String attrName) {
-
+    public static String xpathByAttr(Object node, String attrName) throws CamException {
         if (node instanceof Element) {
             Element element = (Element) node;
 
@@ -149,7 +149,7 @@ public class XPathFunctions {
             Element element = attribute.getParent();
             return xpathByAttr(element, attrName) + "/@" + attribute.getQualifiedName();
         } else {
-            throw new IllegalArgumentException();
+            throw new CamException("Applicable for " + Element.class + ", " + Attribute.class + " types only");
         }
     }
 
@@ -390,7 +390,7 @@ public class XPathFunctions {
         }
     }
 
-    public static String absoluteXPathByName(Object node) {
+    public static String absoluteXPathByName(Object node) throws CamException {
         if (node instanceof Element) {
             Element element = (Element) node;
             Attribute name = element.getAttribute("name");
@@ -402,7 +402,7 @@ public class XPathFunctions {
             Attribute attribute = (Attribute) node;
             return absoluteXPathByName(attribute.getParent()) + "/@" + attribute.getQualifiedName();
         } else {
-            throw new IllegalArgumentException("Applicable for " + Element.class + ", " + Attribute.class + " types only");
+            throw new CamException("Applicable for " + Element.class + ", " + Attribute.class + " types only");
         }
     }
 

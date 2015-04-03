@@ -1,5 +1,8 @@
 package com.aimprosoft.camed.util;
 
+import com.aimprosoft.camed.CamException;
+import org.jdom.Namespace;
+
 import java.io.File;
 
 /**
@@ -32,6 +35,14 @@ public class CommonUtils {
         int extIndex = path.lastIndexOf('.');
         path = path.substring(0, extIndex + 1) + newExtension;
         return new File(path);
+    }
+
+    public static Namespace createNamespace(String prefix, String uri) throws CamException {
+        try {
+            return Namespace.getNamespace(prefix, uri);
+        } catch (Exception e) {
+            throw new CamException(e.getMessage());
+        }
     }
 
 }

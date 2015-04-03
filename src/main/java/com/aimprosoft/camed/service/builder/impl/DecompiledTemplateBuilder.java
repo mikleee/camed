@@ -6,6 +6,7 @@ import com.aimprosoft.camed.model.DecompiledCamTemplate;
 import com.aimprosoft.camed.service.DocumentFactory;
 import com.aimprosoft.camed.service.ModelFactory;
 import com.aimprosoft.camed.service.builder.ElementBuilder;
+import com.aimprosoft.camed.util.CommonUtils;
 import com.aimprosoft.camed.util.XPathFunctions;
 import org.jdom.Element;
 import org.jdom.Namespace;
@@ -34,14 +35,14 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
 
         buildNamespaces(decompiledCamTemplate);
         if (invalidNamespaces(decompiledCamTemplate)) {
-            throw new CamException("Namespaces are invalid");
+            throw new CamException("Namespaces are invalid: declared namespaces should be identical to compiled namespaces.");
         }
 
         decompiledCamTemplate.setStructures(buildStructures());
         return decompiledCamTemplate;
     }
 
-    private Map<String, Element> buildStructures() {
+    private Map<String, Element> buildStructures() throws CamException {
         Map<String, Element> result = new LinkedHashMap<String, Element>();
         Element structureElement = rootElement.getChild("AssemblyStructure", CAM_NAMESPACE).getChild("Structure", CAM_NAMESPACE);
         result.put(XPathFunctions.absoluteXpathWithPosition(structureElement), structureElement);
@@ -50,7 +51,7 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
     }
 
 
-    private void buildChildStructures(Element element, Map<String, Element> result) {
+    private void buildChildStructures(Element element, Map<String, Element> result) throws CamException {
         for (Element child : (List<Element>) element.getChildren()) {
             String xPath = XPathFunctions.absoluteXPathByName(child);
             result.put(xPath, child);
@@ -61,7 +62,7 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
     }
 
 
-    private void buildNamespaces(DecompiledCamTemplate template) {
+    private void buildNamespaces(DecompiledCamTemplate template) throws CamException {
         //noinspection unchecked
         List<Element> compiledNamespaces = (List<Element>) rootElement.getChild("Namespaces", CAM_NAMESPACE).getChildren();
         template.setCompiledNamespaces(compiledNamespaces);
@@ -71,14 +72,14 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
         template.setDeclaredNamespaces(new ArrayList<Namespace>(declared));
     }
 
-    public boolean invalidNamespaces(DecompiledCamTemplate template) {
+    public boolean invalidNamespaces(DecompiledCamTemplate template) throws CamException {
         List<Namespace> compiled = new ArrayList<Namespace>();
         List<Namespace> declared = new ArrayList<Namespace>(template.getDeclaredNamespaces());
 
         for (Element child : template.getCompiledNamespaces()) {
             String prefix = child.getAttribute("prefix").getValue();
             String uri = child.getText();
-            compiled.add(Namespace.getNamespace(prefix, uri));
+            compiled.add(CommonUtils.createNamespace(prefix, uri));
         }
 
         if (declared.size() != compiled.size() - 1) {
@@ -107,7 +108,7 @@ public class DecompiledTemplateBuilder implements ElementBuilder<DecompiledCamTe
     }
 
     public static void main(String[] args) throws CamException {
-        File file = new File("/home/stas/Work/Projects/camed/resorces/output/result.cxx");
+        File file = new File("/home/stas/Desktop/testTamplate/newTests/output/CreateDialogSession.cxx");
         DecompiledCamTemplate decompiledCamTemplate = ModelFactory.createDecompiledCAMTemplate(file);
     }
 

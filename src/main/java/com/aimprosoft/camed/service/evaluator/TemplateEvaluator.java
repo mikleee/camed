@@ -40,7 +40,7 @@ public class TemplateEvaluator {
         return result;
     }
 
-    private Report evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+    private Report evaluateStructures(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) throws CamException {
         Report report = new Report(ReportTarget.STRUCTURE);
 
         Map<String, Element> referenceStructure = new ConcurrentHashMap<String, Element>(referenceTemplate.getStructures());
@@ -63,7 +63,7 @@ public class TemplateEvaluator {
         return report;
     }
 
-    private void findAttrDiffs(Element reference, Element compared, Report report) { //todo
+    private void findAttrDiffs(Element reference, Element compared, Report report) throws CamException { //todo
         List<Attribute> referenceAttributes = new ArrayList<Attribute>(reference.getAttributes());
         List<Attribute> comparedAttributes = new ArrayList<Attribute>(compared.getAttributes());
 
@@ -133,7 +133,7 @@ public class TemplateEvaluator {
         return report;
     }
 
-    private Report evaluateCompiledNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) {
+    private Report evaluateCompiledNamespace(DecompiledCamTemplate referenceTemplate, DecompiledCamTemplate comparedTemplate) throws CamException {
         Report report = new Report(ReportTarget.NAMESPACES);
         List<Element> refNamespaces = new ArrayList<Element>(referenceTemplate.getCompiledNamespaces());
         List<Element> compileNamespaces = new ArrayList<Element>(comparedTemplate.getCompiledNamespaces());
@@ -184,8 +184,8 @@ public class TemplateEvaluator {
     }
 
     public static void main(String[] args) throws CamException {
-        File file = new File("/home/stas/Work/Projects/camed/resorces/compiled-example/UDB-cam.cxx");
-        File file2 = new File("/home/stas/Work/Projects/camed/resorces/output/result.cxx");
+        File file = new File("/home/stas/Desktop/testTamplate/newTests/compiled-example/CloseDialogSession.cxx");
+        File file2 = new File("/home/stas/Desktop/testTamplate/newTests/output/CloseDialogSession.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
 

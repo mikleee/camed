@@ -20,7 +20,7 @@ public class Report {
     public Report(ReportTarget reportTarget) {
         this.reportTarget = reportTarget;
         for (ReportType reportType : ReportType.values()) {
-            conflicts.put(reportType, new HashMap<String, KeyValuePair>());
+            conflicts.put(reportType, new LinkedHashMap<String, KeyValuePair>());
         }
     }
 
@@ -90,6 +90,36 @@ public class Report {
             result += conflicts.get(reportType).size();
         }
         return result;
+    }
+
+    public Report cutReport(int size) {
+        Report result = new Report(reportTarget);
+
+        for (ReportType reportType : conflicts.keySet()) {
+            Map<String, KeyValuePair> map;
+
+            if (conflicts.get(reportType).size() > size) {
+                int counter = 0;
+                map = new HashMap<String, KeyValuePair>();
+                for (String xPath : conflicts.get(reportType).keySet()) {
+                    if (counter++ <= size - 1) {
+                        map.put(xPath, conflicts.get(reportType).get(xPath));
+                    } else {
+                        break;
+                    }
+                }
+
+            } else {
+                map = new LinkedHashMap<String, KeyValuePair>(conflicts.get(reportType));
+            }
+
+            result.putReportType(reportType, map);
+        }
+        return result;
+    }
+
+    private void putReportType(ReportType reportType, Map<String, KeyValuePair> map) {
+        conflicts.put(reportType, map);
     }
 
     @Override

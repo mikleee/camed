@@ -184,8 +184,8 @@ public class TemplateEvaluator {
     }
 
     public static void main(String[] args) throws CamException {
-        File file = new File("/home/stas/Desktop/testTamplate/newTests/compiled-example/CloseDialogSession.cxx");
-        File file2 = new File("/home/stas/Desktop/testTamplate/newTests/output/CloseDialogSession.cxx");
+        File file = new File("/home/misha/Work/Projects/camed/resorces/compiled-example/AutosoftGetCustomerInformation.cxx");
+        File file2 = new File("/home/misha/Work/Projects/camed/resorces/compiled-example/AutosoftGetCustomerInformation-AdditionalConstraint.cxx");
         TemplateEvaluator ev = new TemplateEvaluator();
         List<Report> result = ev.evaluate(file, file2);
 

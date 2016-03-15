@@ -46,7 +46,7 @@ public class StructureConstraintBridge {
             if (!XPathFunctions.isAttributePath(boundXPath)) {
 
                 for (String variation : variations) {
-                    if (variation.equals(boundXPath)) {
+                    if (variation.equals(boundXPath) || XPathFunctions.isChildSpecifiedXpathCorrect(element, boundXPath, variation)) {
                         result.addAll(groupedConstraints.get(boundXPath));
                         break;
                     }

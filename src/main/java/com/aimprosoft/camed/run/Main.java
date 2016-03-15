@@ -8,7 +8,7 @@ import java.io.File;
 public class Main {
 
     private static String root = "/home/misha/Work/Projects/camed/";
-    private static File input = new File(root + "resorces/input/UDB-cam.cam");
+    private static File input = new File(root + "resorces/input/BMW_NA-ProcessRepairOrder_brackets.cam");
     //    private static File input = new File(root + "resorces\\input\\FM4-UDB-OTC-01.cam");
     //        private static File input = new File(root + "resorces\\input\\MoveToFront.cam");
 //    private static File input = new File(root + "resorces\\input\\GetDialogData.cam");

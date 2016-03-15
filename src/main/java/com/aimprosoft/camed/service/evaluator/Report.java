@@ -20,7 +20,7 @@ public class Report {
     public Report(ReportTarget reportTarget) {
         this.reportTarget = reportTarget;
         for (ReportType reportType : ReportType.values()) {
-            conflicts.put(reportType, new LinkedHashMap<String, KeyValuePair>());
+            conflicts.put(reportType, new HashMap<String, KeyValuePair>());
         }
     }
 

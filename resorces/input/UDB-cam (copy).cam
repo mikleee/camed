@@ -1,0 +1,1105 @@
+﻿<as:CAM xmlns:as="http://www.oasis-open.org/committees/cam" xmlns:camed="http://jcam.org.uk/editor" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" CAMlevel="1" version="1.0">
+  <as:Header>
+    <as:Description>Ford UDB File</as:Description>
+    <as:Owner>Motive Retail LLC</as:Owner>
+    <as:Version>3.21R+</as:Version>
+    <as:DateTime>2013-02-11T09:33:49</as:DateTime>
+  </as:Header>
+  <as:AssemblyStructure>
+    <as:Structure taxonomy="XML" ID="UDBFile" reference="">
+      <UDBFile version="%string%">
+        <ERROR errorType="%string%" errorClass="%string%" foundHeaderPosition="%string%" foundTrailerPosition="%string%" lineCount="%string%"
+          foundHeaderRecordCount="%string%" foundTrailerRecordCount="%string%" foundHeaderFileDate="%string%" foundHeaderFileDate-2="%string%"
+          foundTrailerFileDate="%string%" foundHeaderFileNumber="%string%" foundHeaderFileNumber-2="%string%" foundTrailerFileNumber="%string%"
+          foundHeaderPACode="%string%" foundTrailerPACode="%string%" foundHeaderSubDealerPACode="%string%" foundTrailerSubDealerPACode="%string%"
+          foundHeaderGeographicSalesAreaCode="%string%" foundTrailerGeographicSalesAreaCode="%string%" foundLineLength="%string%" possibleLineLength="%string%"
+          foundRecordType="%string%" possibleRecordType="%string%" foundPrecedeFileLineRecordType="%string%" foundDate="%string%">
+          <ERROR errorType="%string%" lineNumber="%string%" errorClass="%string%">%string%</ERROR>
+          
+          <FileHeader lineNumber="%string%" lineLength="%string%">
+            <RecordType>%string%</RecordType>
+            <PACode>%string%</PACode>
+            <FILECONTROL01>%string%</FILECONTROL01>
+            <FILECONTROL02>%string%</FILECONTROL02>
+            <FILECONTROL03>%string%</FILECONTROL03>
+            <FILECONTROL04>%string%</FILECONTROL04>
+            <FileDate>%string%</FileDate>
+            <FileNumber>%string%</FileNumber>
+            <FILECONTROL05>%string%</FILECONTROL05>
+            <FILECONTROL06>%string%</FILECONTROL06>
+            <FILECONTROL05-2>%string%</FILECONTROL05-2>
+            <FILECONTROL07>%string%</FILECONTROL07>
+            <FILECONTROL08>%string%</FILECONTROL08>
+            <FileDate-2>%string%</FileDate-2>
+            <FileNumber-2>%string%</FileNumber-2>
+            <RecordCount>%string%</RecordCount>
+            <SubDealerPACode>%string%</SubDealerPACode>
+            <FILECONTROL09>%string%</FILECONTROL09>
+            <FILECONTROL10>%string%</FILECONTROL10>
+            <FILECONTROL11>%string%</FILECONTROL11>
+            <GeographicSalesAreaCode>%string%</GeographicSalesAreaCode>
+            <FranchiseCode>%string%</FranchiseCode>
+            <DSPSoftwareReleaseVersion>%string%</DSPSoftwareReleaseVersion>
+            <FILECONTROL12>%string%</FILECONTROL12>
+            <FILECONTROL13>%string%</FILECONTROL13>
+            <FILECONTROL14>%string%</FILECONTROL14>
+            <FILECONTROL02-2>%string%</FILECONTROL02-2>
+            <FILECONTROL15>%string%</FILECONTROL15>
+            <VendorID>%string%</VendorID>
+            <FileTypeFlag>%string%</FileTypeFlag>
+            <FILECONTROL16>%string%</FILECONTROL16>
+          </FileHeader>
+          <RepairOrderHeader lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+            <RecordType>%string%</RecordType>
+            <VIN>%string%</VIN>
+            <RONumber>%string%</RONumber>
+            <ROXRef>%string%</ROXRef>
+            <FILECONTROL17>%string%</FILECONTROL17>
+            <ROOpenDate truncROOpenDate="%string%">%string%</ROOpenDate>
+            <ROCloseDate truncROCloseDate="%string%">%string%</ROCloseDate>
+            <OdometerReading>%string%</OdometerReading>
+            <OdometerIndicator>%string%</OdometerIndicator>
+            <FirstName>%string%</FirstName>
+            <MiddleInitial>%string%</MiddleInitial>
+            <LastName>%string%</LastName>
+            <Title>%string%</Title>
+            <AddressLine1>%string%</AddressLine1>
+            <AddressLine2>%string%</AddressLine2>
+            <City>%string%</City>
+            <StateOrProvince>%string%</StateOrProvince>
+            <ZipOrPostalCode>%string%</ZipOrPostalCode>
+            <HomePhone>%string%</HomePhone>
+            <WorkPhone>%string%</WorkPhone>
+            <NetCustomerPaidAmount>%string%</NetCustomerPaidAmount>
+            <TaxAmount>%string%</TaxAmount>
+            <LicensePlateNumber>%string%</LicensePlateNumber>
+            <RepairOrderOpenTime>%string%</RepairOrderOpenTime>
+            <RepairOrderCloseTime>%string%</RepairOrderCloseTime>
+            <AppointmentTypeCode>%string%</AppointmentTypeCode>
+            <AppointmentInitiatedDate truncApptInitDate="%string%">%string%</AppointmentInitiatedDate>
+            <ServiceCustomerTypeCode>%string%</ServiceCustomerTypeCode>
+            <ServiceWriterLocalID>%string%</ServiceWriterLocalID>
+            <ServiceWriterNationalID>%string%</ServiceWriterNationalID>
+            <CustomerEmail>%string%</CustomerEmail>
+            <CellPhone>%string%</CellPhone>
+            <CustomerCountryCode>%string%</CustomerCountryCode>
+            <FILECONTROL16-2>%string%</FILECONTROL16-2>
+          </RepairOrderHeader>
+
+          <RepairOrderService awaID="%string%" bundledlaborID="%string%" menupriceID="%string%" espwarrantydeductible="%string%" lineNumber="%string%" lineLength="%string%">
+            <RecordType>%string%</RecordType>
+            <SequenceNumber>%string%</SequenceNumber>
+            <RepairTypeCode>%string%</RepairTypeCode>
+            <FILECONTROL17-2>%string%</FILECONTROL17-2>
+            <ServicingDepartmentCode>%string%</ServicingDepartmentCode>
+            <LaborOperationCode>%string%</LaborOperationCode>
+            <LaborChargeAmount>%string%</LaborChargeAmount>
+            <BilledHours>%string%</BilledHours>
+            <SubletOrMiscDescription01>%string%</SubletOrMiscDescription01>
+            <SubletOrMiscDescription02>%string%</SubletOrMiscDescription02>
+            <SubletOrMiscDescription03>%string%</SubletOrMiscDescription03>
+            <SubletOrMiscDescription04>%string%</SubletOrMiscDescription04>
+            <SubletOrMiscDescription05>%string%</SubletOrMiscDescription05>
+            <SubletOrMiscDescription06>%string%</SubletOrMiscDescription06>
+            <SubletOrMiscDescription07>%string%</SubletOrMiscDescription07>
+            <SubletOrMiscDescription08>%string%</SubletOrMiscDescription08>
+            <SubletOrMiscDescription09>%string%</SubletOrMiscDescription09>
+            <SubletOrMiscDescription10>%string%</SubletOrMiscDescription10>
+            <SubletOrMiscAmount01>%string%</SubletOrMiscAmount01>
+            <SubletOrMiscAmount02>%string%</SubletOrMiscAmount02>
+            <SubletOrMiscAmount03>%string%</SubletOrMiscAmount03>
+            <SubletOrMiscAmount04>%string%</SubletOrMiscAmount04>
+            <SubletOrMiscAmount05>%string%</SubletOrMiscAmount05>
+            <SubletOrMiscAmount06>%string%</SubletOrMiscAmount06>
+            <SubletOrMiscAmount07>%string%</SubletOrMiscAmount07>
+            <SubletOrMiscAmount08>%string%</SubletOrMiscAmount08>
+            <SubletOrMiscAmount09>%string%</SubletOrMiscAmount09>
+            <SubletOrMiscAmount10>%string%</SubletOrMiscAmount10>
+            <LaborDescription>
+              <IsAWASplit>%string%</IsAWASplit>
+              <AWAFordPercentage>%string%</AWAFordPercentage>
+              <AWADealerPercentage>%string%</AWADealerPercentage>
+              <AWACustomerPercentage>%string%</AWACustomerPercentage>
+              <LaborDescriptionText>%string%</LaborDescriptionText>
+            </LaborDescription>
+            <TechnicianLocalID>%string%</TechnicianLocalID>
+            <TechnicianNationalID>%string%</TechnicianNationalID>
+            <FILECONTROL16-3>%string%</FILECONTROL16-3>
+          </RepairOrderService>
+          <RepairOrderPart awaID="%string%" bundledlaborID="%string%" partcoresaleID="%string%" partsreturn="%string%" partskitID="%string%" menupriceID="%string%"
+            lineNumber="%string%" lineLength="%string%">
+            <RecordType>%string%</RecordType>
+            <PartNumberPrefix>%string%</PartNumberPrefix>
+            <PartNumberBase>%string%</PartNumberBase>
+            <PartNumberSuffix>%string%</PartNumberSuffix>
+            <Quantity>%string%</Quantity>
+            <SaleAmount>%string%</SaleAmount>
+            <DealerCostAmount>%string%</DealerCostAmount>
+            <Description>
+              <IsAWASplit>%string%</IsAWASplit>
+              <AWAFordPercentage>%string%</AWAFordPercentage>
+              <AWADealerPercentage>%string%</AWADealerPercentage>
+              <AWACustomerPercentage>%string%</AWACustomerPercentage>
+              <DescriptionText>%string%</DescriptionText>
+            </Description>
+            <CausalCode>%string%</CausalCode>
+            <FILECONTROL17-3>%string%</FILECONTROL17-3>
+            <CounterPersonLocalID>%string%</CounterPersonLocalID>
+            <CounterPersonNationalID>%string%</CounterPersonNationalID>
+            <FILECONTROL16-4>%string%</FILECONTROL16-4>
+          </RepairOrderPart>
+          <OTCPartInvoiceHeader lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+            <RecordType>%string%</RecordType>
+            <InvoiceNumber>%string%</InvoiceNumber>
+            <InvoiceDate truncInvoiceDate="%string%">%string%</InvoiceDate>
+            <LastName>%string%</LastName>
+            <AddressLine1>%string%</AddressLine1>
+            <AddressLine2>%string%</AddressLine2>
+            <City>%string%</City>
+            <StateOrProvince>%string%</StateOrProvince>
+            <ZipOrPostalCode>%string%</ZipOrPostalCode>
+            <CustomerTypeCode>%string%</CustomerTypeCode>
+            <CustomerTaxID>%string%</CustomerTaxID>
+            <TaxAmount>%string%</TaxAmount>
+            <FILECONTROL17-4>%string%</FILECONTROL17-4>
+            <CounterPersonLocalID>%string%</CounterPersonLocalID>
+            <CounterPersonNationalID>%string%</CounterPersonNationalID>
+            <FirstName>%string%</FirstName>
+            <MiddleInitial>%string%</MiddleInitial>
+            <Title>%string%</Title>
+            <CustomerCountryCode>%string%</CustomerCountryCode>
+            <HomePhone>%string%</HomePhone>
+            <WorkPhone>%string%</WorkPhone>
+            <CellPhone>%string%</CellPhone>
+            <CustomerEmail>%string%</CustomerEmail>
+            <DiscountAmount>%string%</DiscountAmount>
+            <ShippingAmount>%string%</ShippingAmount>
+            <FILECONTROL16-5>%string%</FILECONTROL16-5>
+          </OTCPartInvoiceHeader>
+          <OTCPartsInvoicePart partcoresaleID="%string%" partsreturn="%string%" partskitID="%string%" lineNumber="%string%" lineLength="%string%">
+            <RecordType>%string%</RecordType>
+            <PartNumberPrefix>%string%</PartNumberPrefix>
+            <PartNumberBase>%string%</PartNumberBase>
+            <PartNumberSuffix>%string%</PartNumberSuffix>
+            <Quantity>%string%</Quantity>
+            <SaleAmount>%string%</SaleAmount>
+            <DealerCostAmount>%string%</DealerCostAmount>
+            <Description>%string%</Description>
+            <FILECONTROL16-6>%string%</FILECONTROL16-6>
+          </OTCPartsInvoicePart>
+          <PartsInventoryQOHDaily lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+            <RecordType>%string%</RecordType>
+            <InventoryDate truncInventoryDate="%string%">%string%</InventoryDate>
+            <PartNumberPrefix>%string%</PartNumberPrefix>
+            <PartNumberBase>%string%</PartNumberBase>
+            <PartNumberSuffix>%string%</PartNumberSuffix>
+            <QuantityOnHand>%string%</QuantityOnHand>
+            <FILECONTROL16-7>%string%</FILECONTROL16-7>
+          </PartsInventoryQOHDaily>
+          <UsedVehicleSales lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+            <RecordType>%string%</RecordType>
+            <UsedVehicleInvoiceNumber>%string%</UsedVehicleInvoiceNumber>
+            <SaleDate>%string%</SaleDate>
+            <SaleType>%string%</SaleType>
+            <FILECONTROL17-5>%string%</FILECONTROL17-5>
+            <SalesPersonLocalID>%string%</SalesPersonLocalID>
+            <SalesPersonNationalID>%string%</SalesPersonNationalID>
+            <SoldVIN>%string%</SoldVIN>
+            <SoldOdometerReading>%string%</SoldOdometerReading>
+            <SoldOdometerIndicator>%string%</SoldOdometerIndicator>
+            <TradeInVIN>%string%</TradeInVIN>
+            <TradeInOdometerReading>%string%</TradeInOdometerReading>
+            <TradeInOdometerIndicator>%string%</TradeInOdometerIndicator>
+            <CustomerNumber>%string%</CustomerNumber>
+            <CustomerContactFlag>%string%</CustomerContactFlag>
+            <FirstName>%string%</FirstName>
+            <MiddleInitial>%string%</MiddleInitial>
+            <LastName>%string%</LastName>
+            <Title>%string%</Title>
+            <AddressLine1>%string%</AddressLine1>
+            <AddressLine2>%string%</AddressLine2>
+            <City>%string%</City>
+            <StateOrProvince>%string%</StateOrProvince>
+            <ZipOrPostalCode>%string%</ZipOrPostalCode>
+            <HomePhone>%string%</HomePhone>
+            <WorkPhone>%string%</WorkPhone>
+            <CustomerEmail1>%string%</CustomerEmail1>
+            <CustomerEmail2>%string%</CustomerEmail2>
+            <ContractType>%string%</ContractType>
+            <SaleTypeDescription>%string%</SaleTypeDescription>
+            <InventoryType>%string%</InventoryType>
+            <CellPhone>%string%</CellPhone>
+            <CustomerCountryCode>%string%</CustomerCountryCode>
+            <FILECONTROL16-10>%string%</FILECONTROL16-10>
+          </UsedVehicleSales>
+          <PartsInitialQuantity lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+            <RecordType>%string%</RecordType>
+            <QuantityDate>%string%</QuantityDate>
+            <PartNumberPrefix>%string%</PartNumberPrefix>
+            <PartNumberBase>%string%</PartNumberBase>
+            <PartNumberSuffix>%string%</PartNumberSuffix>
+            <QuantityOnHand>%string%</QuantityOnHand>
+            <SaleQuantitiyCurrentMonth-0>%string%</SaleQuantitiyCurrentMonth-0>
+            <SaleQuantitiyCurrentMonth-1>%string%</SaleQuantitiyCurrentMonth-1>
+            <SaleQuantitiyCurrentMonth-2>%string%</SaleQuantitiyCurrentMonth-2>
+            <SaleQuantitiyCurrentMonth-3>%string%</SaleQuantitiyCurrentMonth-3>
+            <SaleQuantitiyCurrentMonth-4>%string%</SaleQuantitiyCurrentMonth-4>
+            <SaleQuantitiyCurrentMonth-5>%string%</SaleQuantitiyCurrentMonth-5>
+            <SaleQuantitiyCurrentMonth-6>%string%</SaleQuantitiyCurrentMonth-6>
+            <SaleQuantitiyCurrentMonth-7>%string%</SaleQuantitiyCurrentMonth-7>
+            <SaleQuantitiyCurrentMonth-8>%string%</SaleQuantitiyCurrentMonth-8>
+            <SaleQuantitiyCurrentMonth-9>%string%</SaleQuantitiyCurrentMonth-9>
+            <SaleQuantitiyCurrentMonth-10>%string%</SaleQuantitiyCurrentMonth-10>
+            <SaleQuantitiyCurrentMonth-11>%string%</SaleQuantitiyCurrentMonth-11>
+            <SaleQuantitiyCurrentMonth-12>%string%</SaleQuantitiyCurrentMonth-12>
+            <FILECONTROL16-9>%string%</FILECONTROL16-9>
+          </PartsInitialQuantity>
+          <FileTrailer lineNumber="%string%" lineLength="%string%">
+            <RecordType>%string%</RecordType>
+            <FILECONTROL18>%string%</FILECONTROL18>
+            <PACode>%string%</PACode>
+            <SubDealerPACode>%string%</SubDealerPACode>
+            <GeographicSalesAreaCode>%string%</GeographicSalesAreaCode>
+            <FileDate>%string%</FileDate>
+            <FileNumber>%string%</FileNumber>
+            <RecordCount>%string%</RecordCount>
+            <FileTypeFlag>%string%</FileTypeFlag>
+            <FILECONTROL16-8>%string%</FILECONTROL16-8>
+          </FileTrailer>
+        </ERROR>
+        <FileHeader lineNumber="%string%" lineLength="%string%">
+          <RecordType>%string%</RecordType>
+          <PACode>%string%</PACode>
+          <FILECONTROL01>%string%</FILECONTROL01>
+          <FILECONTROL02>%string%</FILECONTROL02>
+          <FILECONTROL03>%string%</FILECONTROL03>
+          <FILECONTROL04>%string%</FILECONTROL04>
+          <FileDate>%string%</FileDate>
+          <FileNumber>%string%</FileNumber>
+          <FILECONTROL05>%string%</FILECONTROL05>
+          <FILECONTROL06>%string%</FILECONTROL06>
+          <FILECONTROL05-2>%string%</FILECONTROL05-2>
+          <FILECONTROL07>%string%</FILECONTROL07>
+          <FILECONTROL08>%string%</FILECONTROL08>
+          <FileDate-2>%string%</FileDate-2>
+          <FileNumber-2>%string%</FileNumber-2>
+          <RecordCount>%string%</RecordCount>
+          <SubDealerPACode>%string%</SubDealerPACode>
+          <FILECONTROL09>%string%</FILECONTROL09>
+          <FILECONTROL10>%string%</FILECONTROL10>
+          <FILECONTROL11>%string%</FILECONTROL11>
+          <GeographicSalesAreaCode>%string%</GeographicSalesAreaCode>
+          <FranchiseCode>%string%</FranchiseCode>
+          <DSPSoftwareReleaseVersion>%string%</DSPSoftwareReleaseVersion>
+          <FILECONTROL12>%string%</FILECONTROL12>
+          <FILECONTROL13>%string%</FILECONTROL13>
+          <FILECONTROL14>%string%</FILECONTROL14>
+          <FILECONTROL02-2>%string%</FILECONTROL02-2>
+          <FILECONTROL15>%string%</FILECONTROL15>
+          <VendorID>%string%</VendorID>
+          <FileTypeFlag>%string%</FileTypeFlag>
+          <FILECONTROL16>%string%</FILECONTROL16>
+        </FileHeader>
+        <RepairOrderHeader lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+          <RecordType>%string%</RecordType>
+          <VIN>%string%</VIN>
+          <RONumber>%string%</RONumber>
+          <ROXRef>%string%</ROXRef>
+          <FILECONTROL17>%string%</FILECONTROL17>
+          <ROOpenDate truncROOpenDate="%string%">%string%</ROOpenDate>
+          <ROCloseDate truncROCloseDate="%string%">%string%</ROCloseDate>
+          <OdometerReading>%string%</OdometerReading>
+          <OdometerIndicator>%string%</OdometerIndicator>
+          <FirstName>%string%</FirstName>
+          <MiddleInitial>%string%</MiddleInitial>
+          <LastName>%string%</LastName>
+          <Title>%string%</Title>
+          <AddressLine1>%string%</AddressLine1>
+          <AddressLine2>%string%</AddressLine2>
+          <City>%string%</City>
+          <StateOrProvince>%string%</StateOrProvince>
+          <ZipOrPostalCode>%string%</ZipOrPostalCode>
+          <HomePhone>%string%</HomePhone>
+          <WorkPhone>%string%</WorkPhone>
+          <NetCustomerPaidAmount>%string%</NetCustomerPaidAmount>
+          <TaxAmount>%string%</TaxAmount>
+          <LicensePlateNumber>%string%</LicensePlateNumber>
+          <RepairOrderOpenTime>%string%</RepairOrderOpenTime>
+          <RepairOrderCloseTime>%string%</RepairOrderCloseTime>
+          <AppointmentTypeCode>%string%</AppointmentTypeCode>
+          <AppointmentInitiatedDate truncApptInitDate="%string%">%string%</AppointmentInitiatedDate>
+          <ServiceCustomerTypeCode>%string%</ServiceCustomerTypeCode>
+          <ServiceWriterLocalID>%string%</ServiceWriterLocalID>
+          <ServiceWriterNationalID>%string%</ServiceWriterNationalID>
+          <CustomerEmail>%string%</CustomerEmail>
+          <CellPhone>%string%</CellPhone>
+          <CustomerCountryCode>%string%</CustomerCountryCode>
+          <FILECONTROL16-2>%string%</FILECONTROL16-2>
+        </RepairOrderHeader>
+        <RepairOrderService awaID="%string%" bundledlaborID="%string%" menupriceID="%string%" espwarrantydeductible="%string%" lineNumber="%string%" lineLength="%string%">
+          <RecordType>%string%</RecordType>
+          <SequenceNumber>%string%</SequenceNumber>
+          <RepairTypeCode>%string%</RepairTypeCode>
+          <FILECONTROL17-2>%string%</FILECONTROL17-2>
+          <ServicingDepartmentCode>%string%</ServicingDepartmentCode>
+          <LaborOperationCode>%string%</LaborOperationCode>
+          <LaborChargeAmount>%string%</LaborChargeAmount>
+          <BilledHours>%string%</BilledHours>
+          <SubletOrMiscDescription01>%string%</SubletOrMiscDescription01>
+          <SubletOrMiscDescription02>%string%</SubletOrMiscDescription02>
+          <SubletOrMiscDescription03>%string%</SubletOrMiscDescription03>
+          <SubletOrMiscDescription04>%string%</SubletOrMiscDescription04>
+          <SubletOrMiscDescription05>%string%</SubletOrMiscDescription05>
+          <SubletOrMiscDescription06>%string%</SubletOrMiscDescription06>
+          <SubletOrMiscDescription07>%string%</SubletOrMiscDescription07>
+          <SubletOrMiscDescription08>%string%</SubletOrMiscDescription08>
+          <SubletOrMiscDescription09>%string%</SubletOrMiscDescription09>
+          <SubletOrMiscDescription10>%string%</SubletOrMiscDescription10>
+          <SubletOrMiscAmount01>%string%</SubletOrMiscAmount01>
+          <SubletOrMiscAmount02>%string%</SubletOrMiscAmount02>
+          <SubletOrMiscAmount03>%string%</SubletOrMiscAmount03>
+          <SubletOrMiscAmount04>%string%</SubletOrMiscAmount04>
+          <SubletOrMiscAmount05>%string%</SubletOrMiscAmount05>
+          <SubletOrMiscAmount06>%string%</SubletOrMiscAmount06>
+          <SubletOrMiscAmount07>%string%</SubletOrMiscAmount07>
+          <SubletOrMiscAmount08>%string%</SubletOrMiscAmount08>
+          <SubletOrMiscAmount09>%string%</SubletOrMiscAmount09>
+          <SubletOrMiscAmount10>%string%</SubletOrMiscAmount10>
+          <LaborDescription>
+            <IsAWASplit>%string%</IsAWASplit>
+            <AWAFordPercentage>%string%</AWAFordPercentage>
+            <AWADealerPercentage>%string%</AWADealerPercentage>
+            <AWACustomerPercentage>%string%</AWACustomerPercentage>
+            <LaborDescriptionText>%string%</LaborDescriptionText>
+          </LaborDescription>
+          <TechnicianLocalID>%string%</TechnicianLocalID>
+          <TechnicianNationalID>%string%</TechnicianNationalID>
+          <FILECONTROL16-3>%string%</FILECONTROL16-3>
+        </RepairOrderService>
+
+
+
+        <RepairOrderPart awaID="%string%" bundledlaborID="%string%" partcoresaleID="%string%" partsreturn="%string%" partskitID="%string%" menupriceID="%string%"
+          lineNumber="%string%" lineLength="%string%">
+          <RecordType>%string%</RecordType>
+          <PartNumberPrefix>%string%</PartNumberPrefix>
+          <PartNumberBase>%string%</PartNumberBase>
+          <PartNumberSuffix>%string%</PartNumberSuffix>
+          <Quantity>%string%</Quantity>
+          <SaleAmount>%string%</SaleAmount>
+          <DealerCostAmount>%string%</DealerCostAmount>
+          <Description>
+            <IsAWASplit>%string%</IsAWASplit>
+            <AWAFordPercentage>%string%</AWAFordPercentage>
+            <AWADealerPercentage>%string%</AWADealerPercentage>
+            <AWACustomerPercentage>%string%</AWACustomerPercentage>
+            <DescriptionText>%string%</DescriptionText>
+          </Description>
+          <CausalCode>%string%</CausalCode>
+          <FILECONTROL17-3>%string%</FILECONTROL17-3>
+          <CounterPersonLocalID>%string%</CounterPersonLocalID>
+          <CounterPersonNationalID>%string%</CounterPersonNationalID>
+          <FILECONTROL16-4>%string%</FILECONTROL16-4>
+        </RepairOrderPart>
+        <OTCPartInvoiceHeader lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+          <RecordType>%string%</RecordType>
+          <InvoiceNumber>%string%</InvoiceNumber>
+          <InvoiceDate truncInvoiceDate="%string%">%string%</InvoiceDate>
+          <LastName>%string%</LastName>
+          <AddressLine1>%string%</AddressLine1>
+          <AddressLine2>%string%</AddressLine2>
+          <City>%string%</City>
+          <StateOrProvince>%string%</StateOrProvince>
+          <ZipOrPostalCode>%string%</ZipOrPostalCode>
+          <CustomerTypeCode>%string%</CustomerTypeCode>
+          <CustomerTaxID>%string%</CustomerTaxID>
+          <TaxAmount>%string%</TaxAmount>
+          <FILECONTROL17-4>%string%</FILECONTROL17-4>
+          <CounterPersonLocalID>%string%</CounterPersonLocalID>
+          <CounterPersonNationalID>%string%</CounterPersonNationalID>
+          <FirstName>%string%</FirstName>
+          <MiddleInitial>%string%</MiddleInitial>
+          <Title>%string%</Title>
+          <CustomerCountryCode>%string%</CustomerCountryCode>
+          <HomePhone>%string%</HomePhone>
+          <WorkPhone>%string%</WorkPhone>
+          <CellPhone>%string%</CellPhone>
+          <CustomerEmail>%string%</CustomerEmail>
+          <DiscountAmount>%string%</DiscountAmount>
+          <ShippingAmount>%string%</ShippingAmount>
+          <FILECONTROL16-5>%string%</FILECONTROL16-5>
+        </OTCPartInvoiceHeader>
+        <OTCPartsInvoicePart partcoresaleID="%string%" partsreturn="%string%" partskitID="%string%" lineNumber="%string%" lineLength="%string%">
+
+
+          <RecordType>%string%</RecordType>
+          <PartNumberPrefix>%string%</PartNumberPrefix>
+          <PartNumberBase>%string%</PartNumberBase>
+          <PartNumberSuffix>%string%</PartNumberSuffix>
+          <Quantity>%string%</Quantity>
+          <SaleAmount>%string%</SaleAmount>
+          <DealerCostAmount>%string%</DealerCostAmount>
+          <Description>%string%</Description>
+          <FILECONTROL16-6>%string%</FILECONTROL16-6>
+        </OTCPartsInvoicePart>
+        <PartsInventoryQOHDaily lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+          <RecordType>%string%</RecordType>
+          <InventoryDate truncInventoryDate="%string%">%string%</InventoryDate>
+          <PartNumberPrefix>%string%</PartNumberPrefix>
+          <PartNumberBase>%string%</PartNumberBase>
+          <PartNumberSuffix>%string%</PartNumberSuffix>
+          <QuantityOnHand>%string%</QuantityOnHand>
+          <FILECONTROL16-7>%string%</FILECONTROL16-7>
+        </PartsInventoryQOHDaily>
+        <UsedVehicleSales lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+          <RecordType>%string%</RecordType>
+          <UsedVehicleInvoiceNumber>%string%</UsedVehicleInvoiceNumber>
+          <SaleDate>%string%</SaleDate>
+          <SaleType>%string%</SaleType>
+          <FILECONTROL17-5>%string%</FILECONTROL17-5>
+          <SalesPersonLocalID>%string%</SalesPersonLocalID>
+          <SalesPersonNationalID>%string%</SalesPersonNationalID>
+          <SoldVIN>%string%</SoldVIN>
+          <SoldOdometerReading>%string%</SoldOdometerReading>
+          <SoldOdometerIndicator>%string%</SoldOdometerIndicator>
+          <TradeInVIN>%string%</TradeInVIN>
+          <TradeInOdometerReading>%string%</TradeInOdometerReading>
+          <TradeInOdometerIndicator>%string%</TradeInOdometerIndicator>
+          <CustomerNumber>%string%</CustomerNumber>
+          <CustomerContactFlag>%string%</CustomerContactFlag>
+          <FirstName>%string%</FirstName>
+          <MiddleInitial>%string%</MiddleInitial>
+          <LastName>%string%</LastName>
+          <Title>%string%</Title>
+          <AddressLine1>%string%</AddressLine1>
+          <AddressLine2>%string%</AddressLine2>
+          <City>%string%</City>
+          <StateOrProvince>%string%</StateOrProvince>
+          <ZipOrPostalCode>%string%</ZipOrPostalCode>
+          <HomePhone>%string%</HomePhone>
+          <WorkPhone>%string%</WorkPhone>
+          <CustomerEmail1>%string%</CustomerEmail1>
+          <CustomerEmail2>%string%</CustomerEmail2>
+          <ContractType>%string%</ContractType>
+          <SaleTypeDescription>%string%</SaleTypeDescription>
+          <InventoryType>%string%</InventoryType>
+          <CellPhone>%string%</CellPhone>
+          <CustomerCountryCode>%string%</CustomerCountryCode>
+          <FILECONTROL16-10>%string%</FILECONTROL16-10>
+        </UsedVehicleSales>
+        <PartsInitialQuantity lineNumber="%string%" lineLength="%string%" currentFileDate="%string%">
+          <RecordType>%string%</RecordType>
+          <QuantityDate>%string%</QuantityDate>
+          <PartNumberPrefix>%string%</PartNumberPrefix>
+          <PartNumberBase>%string%</PartNumberBase>
+          <PartNumberSuffix>%string%</PartNumberSuffix>
+          <QuantityOnHand>%string%</QuantityOnHand>
+          <SaleQuantitiyCurrentMonth-0>%string%</SaleQuantitiyCurrentMonth-0>
+          <SaleQuantitiyCurrentMonth-1>%string%</SaleQuantitiyCurrentMonth-1>
+          <SaleQuantitiyCurrentMonth-2>%string%</SaleQuantitiyCurrentMonth-2>
+          <SaleQuantitiyCurrentMonth-3>%string%</SaleQuantitiyCurrentMonth-3>
+          <SaleQuantitiyCurrentMonth-4>%string%</SaleQuantitiyCurrentMonth-4>
+          <SaleQuantitiyCurrentMonth-5>%string%</SaleQuantitiyCurrentMonth-5>
+          <SaleQuantitiyCurrentMonth-6>%string%</SaleQuantitiyCurrentMonth-6>
+          <SaleQuantitiyCurrentMonth-7>%string%</SaleQuantitiyCurrentMonth-7>
+          <SaleQuantitiyCurrentMonth-8>%string%</SaleQuantitiyCurrentMonth-8>
+          <SaleQuantitiyCurrentMonth-9>%string%</SaleQuantitiyCurrentMonth-9>
+          <SaleQuantitiyCurrentMonth-10>%string%</SaleQuantitiyCurrentMonth-10>
+          <SaleQuantitiyCurrentMonth-11>%string%</SaleQuantitiyCurrentMonth-11>
+          <SaleQuantitiyCurrentMonth-12>%string%</SaleQuantitiyCurrentMonth-12>
+          <FILECONTROL16-9>%string%</FILECONTROL16-9>
+        </PartsInitialQuantity>
+        <FileTrailer lineNumber="%string%" lineLength="%string%">
+          <tt:RecordType>%string%</tt:RecordType>
+          <RecordType>%string%</RecordType>
+          <FILECONTROL18>%string%</FILECONTROL18>
+          <PACode>%string%</PACode>
+          <SubDealerPACode>%string%</SubDealerPACode>
+          <GeographicSalesAreaCode>%string%</GeographicSalesAreaCode>
+          <FileDate>%string%</FileDate>
+          <FileNumber>%string%</FileNumber>
+          <RecordCount>%string%</RecordCount>
+          <FileTypeFlag>%string%</FileTypeFlag>
+          <FILECONTROL16-8>%string%</FILECONTROL16-8>
+        </FileTrailer>
+      </UDBFile>
+    </as:Structure>
+  </as:AssemblyStructure>
+  <as:BusinessUseContext>
+    <as:Rules>
+      <as:default>
+        <as:context>
+          <!-- begin new rules -->
+          
+          <as:constraint
+            condition="not(./LaborDescriptionText[matches(.,'.*SPLIT.\d\d-\d\d-\d\d.*')]) and string(normalize-space(./IsAWASplit))='1'"
+            action="printMessage(/UDBFile/RepairOrderService/LaborDescription, The AWA Labor Description is missing SPLIT NN-NN-NN wording)"/>
+
+          <as:constraint
+            condition="not(./DescriptionText[matches(.,'.*SPLIT.\d\d-\d\d-\d\d.*')]) and string(normalize-space(./IsAWASplit))='1'"
+            action="printMessage(/UDBFile/RepairOrderPart/Description, The AWA Part Description is missing SPLIT NN-NN-NN wording)"/>
+          
+
+          <as:constraint action="makeOptional(//ERROR/ERROR)"/>
+          <as:constraint action="makeRepeatable(//ERROR/ERROR)"/>
+          
+          <as:constraint action="makeOptional(//@awaID)"/>
+          <as:constraint action="makeOptional(//@bundledlaborID)"/>
+          <as:constraint action="makeOptional(//@partcoresaleID)"/>
+          <as:constraint action="makeOptional(//@partsreturn)"/>
+          <as:constraint action="makeOptional(//@partskitID)"/>
+          <as:constraint action="makeOptional(//@menupriceID)"/>
+          <as:constraint action="makeOptional(//@espwarrantydeductible)"/>
+
+          <as:constraint
+            condition="(number(normalize-space(./AWAFordPercentage)) + number(normalize-space(./AWADealerPercentage)) + number(normalize-space(./AWACustomerPercentage))!=100)
+            and string(normalize-space(./IsAWASplit))='1'"
+            action="printMessage(/UDBFile/RepairOrderPart/Description, The RepairOrderPart AWA split between ford, dealer, and customer does not total 100%.)"/>
+
+          <as:constraint
+            condition="(number(normalize-space(./AWAFordPercentage)) + number(normalize-space(./AWADealerPercentage)) + number(normalize-space(./AWACustomerPercentage))!=100)
+            and string(normalize-space(./IsAWASplit))='1'"
+            action="printMessage(/UDBFile/RepairOrderService/LaborDescription, The RepairOrderService AWA split between ford, dealer, and customer does not total 100%.)"/>
+
+          <as:constraint action="makeNillable(//AWACustomerPercentage)"/>
+          <as:constraint action="makeNillable(//AWADealerPercentage)"/>
+          <as:constraint action="makeNillable(//AWAFordPercentage)"/>
+          <as:constraint action="makeOptional(//Description/AWACustomerPercentage)"/>
+          <as:constraint action="makeOptional(//Description/AWADealerPercentage)"/>
+          <as:constraint action="makeOptional(//Description/AWAFordPercentage)"/>
+
+          <!--  a couple business condition interaction rules to illustrate:
+          A Service Bundle may not have Menu Pricing.
+          A Parts Kit may not be included in Menu Pricing.
+          -->
+
+          <as:constraint condition="string(normalize-space(@blonumber)) and string(normalize-space(@menuprice))"
+            action="printMessage(/UDBFile/RepairOrderService, The Service cannot both be bundled labor operation and menu pricing.)"/>
+
+          <as:constraint condition="string(normalize-space(@partskit)) and string(normalize-space(@menuprice))"
+            action="printMessage(/UDBFile/RepairOrderService, The Part cannot both be a parts kit and menu pricing.)"/>
+
+          <!-- end new rules -->
+
+          <as:constraint action="makeRepeatable(//ERROR/RepairOrderService)"/>
+          <as:constraint action="makeOptional(//ERROR/RepairOrderService)"/>
+          <as:constraint action="makeOptional(//ERROR/OTCPartsInvoicePart)"/>
+          <as:constraint action="makeOptional(//ERROR/@possibleRecordType)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundPrecedeFileLineRecordType)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundDate)"/>
+          <as:constraint action="makeOptional(//ERROR/FileHeader)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerGeographicSalesAreaCode)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/RepairOrderPart)"/>
+          <as:constraint action="makeOptional(//UDBFile/FileHeader)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/OTCPartInvoiceHeader)"/>
+          <as:constraint action="makeOptional(//ERROR/@lineCount)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderSubDealerPACode)"/>
+          <as:constraint action="makeRepeatable(//ERROR/RepairOrderHeader)"/>
+          <as:constraint action="makeOptional(//UDBFile/OTCPartInvoiceHeader)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerSubDealerPACode)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/RepairOrderHeader)"/>
+          <as:constraint action="makeOptional(//ERROR/OTCPartInvoiceHeader)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerPACode)"/>
+          <as:constraint action="makeRepeatable(//ERROR/OTCPartInvoiceHeader)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/RepairOrderService)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundLineLength)"/>
+          <as:constraint action="makeOptional(//UDBFile/RepairOrderPart)"/>
+          <as:constraint action="makeOptional(//UDBFile/PartsInventoryQOHDaily)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderFileDate)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderRecordCount)"/>
+          <as:constraint action="makeRepeatable(//ERROR/FileTrailer)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderPACode)"/>
+          <as:constraint action="makeOptional(//ERROR/RepairOrderHeader)"/>
+          <as:constraint action="makeOptional(//UDBFile/ERROR)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerFileNumber)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/OTCPartsInvoicePart)"/>
+          <as:constraint action="makeOptional(//ERROR/RepairOrderPart)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerPosition)"/>
+          <as:constraint action="makeOptional(//ERROR/PartsInventoryQOHDaily)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerFileDate)"/>
+          <as:constraint action="makeRepeatable(//ERROR/PartsInventoryQOHDaily)"/>
+          <as:constraint action="makeOptional(//UDBFile/OTCPartsInvoicePart)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundTrailerRecordCount)"/>
+          <as:constraint action="makeOptional(//UDBFile/FileTrailer)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderGeographicSalesAreaCode)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundRecordType)"/>
+          <as:constraint action="makeOptional(//ERROR/FileTrailer)"/>
+          <as:constraint action="makeOptional(//UDBFile/RepairOrderService)"/>
+          <as:constraint action="makeOptional(//ERROR/@possibleLineLength)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderFileDate-2)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderFileNumber)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderFileNumber-2)"/>
+          <as:constraint action="makeOptional(//UDBFile/RepairOrderHeader)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/PartsInventoryQOHDaily)"/>
+          <as:constraint action="makeRepeatable(//ERROR/FileHeader)"/>
+          <as:constraint action="makeRepeatable(//ERROR/RepairOrderPart)"/>
+          <as:constraint action="makeRepeatable(//UDBFile/ERROR)"/>
+          <as:constraint action="makeOptional(//ERROR/@foundHeaderPosition)"/>
+          <as:constraint action="makeRepeatable(//ERROR/OTCPartsInvoicePart)"/>
+          <!--
+FIELD DATA RULES -->
+          <!-- File Header -->
+          <as:constraint condition="not(./PACode[matches(.,'^[0-9A-Za-z]{5}$')])"
+            action="printMessage(/UDBFile/FileHeader,The Ford Parts and Accessories Code in the File Header Record must be a 5 character alpha-numeric value.)"/>
+          <as:constraint
+            condition="not(./FileDate[matches(.,'^((((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8]))\d{2})|0229([02468][048]|[13579][26]))$')])"
+            action="printMessage(/UDBFile/FileHeader,The File Date (date the file was created) in positions (51-56) of the File Header Record must be a valid date in the format MMDDYY.)"/>
+          <as:constraint condition="not(./FileNumber[matches(.,'^0[1-9]|[1-9][0-9]$')])"
+            action="printMessage(/UDBFile/FileHeader,The File Number in positions (57-58) of the File Header Record (number of the current file in process) must be a 2 digit numeric value greater than 0.)"/>
+          <as:constraint
+            condition="not(./FileDate-2[matches(.,'^((((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8]))\d{2})|0229([02468][048]|[13579][26]))$')])"
+            action="printMessage(/UDBFile/FileHeader,The File Date (date the file was created) in positions (92-97) of the File Header Record must be a valid date in the format MMDDYY.)"/>
+          <as:constraint condition="not(./FileNumber-2[matches(.,'^0[1-9]|[1-9][0-9]$')])"
+            action="printMessage(/UDBFile/FileHeader,The File Number in positions (98-99) of the File Header Record (number of the current file in process) must be a 2 digit numeric value greater than 0.)"/>
+          <as:constraint condition="not(./RecordCount[matches(.,'^[0-9]{8}$')])"
+            action="printMessage(/UDBFile/FileHeader,The Record Count in the File Header Record (total number of records submitted) must be an 8 digit numeric value greater than 2.)"/>
+          <as:constraint
+            condition="string(normalize-space(./SubDealerPACode)) and not(./SubDealerPACode[matches(normalize-space(.),'^[0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$')])"
+            action="printMessage(/UDBFile/FileHeader,The Ford Sub-dealer Parts and Accessories Code in the File Header Record must be an alpha-numeric value.)"/>
+          <as:constraint
+            condition="not(./GeographicSalesAreaCode[matches(normalize-space(.),'^[0-9A-Za-z]$|^[0-9A-Za-z][0-9A-Za-z]$|^[0-9A-Za-z][0-9A-Za-z][0-9A-Za-z]$')])"
+            action="printMessage(/UDBFile/FileHeader,The dealer Geographic Sales Area Code in the File Header Record (23-28)
+            (as defined by the Franchise Agreement) must be an alpha-numeric value.)"/>
+          <!-- 11-06-2012 -->
+          <as:constraint condition="string(normalize-space(./FranchiseCode)) and (not(normalize-space(./FranchiseCode) = '1' or normalize-space(./FranchiseCode) = '3' or ./FranchiseCode = '11' or ./FranchiseCode = '14' or normalize-space(./FranchiseCode) = 'A' or ./FranchiseCode = 'LR' or ./FranchiseCode = 'MA' or normalize-space(./FranchiseCode) = 'U'))"
+            action="printMessage(/UDBFile/FileHeader,The Franchise Code in positions (132-133) of the File Header Record must be from the enumerated list.)"/>
+          
+          <as:constraint condition="not(./VendorID[matches(.,'^[0-9A-Za-z]{6}$')])"
+            action="printMessage(/UDBFile/FileHeader,The VendorID (as assigned by the CDS Analyst) must be a 6 character alpha-numeric value.)"/>
+          <!-- 3.21R -->
+          <as:constraint condition="not(./FileTypeFlag[matches(.,'^[DH]$')])"
+            action="printMessage(/UDBFile/FileHeader,The File Type Flag must be either D (daily) or H (history).)"/>
+          <!-- RO Header -->
+          <as:constraint
+            condition="not(./ROOpenDate[matches(normalize-space(.),'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The RO Open Date (date repair order created) in the Repair Order Header Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint
+            condition="not(./ROCloseDate[matches(normalize-space(.),'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The RO Close Date (date repair order closed) in the Repair Order Header Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint condition="./ROOpenDate/@truncROOpenDate &gt; ./@currentFileDate"
+            action="printMessage(/UDBFile/RepairOrderHeader,The RO Open Date (date repair order opened) in the Repair Order Header Record must not be greater than the File Date.)"/>
+          <as:constraint condition="./ROCloseDate/@truncROCloseDate &gt; ./@currentFileDate"
+            action="printMessage(/UDBFile/RepairOrderHeader,The RO Close Date (date repair order closed) in the Repair Order Header Record must not be greater than the File Date.)"/>
+          
+          <!-- 01-03-2013 -->
+          <as:constraint condition="./ROOpenDate/@truncROOpenDate &gt; ./ROCloseDate/@truncROCloseDate"
+            action="printMessage(/UDBFile/RepairOrderHeader,The RO Close Date (date repair order closed) in the Repair Order Header Record is earlier than the corresponding RO Open Date (date the repair order was opened) in the RO Header Record. )"/>
+          <as:constraint condition="./AppointmentInitiatedDate/@truncApptInitDate &gt; ./@currentFileDate"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Date Appointment Initiated (date customer contacted dealership for appointment) in the Repair Order Header Record must not be greater than the File Date.)"/>
+          
+          <as:constraint condition="not(./OdometerReading[matches(normalize-space(.),'^[0-9]{6}$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Odometer Reading in the Repair Order Header record should be numeric only.)"/>
+          <as:constraint condition="not(./OdometerIndicator[matches(normalize-space(.),'^[MK]$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Odometer Indicator (miles or kilometer)  in the Repair Order Header Record must be either M or K.)"/>
+          <!-- Removed restriction per Mike 02-06-2014
+          <as:constraint condition="string(normalize-space(./FirstName)) and ./FirstName[matches(normalize-space(.),'[0-9]')]"
+            action="printMessage(/UDBFile/RepairOrderHeader,The First Name in the Repair Order Header Record must not contain a number.)"/> -->
+          <!-- 11-06-2012 -->
+          <as:constraint condition="string(normalize-space(./MiddleInitial)) and (./MiddleInitial[matches(.,'[0-9 *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./MiddleInitial,'[') or contains(./MiddleInitial,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Middle Initial in the Repair Order Header Record must be an alpha character.)"/>
+          
+          <!-- PHONES -->
+          <as:constraint
+            condition="string(normalize-space(./HomePhone)) and (./HomePhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./HomePhone,'[') or contains(./HomePhone,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Home Phone in the Repair Order Header Record must be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./WorkPhone)) and (./WorkPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./WorkPhone,'[') or contains(./WorkPhone,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Work Phone in the Repair Order Header Record must be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./CellPhone)) and (./CellPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./CellPhone,'[') or contains(./CellPhone,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Cell Phone in the Repair Order Header Record must be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          
+          <as:constraint condition="string(./NetCustomerPaidAmount) and not(./NetCustomerPaidAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Net Customer Paid Amount (amount which the customer is expected to pay) in the Repair Order Header Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="string(./TaxAmount) and not(./TaxAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Tax Amount (amount as it appears on the Repair Order)  in the Repair Order Header Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./RepairOrderOpenTime[matches(.,'^(0[0-9]|1[0-9]|2[0-3])([0-5][0-9])$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Repair Order Open Time in the Repair Order Header Record is invalid. The correct format is HHMM (HH =00-23, MM = 00-59). )"/>
+          <as:constraint condition="not(./RepairOrderCloseTime[matches(.,'^(0[0-9]|1[0-9]|2[0-3])([0-5][0-9])$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Repair Order Close Time in the Repair Order Header Record is invalid. The correct format is HHMM (HH =00-23, MM = 00-59). )"/>
+          
+          <as:constraint condition="not(./AppointmentTypeCode[matches(.,'^[AIPWU]$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Appointment Type (method used to initiate an appointment) in the Repair Order Header Record is not from the enumerated list.)"/>
+          
+          <as:constraint
+            condition="string(./AppointmentInitiatedDate) and (./AppointmentInitiatedDate[matches(.,'[A-Za-z *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./AppointmentInitiatedDate,'[') or contains(./AppointmentInitiatedDate,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Date Appointment Initiated (date customer contacted dealership for appointment) in the Repair Order Header Record must be a valid date in the format YYYYMMDD.)"/>
+          
+          <as:constraint condition="not(./ServiceCustomerTypeCode[matches(.,'^[DFGIRUBJW]$')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Service Customer Type Code (type of customer the service is being performed for) in the Repair Order Header Record is not from the enumerated list.)"/>
+          
+          <as:constraint condition="string(normalize-space(./ServiceWriterNationalID)) and (./ServiceWriterNationalID[matches(normalize-space(.),'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./ServiceWriterNationalID,'[') or contains(./ServiceWriterNationalID,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Service Writer - National ID in the Repair Order Header Record should be alphanumeric only and contain the Ford Standardized Training And Reporting System (STARS) ID.)"/>
+          
+          <!-- 3.21R -->
+          <as:constraint
+            condition="string(normalize-space(./CustomerEmail)) and not(./CustomerEmail[matches(normalize-space(.),'@')]) and not(./CustomerEmail[matches(normalize-space(.),'\.')])"
+            action="printMessage(/UDBFile/RepairOrderHeader,Customer email must be a valid email address.)"/>
+          
+          <!-- Modified 05-17-2013 to remove length restriction -->
+          <as:constraint condition="string(normalize-space(./CustomerCountryCode)) and (normalize-space(./CustomerCountryCode)[matches(.,'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CustomerCountryCode,'[') or contains(./CustomerCountryCode,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Customer Country Code in the Repair order Header Record should be alphanumeric.)"/>
+          <!-- 11-06-2012 -->
+          <as:constraint condition="string(normalize-space(./VIN)) and (./VIN[matches(.,'[*,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./VIN,'[') or contains(./VIN,']'))"
+            action="printMessage(/UDBFile/RepairOrderHeader,The VIN in the Repair Order Header Record should be alphanumeric only.)"/>
+          <!-- 11-06-2012 -->
+          <as:constraint condition="./RONumber = '0000000000000000'"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Repair Order Number in the Repair Order Header Record was either empty or all zeros.  A Repair Order  Number is required.)"/>
+          <as:constraint condition="./RONumber[matches(.,'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./RONumber,'[') or contains(./RONumber,']')"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Repair Order Number in the Repair Order Header Record should be alphanumeric only)"/>
+          <!-- 11-06-2012 -->
+          <as:constraint condition="./ROXRef[matches(.,'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./ROXRef,'[') or contains(./ROXRef,']')"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Repair Order Cross-Reference Number in the Repair Order Header Record should be alphanumeric only.)"/>
+          
+          <!-- 01-02-2013 -->
+          <as:constraint condition="./City[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Customer City in the Repair Order Header Record must not contain numbers.)"/>
+          <as:constraint condition="./StateOrProvince[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/RepairOrderHeader,The Customer State or Province in the Repair Order Header Record must not contain numbers.)"/>
+          
+          
+          <!-- RO Service -->
+          <as:constraint condition="not(./SequenceNumber[matches(.,'^[0-9][0-9]$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sequence Number (used with Bundled and Sub Labor Operations) must be a 2 digit numeric value.)"/>
+          <as:constraint condition="not(./RepairTypeCode[matches(.,'^[ACEIUW]$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Repair Type Code (type of customer the service is being performed for) in the Repair Order Service Record is not from the enumerated list.)"/>
+          <as:constraint condition="not(./ServicingDepartmentCode[matches(.,'^[BDOQSUM]$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Servicing Department Code in Repair Order Service Record is not from the enumerated list.)"/>
+          <as:constraint condition="not(./LaborChargeAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Labor Charge (amount charged for this service as it appears on the Repair Order) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./BilledHours[matches(.,'^[-0-9][0-9]{3}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Billed Hours in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="./BilledHours &gt; 99" action="printMessage(/UDBFile/RepairOrderService,WARNING: Unusually high hours billed.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount01[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #1 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount02[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #2 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount03[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #3 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount04[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #4 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount05[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #5 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount06[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #6 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount07[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #7 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount08[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #8 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount09[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #9 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SubletOrMiscAmount10[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderService,The Sublet Misc. Amount #10 (dollar amount associated with its description) in the Repair Order Service Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          
+          <as:constraint condition="string(normalize-space(./TechnicianNationalID)) and (./TechnicianNationalID[matches(normalize-space(.),'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./TechnicianNationalID,'[') or contains(./TechnicianNationalID,']'))"
+            action="printMessage(/UDBFile/RepairOrderService,The Technician - National ID in the Repair Order Service Record should be alphanumeric only and contain the Ford Standardized Training And Reporting System (STARS) ID.)"/>
+          
+          <!-- RO Part -->
+          <as:constraint condition="not(./Quantity[matches(.,'^[-0-9][0-9]{3}$')])"
+            action="printMessage(/UDBFile/RepairOrderPart,The Part Quantity in the Repair Order Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderPart,The Sale Amount (extended part price) in the Repair Order Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./DealerCostAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/RepairOrderPart,The  Dealer Cost Amount (dealer cost for a single part) in the Repair Order Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(abs(./SaleAmount) &gt; (abs(./DealerCostAmount) - 1))"
+            action="printMessage(/UDBFile/RepairOrderPart,WARNING: The Part Sale Price should be greater than or equal to the Dealer Part Cost.)"/>
+          <as:constraint condition="string(normalize-space(./CounterPersonNationalID)) and (./CounterPersonNationalID[matches(normalize-space(.),'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CounterPersonNationalID,'[') or contains(./CounterPersonNationalID,']'))"
+            action="printMessage(/UDBFile/RepairOrderPart,The Part Person - National ID in the Repair Order Part Record should be alphanumeric only and contain the Ford Standardized Training And Reporting System (STARS) ID.)"/>
+          <!-- 01-02-2013 -->
+          
+          <as:constraint condition="string(normalize-space(./CausalCode)) and (./CausalCode[matches(normalize-space(.),'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CausalCode,'[') or contains(./CausalCode,']'))"
+            action="printMessage(/UDBFile/RepairOrderPart,The Part Causal Code must be alphanumeric.)"/>
+          
+          <!-- OTC Header -->
+          <as:constraint
+            condition="not(./InvoiceDate[matches(.,'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Invoice Date (date invoice was opened) in the OTC Header Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint condition="./InvoiceDate/@truncInvoiceDate &gt; ./@currentFileDate"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Invoice Date (date invoice was opened) in the OTC Header Record must not be greater than the File Date.)"/>
+          <as:constraint condition="not(./CustomerTypeCode[matches(.,'^[DFGIRWUBJ]$')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Parts Customer Type Code (type of customer that purchased the part(s)) in the OTC Header Record is not from the enumerated list.)"/>
+          <as:constraint condition="not(./TaxAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Tax Amount (amount as it appears on the Parts Invoice)  in the OTC Header Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          
+          <as:constraint condition="string(normalize-space(./CounterPersonNationalID)) and (./CounterPersonNationalID[matches(normalize-space(.),'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CounterPersonNationalID,'[') or contains(./CounterPersonNationalID,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Part Person - National ID in the OTC Header Record should be alphanumeric only and contain the Ford Standardized Training And Reporting System (STARS) ID.)"/>
+          
+          <!-- 3.21R -->
+          <!-- Removed restriction per Mike 02-06-2014
+          <as:constraint condition="string(normalize-space(./FirstName)) and ./FirstName[matches(normalize-space(.),'[0-9]')]"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The First Name in the OTC Header Record must not contain a number)"/> -->
+          
+          <as:constraint condition="string(normalize-space(./MiddleInitial)) and (./MiddleInitial[matches(.,'[0-9 *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./MiddleInitial,'[') or contains(./MiddleInitial,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Middle Initial in the OTC Part Invoice Header must be an alpha character.)"/>
+          
+          <!-- Modified 05-17-2013 to remove length restriction -->
+          <as:constraint condition="string(normalize-space(./CustomerCountryCode)) and (normalize-space(./CustomerCountryCode)[matches(.,'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CustomerCountryCode,'[') or contains(./CustomerCountryCode,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Customer Country Code in the OTC Record should be alphanumeric.)"/>
+          
+          <!-- PHONES -->
+          <as:constraint
+            condition="string(normalize-space(./HomePhone)) and (./HomePhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./HomePhone,'[') or contains(./HomePhone,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Home Phone in the Repair Order Header Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./WorkPhone)) and (./WorkPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./WorkPhone,'[') or contains(./WorkPhone,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Work Phone in the Repair Order Header Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./CellPhone)) and (./CellPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./CellPhone,'[') or contains(./CellPhone,']'))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Cell Phone in the OTC Header Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          
+          <as:constraint
+            condition="string(normalize-space(./CustomerEmail)) and not(./CustomerEmail[matches(normalize-space(.),'@')]) and not(./CustomerEmail[matches(normalize-space(.),'\.')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,Customer email must be a valid email address.)"/>
+          <as:constraint condition="string(normalize-space(./DiscountAmount)) and not(./DiscountAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Discount Amount (sum of all discounts for the invoice.)  in the OTC Header Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="string(normalize-space(./ShippingAmount)) and not(./ShippingAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Shipping Amount (amount charged for transporting the part to the customer)  in the OTC Header Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          
+          <!-- 01-02-2013 -->
+          <as:constraint condition="./City[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Customer City in the OTC Header Record must not contain numbers.)"/>
+          <as:constraint condition="./StateOrProvince[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Customer State or Province in the OTC Header Record must not contain numbers.)"/>
+          
+          <!-- OTC Parts -->
+          <as:constraint condition="not(./Quantity[matches(.,'^[-0-9][0-9]{3}$')])"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,The Part Quantity (quantity of parts as it appears on the OTC Invoice)  in the OTC Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,The Sale Amount (actual unit sale price charged for a single part as it appears on the invoice) in the OTC Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./DealerCostAmount[matches(.,'^[-0-9][0-9]{13}$')])"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,The Dealer Cost Amount (dealer net cost) in the OTC Part Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(abs(./SaleAmount) &gt; (abs(./DealerCostAmount) - 1))"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,WARNING: The Part Sale Price should be greater than or equal to the Part Sale Dealer Cost.)"/>
+          <!-- QOH Parts -->
+          <as:constraint
+            condition="not(./InventoryDate[matches(.,'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,The Quantity Date (date the quantity is being reported for) in the Parts Inventory Quantity on Hand Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint condition="./InventoryDate/@truncInventoryDate &gt; ./@currentFileDate"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,The Quantity Date (date the quantity is being reported for) in the Parts Inventory Quantity on Hand Record must not be greater than the File Date.)"/>
+          <as:constraint condition="not(./QuantityOnHand[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,The Quantity On Hand (count of this part at the end of the daily processing)  in the Parts Inventory Quantity on Hand Record is invalid.  Only numerals are allowed or a '-' in the first position..)"/>
+          <!-- File Trailer -->
+          <as:constraint condition="not(./PACode[matches(.,'^[0-9A-Za-z]{5}$')])"
+            action="printMessage(/UDBFile/FileTrailer,The Ford Parts and Accessories Code in the File Trailer must be a 5 character alpha-numeric value.)"/>
+          <as:constraint
+            condition="string(normalize-space(./SubDealerPACode)) and not(./SubDealerPACode[matches(normalize-space(.),'^[0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$|^[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]$')])"
+            action="printMessage(/UDBFile/FileTrailer,The Ford Sub-dealer Parts and Accessories Code in the File Trailer must be an alpha-numeric value.)"/>
+          <as:constraint
+            condition="not(./GeographicSalesAreaCode[matches(normalize-space(.),'^[0-9A-Za-z]$|^[0-9A-Za-z][0-9A-Za-z]$|^[0-9A-Za-z][0-9A-Za-z][0-9A-Za-z]$')])"
+            action="printMessage(/UDBFile/FileTrailer,The dealer Geographic Sales Area Code in the File Trailer (as defined by the Franchise Agreement) must be an alpha-numeric value.)"/>
+          <as:constraint
+            condition="not(./FileDate[matches(.,'^((((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8]))\d{2})|0229([02468][048]|[13579][26]))$')])"
+            action="printMessage(/UDBFile/FileTrailer,The File Date (date the file was created) in positions (23-28) of the File Trailer Record must be a valid date in the format MMDDYY.)"/>
+          <as:constraint condition="not(./FileNumber[matches(.,'^0[1-9]|[1-9][0-9]$')])"
+            action="printMessage(/UDBFile/FileTrailer,The File Number in positions (29-30) of the File Trailer (number of the current file in process) must be a 2 digit numeric value greater than 0.)"/>
+          <as:constraint condition="not(./RecordCount[matches(.,'^[0-9]{8}$')])"
+            action="printMessage(/UDBFile/FileTrailer,The Record Count in the File Trailer (total number of records submitted) must be a 8 digit numeric value greater than 2.)"/>
+          <!-- 3.21R -->
+          <as:constraint condition="not(./FileTypeFlag[matches(.,'^[DH]$')])"
+            action="printMessage(/UDBFile/FileTrailer,File Type Flag in position 39 of the Trailer Record must be from the enumerated list.)"/>
+          <!--
+NO FORMAT RULES
+Required but no format rule possible -->
+          <!-- File Header -->
+          <as:constraint condition="not(string(normalize-space(./DSPSoftwareReleaseVersion)))"
+            action="printMessage(/UDBFile/FileHeader,The DSP Software Release Version (DSP internal software release number) is a required field.)"/>
+          <!-- RO Header -->
+          <!-- RO Service -->
+          <!-- RO Part -->
+          <!-- OTC Header -->
+          <as:constraint condition="not(string(normalize-space(./InvoiceNumber)))"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Invoice Number in the OTC Header Record was either empty or all zeros.  An Invoice Number is required.)"/>
+          <as:constraint condition="not(string(normalize-space(./CustomerTaxID))) and ./CustomerTypeCode[matches(.,'^[DFGW]$')]"
+            action="printMessage(/UDBFile/OTCPartInvoiceHeader,The Customer Identification Code in the OTC Header Record was empty. This field is required if the Parts Customer Type Code is either 'D', 'F', 'G' or 'W'.)"/>
+          
+          <!-- Part Numbers -->
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and not(string(normalize-space(./PartNumberSuffix)))"
+            action="printMessage(/UDBFile/RepairOrderPart,Parts Prefix, Part Base and Part Suffix in the Repair Order Part Record are all empty.  A Part Number is required.)"/>
+         <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and not(string(normalize-space(./PartNumberSuffix)))"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,Parts Prefix, Part Base and Part Suffix in the OTC Part Record are all empty.  A Part Number is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and not(string(normalize-space(./PartNumberSuffix)))"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,Parts Prefix, Part Base and Part Suffix in the Parts Inventory Quantity on Hand Record are all empty.  A Part Number is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and not(string(normalize-space(./PartNumberSuffix)))"
+            action="printMessage(/UDBFile/PartsInitialQuantity,Parts Prefix, Part Base and Part Suffix in the Parts Initial Quantity Record are all empty.  A Part Number is required.)"/>
+          
+          
+<!-- New added 5-16-2013: Check for Sublet/Misc lines missing either description or amount -->
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription01)) and ./SubletOrMiscAmount01 = 0) or
+            (not(./SubletOrMiscAmount01 = 0) and not(string(normalize-space(./SubletOrMiscDescription01))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #1 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription02)) and ./SubletOrMiscAmount02 = 0) or
+            (not(./SubletOrMiscAmount02 = 0) and not(string(normalize-space(./SubletOrMiscDescription02))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #2 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription03)) and ./SubletOrMiscAmount03 = 0) or
+            (not(./SubletOrMiscAmount03 = 0) and not(string(normalize-space(./SubletOrMiscDescription03))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #3 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription04)) and ./SubletOrMiscAmount04 = 0) or
+            (not(./SubletOrMiscAmount04 = 0) and not(string(normalize-space(./SubletOrMiscDescription04))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #4 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription05)) and ./SubletOrMiscAmount05 = 0) or
+            (not(./SubletOrMiscAmount05 = 0) and not(string(normalize-space(./SubletOrMiscDescription05))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #5 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription06)) and ./SubletOrMiscAmount06 = 0) or
+            (not(./SubletOrMiscAmount06 = 0) and not(string(normalize-space(./SubletOrMiscDescription06))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #6 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription07)) and ./SubletOrMiscAmount07 = 0) or
+            (not(./SubletOrMiscAmount07 = 0) and not(string(normalize-space(./SubletOrMiscDescription07))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #7 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription08)) and ./SubletOrMiscAmount08 = 0) or
+            (not(./SubletOrMiscAmount08 = 0) and not(string(normalize-space(./SubletOrMiscDescription08))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #8 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription09)) and ./SubletOrMiscAmount09 = 0) or
+            (not(./SubletOrMiscAmount09 = 0) and not(string(normalize-space(./SubletOrMiscDescription09))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #9 must have both a Description and an Amount.)"/>
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription10)) and ./SubletOrMiscAmount10 = 0) or
+            (not(./SubletOrMiscAmount10 = 0) and not(string(normalize-space(./SubletOrMiscDescription10))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous #10 must have both a Description and an Amount.)"/>
+          
+<!-- New added 5-16-2013: Check for Sublet/Misc lines out of position -->
+          <as:constraint condition="
+            (string(normalize-space(./SubletOrMiscDescription02)) and not(string(normalize-space(./SubletOrMiscDescription01)))) or
+            (string(normalize-space(./SubletOrMiscDescription03)) and not(string(normalize-space(./SubletOrMiscDescription02)))) or
+            (string(normalize-space(./SubletOrMiscDescription04)) and not(string(normalize-space(./SubletOrMiscDescription03)))) or
+            (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription04)))) or
+            (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription05)))) or
+            (string(normalize-space(./SubletOrMiscDescription07)) and not(string(normalize-space(./SubletOrMiscDescription06)))) or
+            (string(normalize-space(./SubletOrMiscDescription08)) and not(string(normalize-space(./SubletOrMiscDescription07)))) or
+            (string(normalize-space(./SubletOrMiscDescription09)) and not(string(normalize-space(./SubletOrMiscDescription08)))) or
+            (string(normalize-space(./SubletOrMiscDescription10)) and not(string(normalize-space(./SubletOrMiscDescription09))))"
+            action="printMessage(//RepairOrderService,Sublet / Miscellaneous Descriptions and Amounts must start at number 1 and be sent in order without skipping numbers.)"/>
+          
+<!-- New added 1-31-2014: Check for blank Part Base when Part Prefix and Part Suffix are populated AND lone Part Suffix -->
+          
+          <as:constraint
+            condition="string(normalize-space(./PartNumberPrefix)) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/RepairOrderPart,If Parts Prefix and Part Suffix are sent in the Repair Order Part Record the Part Base is required.)"/>
+          <as:constraint
+            condition="string(normalize-space(./PartNumberPrefix)) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,If Parts Prefix and Part Suffix are sent in the OTC Parts Invoice Part Record the Part Base is required.)"/>
+          <as:constraint
+            condition="string(normalize-space(./PartNumberPrefix)) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,If Parts Prefix and Part Suffix are sent in the Parts Inventory QOH Daily Record the Part Base is required.)"/>
+          <as:constraint
+            condition="string(normalize-space(./PartNumberPrefix)) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/PartsInitialQuantity,If Parts Prefix and Part Suffix are sent in the Parts Initial Quantity Record the Part Base is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/RepairOrderPart,If Part Suffix is sent in the Repair Order Part Record the Part Base is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/OTCPartsInvoicePart,If Part Suffix is sent in the OTC Parts Invoice Part Record the Part Base is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/PartsInventoryQOHDaily,If Part Suffix is sent in the Parts Inventory QOH Daily Record the Part Base is required.)"/>
+          <as:constraint
+            condition="not(string(normalize-space(./PartNumberPrefix))) and not(string(normalize-space(./PartNumberBase))) and string(normalize-space(./PartNumberSuffix))"
+            action="printMessage(/UDBFile/PartsInitialQuantity,If Part Suffix is sent in the Parts Initial Quantity Record the Part Base is required.)"/>
+
+
+<!-- New added 02-03-2014: Test fields in new PIQ (Initial Load) record -->
+          <as:constraint
+            condition="not(./QuantityDate[matches(.,'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Date (date the quantity is being reported for) in the Parts Initial Quantity Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint condition="not(./QuantityOnHand[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity On Hand (count of this part at the end of the daily processing) in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-0[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold Current Month in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-1[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold Last Month in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-2[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 2 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-3[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 3 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-4[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 4 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-5[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 5 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-6[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 6 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-7[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 7 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-8[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 8 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-9[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 9 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-10[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 10 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-11[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 11 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          <as:constraint condition="not(./SaleQuantitiyCurrentMonth-12[matches(.,'^[-0-9][0-9]{6}$')])"
+            action="printMessage(/UDBFile/PartsInitialQuantity,The Quantity Sold 12 Months Ago in the Parts Initial Quantity Record is invalid.  Only numerals are allowed or a '-' in the first position.)"/>
+          
+<!-- New added 02-04-2014: Test fields in new UVS (USed Vehicle Sales) record -->
+          <as:constraint
+            condition="not(./SaleDate[matches(.,'^([2-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sale Date (date the used vehicle was sold) in the Used Vehicle Sales Record must be a valid date in the format YYYYMMDD.)"/>
+          <as:constraint condition="not(string(normalize-space(./SaleType))) or not(./SaleType[matches(normalize-space(.),'^[FRC]$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sale Type in the Used Vehicle Sales Record is required and must contain one of the values 'F' 'R' or 'C'.)"/>
+          <as:constraint condition="string(normalize-space(./SoldVIN)) and (./SoldVIN[matches(.,'[*,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./SoldVIN,'[') or contains(./SoldVIN,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sold VIN in the Used Vehicle Sales Record should be alphanumeric only.)"/>
+          <as:constraint condition="not(./SoldOdometerReading[matches(normalize-space(.),'^[0-9]{6}$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sold Odometer Reading in the Used Vehicle Sales record should be numeric only.)"/>
+          <as:constraint condition="not(./SoldOdometerIndicator[matches(normalize-space(.),'^[MK]$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sold Odometer Indicator (miles or kilometer) in the Used Vehicle Sales Record must be either M or K.)"/>
+          <as:constraint condition="not(./TradeInOdometerReading[matches(normalize-space(.),'^[0-9]{6}$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Trade In Odometer Reading in the Used Vehicle Sales record should be numeric only.)"/>
+          <as:constraint condition="not(./TradeInOdometerIndicator[matches(normalize-space(.),'^[MK]$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Trade In Odometer Indicator (miles or kilometer) in the Used Vehicle Sales Record must be either M or K.)"/>
+          <as:constraint condition="not(./CustomerContactFlag[matches(normalize-space(.),'^[YNU]$')])"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Customer Contact Flag in the Used Vehicle Sales Record must contain one of the values 'Y' 'N' or 'U'.)"/>
+          <!-- Removed restriction per Mike 02-06-2014
+          <as:constraint condition="string(normalize-space(./FirstName)) and ./FirstName[matches(normalize-space(.),'[0-9]')]"
+            action="printMessage(/UDBFile/UsedVehicleSales,The First Name in the Used Vehicle Sales Record must not contain a number)"/> -->
+          <as:constraint condition="string(normalize-space(./MiddleInitial)) and (./MiddleInitial[matches(.,'[0-9 *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./MiddleInitial,'[') or contains(./MiddleInitial,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Middle Initial in the Used Vehicle Sales Record must be an alpha character.)"/>
+          <as:constraint condition="./City[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Customer City in the Used Vehicle Sales Record must not contain numbers.)"/>
+          <as:constraint condition="./StateOrProvince[matches(.,'[0-9]')]"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Customer State or Province in the Used Vehicle Sales Record must not contain numbers.)"/>
+          <as:constraint
+            condition="string(normalize-space(./HomePhone)) and (./HomePhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./HomePhone,'[') or contains(./HomePhone,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Home Phone in the Used Vehicle Sales Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./WorkPhone)) and (./WorkPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./WorkPhone,'[') or contains(./WorkPhone,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Work Phone in the Used Vehicle Sales Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./CellPhone)) and (./CellPhone[matches(.,'[A-Za-z*,;\-:=+_?#$%@\^\\/!>|}{]')] or contains(./CellPhone,'[') or contains(./CellPhone,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Cell Phone in the Used Vehicle Sales Record should be numeric only. Do NOT fill in extra spaces with zeros.)"/>
+          <as:constraint
+            condition="string(normalize-space(./CustomerEmail1)) and (not(./CustomerEmail1[matches(normalize-space(.),'@')]) or not(./CustomerEmail1[matches(normalize-space(.),'\.')]))"
+            action="printMessage(/UDBFile/UsedVehicleSales,Customer email 1 in the Used Vehicle Sales Record must be a valid email address.)"/>
+          <as:constraint
+            condition="string(normalize-space(./CustomerEmail2)) and (not(./CustomerEmail2[matches(normalize-space(.),'@')]) or not(./CustomerEmail2[matches(normalize-space(.),'\.')]))"
+            action="printMessage(/UDBFile/UsedVehicleSales,Customer email 2 in the Used Vehicle Sales Record must be a valid email address.)"/>
+          <as:constraint condition="string(normalize-space(./ContractType)) and (./ContractType[matches(.,'[*,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./ContractType,'[') or contains(./ContractType,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Contract Type in the Used Vehicle Sales Record must be an alpha-numeric value.)"/>
+          <as:constraint condition="string(normalize-space(./SaleTypeDescription)) and (./SaleTypeDescription[matches(.,'[*,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./SaleTypeDescription,'[') or contains(./SaleTypeDescription,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Sale Type Description in the Used Vehicle Sales Record must be an alpha-numeric value.)"/>
+          <as:constraint condition="string(normalize-space(./InventoryType)) and (./InventoryType[matches(.,'[0-9*,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./InventoryType,'[') or contains(./InventoryType,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Inventory Type in the Used Vehicle Sales Record must be an alpha value.)"/>
+          <as:constraint condition="string(normalize-space(./CustomerCountryCode)) and (normalize-space(./CustomerCountryCode)[matches(.,'[ *,.;:=+\-_?#$%@\^\\/!>|}{()]')] or contains(./CustomerCountryCode,'[') or contains(./CustomerCountryCode,']'))"
+            action="printMessage(/UDBFile/UsedVehicleSales,The Customer Country Code in the Used Vehicle Sales Record should be alpha-numeric.)"/>
+          
+          
+          
+          
+        </as:context>
+      </as:default>
+    </as:Rules>
+  </as:BusinessUseContext>
+</as:CAM>

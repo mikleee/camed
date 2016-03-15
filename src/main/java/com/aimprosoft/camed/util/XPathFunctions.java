@@ -18,84 +18,45 @@ public class XPathFunctions {
             list.add(fullXpathWithPosition(node));
             list.add(xpath(node));
             if (node instanceof Element) {
+                Element element = (Element) node;
                 list.add(fullXpathWithPosition(node) + "/*");
                 list.add(xpath(node) + "/*");
 
-                list.add("/" + ((Element) node).getQualifiedName());
-                list.add("/" + ((Element) node).getQualifiedName() + "/*");
-                list.add("//" + ((Element) node).getQualifiedName());
-                list.add("//" + ((Element) node).getQualifiedName() + "/*");
+                list.add("/" + element.getQualifiedName());
+                list.add("/" + element.getQualifiedName() + "/*");
+                list.add("//" + element.getQualifiedName());
+                list.add("//" + element.getQualifiedName() + "/*");
 
                 list.add("/" + xpathWithPosition(node));
                 list.add("/" + xpathWithPosition(node) + "/*");
                 list.add("//" + xpathWithPosition(node));
                 list.add("//" + xpathWithPosition(node) + "/*");
 
-                if (node != null
-                        && ((Element) node).getParentElement() != null
-                        && !((Element) node).getParentElement().getName()
-                        .equals("Structure")) {
-                    list.add("/"
-                            + ((Element) node).getParentElement()
-                            .getQualifiedName() + "/"
-                            + ((Element) node).getQualifiedName());
-                    list.add("/"
-                            + ((Element) node).getParentElement()
-                            .getQualifiedName() + "/"
-                            + ((Element) node).getQualifiedName() + "/*");
-                    list.add("//"
-                            + ((Element) node).getParentElement()
-                            .getQualifiedName() + "/"
-                            + ((Element) node).getQualifiedName());
-                    list.add("//"
-                            + ((Element) node).getParentElement()
-                            .getQualifiedName() + "/"
-                            + ((Element) node).getQualifiedName() + "/*");
+                if (element.getParentElement() != null && !element.getParentElement().getName().equals("Structure")) {
 
-                    list.add("/"
-                            + xpathWithPosition(((Element) node)
-                            .getParentElement()) + "/"
-                            + xpathWithPosition((Element) node));
-                    list.add("/"
-                            + xpathWithPosition(((Element) node)
-                            .getParentElement()) + "/"
-                            + xpathWithPosition((Element) node)
-                            + "/*");
-                    list.add("//"
-                            + xpathWithPosition(((Element) node)
-                            .getParentElement()) + "/"
-                            + xpathWithPosition((Element) node));
-                    list.add("//"
-                            + xpathWithPosition(((Element) node)
-                            .getParentElement()) + "/"
-                            + xpathWithPosition((Element) node)
-                            + "/*");
+                    list.add("/" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName());
+                    list.add("/" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName() + "/*");
+                    list.add("//" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName());
+                    list.add("//" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName() + "/*");
+
+                    list.add("/" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element));
+                    list.add("/" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element) + "/*");
+                    list.add("//" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element));
+                    list.add("//" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element) + "/*");
                 }
 
             } else {
-                list.add("/@" + ((Attribute) node).getQualifiedName());
-                list.add("//@" + ((Attribute) node).getQualifiedName());
+                Attribute attribute = (Attribute) node;
 
-                list.add("/"
-                        + ((Attribute) node).getParent().getQualifiedName()
-                        + "/@" + ((Attribute) node).getQualifiedName());
-                list.add("//"
-                        + ((Attribute) node).getParent().getQualifiedName()
-                        + "/@" + ((Attribute) node).getQualifiedName());
-                list.add("//"
-                        + ((Attribute) node).getParent().getParentElement().getQualifiedName()
-                        + "/"
-                        + ((Attribute) node).getParent().getQualifiedName()
-                        + "/@" + ((Attribute) node).getQualifiedName());
+                list.add("/@" + attribute.getQualifiedName());
+                list.add("//@" + attribute.getQualifiedName());
 
-                list.add("/"
-                        + xpathWithPosition(((Attribute) node)
-                        .getParent()) + "/@"
-                        + ((Attribute) node).getQualifiedName());
-                list.add("//"
-                        + xpathWithPosition(((Attribute) node)
-                        .getParent()) + "/@"
-                        + ((Attribute) node).getQualifiedName());
+                list.add("/" + attribute.getParent().getQualifiedName() + "/@" + attribute.getQualifiedName());
+                list.add("//" + attribute.getParent().getQualifiedName() + "/@" + attribute.getQualifiedName());
+                list.add("//" + attribute.getParent().getParentElement().getQualifiedName() + "/" + attribute.getParent().getQualifiedName() + "/@" + attribute.getQualifiedName());
+
+                list.add("/" + xpathWithPosition(attribute.getParent()) + "/@" + attribute.getQualifiedName());
+                list.add("//" + xpathWithPosition(attribute.getParent()) + "/@" + attribute.getQualifiedName());
             }
         }
         return list;
@@ -347,6 +308,44 @@ public class XPathFunctions {
 
         }
 
+    }
+
+    public static boolean isChildSpecifiedXpathCorrect(Element element, String xPath, String root) {
+        if (xPath.startsWith(root + "[")) {
+            String childQualifier = getChildSpecifiedXpath(xPath, root);
+            return doesChildExist(element, childQualifier.split("/"), 0);
+        } else {
+            return false;
+        }
+    }
+
+    private static String getChildSpecifiedXpath(String xpath, String root) {
+        xpath = xpath.replaceAll(root + "\\[", "");
+        return xpath.substring(0, xpath.length() - 1);
+    }
+
+    public static boolean doesChildExist(Element parent, String[] steps, int depth) {
+        List<Element> children = parent.getChildren();
+        if (children == null || children.isEmpty()) {
+            return false;
+        } else {
+            String pathName = steps[depth];
+            if (depth == steps.length - 1) {
+                for (Element child : children) {
+                    if (child.getQualifiedName().equals(pathName)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            for (Element child : children) {
+                if (child.getQualifiedName().equals(pathName)) {
+                    return doesChildExist(child, steps, depth + 1);
+                }
+            }
+            return false;
+        }
     }
 
     public static String getFirstElementNameInXPath(String xpath) {

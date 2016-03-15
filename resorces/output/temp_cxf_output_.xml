@@ -1,0 +1,642 @@
+<as:CAM  xmlns:as="http://www.oasis-open.org/committees/cam"  compiled="true" CAMlevel="1"  version="0.1">
+<as:Header>
+<as:Description>Ford UDB File</as:Description>
+<as:Owner>Motive Retail LLC</as:Owner>
+<as:Version>3.21R+</as:Version>
+<as:DateTime>2015-02-24T18:47:33</as:DateTime>
+</as:Header>
+<as:Namespaces>
+<as:namespace prefix="as">http://www.oasis-open.org/committees/cam</as:namespace>
+</as:Namespaces>
+<as:AssemblyStructure>
+<as:Structure  ID="UDBFile"  reference=""  taxonomy="XML" >
+<as:Element name="UDBFile" makeMandatory="true" >
+<as:Attribute name="version" makeMandatory="true" />
+<as:Element name="ERROR" makeOptional_1="true"  makeRepeatable="//UDBFile/ERROR" >
+<as:Attribute name="errorType" makeMandatory="true" />
+<as:Attribute name="errorClass" makeMandatory="true" />
+<as:Attribute name="foundHeaderPosition" makeOptional_1="true" />
+<as:Attribute name="foundTrailerPosition" makeOptional_1="true" />
+<as:Attribute name="lineCount" makeOptional_1="true" />
+<as:Attribute name="foundHeaderRecordCount" makeOptional_1="true" />
+<as:Attribute name="foundTrailerRecordCount" makeOptional_1="true" />
+<as:Attribute name="foundHeaderFileDate" makeOptional_1="true" />
+<as:Attribute name="foundHeaderFileDate-2" makeOptional_1="true" />
+<as:Attribute name="foundTrailerFileDate" makeOptional_1="true" />
+<as:Attribute name="foundHeaderFileNumber" makeOptional_1="true" />
+<as:Attribute name="foundHeaderFileNumber-2" makeOptional_1="true" />
+<as:Attribute name="foundTrailerFileNumber" makeOptional_1="true" />
+<as:Attribute name="foundHeaderPACode" makeOptional_1="true" />
+<as:Attribute name="foundTrailerPACode" makeOptional_1="true" />
+<as:Attribute name="foundHeaderSubDealerPACode" makeOptional_1="true" />
+<as:Attribute name="foundTrailerSubDealerPACode" makeOptional_1="true" />
+<as:Attribute name="foundHeaderGeographicSalesAreaCode" makeOptional_1="true" />
+<as:Attribute name="foundTrailerGeographicSalesAreaCode" makeOptional_1="true" />
+<as:Attribute name="foundLineLength" makeOptional_1="true" />
+<as:Attribute name="possibleLineLength" makeOptional_1="true" />
+<as:Attribute name="foundRecordType" makeOptional_1="true" />
+<as:Attribute name="possibleRecordType" makeOptional_1="true" />
+<as:Attribute name="foundPrecedeFileLineRecordType" makeOptional_1="true" />
+<as:Attribute name="foundDate" makeOptional_1="true" />
+<as:Element name="ERROR" makeOptional_1="true"  makeRepeatable="//ERROR/ERROR" >
+<as:Attribute name="errorType" makeMandatory="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="errorClass" makeMandatory="true" />
+</as:Element>
+<as:Element name="FileHeader" makeOptional_1="true"  makeRepeatable="//ERROR/FileHeader" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PACode" makeMandatory="true" />
+<as:Element name="FILECONTROL01" makeMandatory="true" />
+<as:Element name="FILECONTROL02" makeMandatory="true" />
+<as:Element name="FILECONTROL03" makeMandatory="true" />
+<as:Element name="FILECONTROL04" makeMandatory="true" />
+<as:Element name="FileDate" makeMandatory="true" />
+<as:Element name="FileNumber" makeMandatory="true" />
+<as:Element name="FILECONTROL05" makeMandatory="true" />
+<as:Element name="FILECONTROL06" makeMandatory="true" />
+<as:Element name="FILECONTROL05-2" makeMandatory="true" />
+<as:Element name="FILECONTROL07" makeMandatory="true" />
+<as:Element name="FILECONTROL08" makeMandatory="true" />
+<as:Element name="FileDate-2" makeMandatory="true" />
+<as:Element name="FileNumber-2" makeMandatory="true" />
+<as:Element name="RecordCount" makeMandatory="true" />
+<as:Element name="SubDealerPACode" makeMandatory="true" />
+<as:Element name="FILECONTROL09" makeMandatory="true" />
+<as:Element name="FILECONTROL10" makeMandatory="true" />
+<as:Element name="FILECONTROL11" makeMandatory="true" />
+<as:Element name="GeographicSalesAreaCode" makeMandatory="true" />
+<as:Element name="FranchiseCode" makeMandatory="true" />
+<as:Element name="DSPSoftwareReleaseVersion" makeMandatory="true" />
+<as:Element name="FILECONTROL12" makeMandatory="true" />
+<as:Element name="FILECONTROL13" makeMandatory="true" />
+<as:Element name="FILECONTROL14" makeMandatory="true" />
+<as:Element name="FILECONTROL02-2" makeMandatory="true" />
+<as:Element name="FILECONTROL15" makeMandatory="true" />
+<as:Element name="VendorID" makeMandatory="true" />
+<as:Element name="FileTypeFlag" makeMandatory="true" />
+<as:Element name="FILECONTROL16" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderHeader" makeRepeatable="//ERROR/RepairOrderHeader"  makeOptional_2="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="VIN" makeMandatory="true" />
+<as:Element name="RONumber" makeMandatory="true" />
+<as:Element name="ROXRef" makeMandatory="true" />
+<as:Element name="FILECONTROL17" makeMandatory="true" />
+<as:Element name="ROOpenDate" makeMandatory="true" >
+<as:Attribute name="truncROOpenDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="ROCloseDate" makeMandatory="true" >
+<as:Attribute name="truncROCloseDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="OdometerReading" makeMandatory="true" />
+<as:Element name="OdometerIndicator" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="NetCustomerPaidAmount" makeMandatory="true" />
+<as:Element name="TaxAmount" makeMandatory="true" />
+<as:Element name="LicensePlateNumber" makeMandatory="true" />
+<as:Element name="RepairOrderOpenTime" makeMandatory="true" />
+<as:Element name="RepairOrderCloseTime" makeMandatory="true" />
+<as:Element name="AppointmentTypeCode" makeMandatory="true" />
+<as:Element name="AppointmentInitiatedDate" makeMandatory="true" >
+<as:Attribute name="truncApptInitDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="ServiceCustomerTypeCode" makeMandatory="true" />
+<as:Element name="ServiceWriterLocalID" makeMandatory="true" />
+<as:Element name="ServiceWriterNationalID" makeMandatory="true" />
+<as:Element name="CustomerEmail" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="FILECONTROL16-2" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderService" printMessage_1="Sublet / Miscellaneous #1 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription01)) and ./SubletOrMiscAmount01 = 0) or             (not(./SubletOrMiscAmount01 = 0) and not(string(normalize-space(./SubletOrMiscDescription01))))"  printMessage_2="Sublet / Miscellaneous #2 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription02)) and ./SubletOrMiscAmount02 = 0) or             (not(./SubletOrMiscAmount02 = 0) and not(string(normalize-space(./SubletOrMiscDescription02))))"  printMessage_3="Sublet / Miscellaneous #3 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription03)) and ./SubletOrMiscAmount03 = 0) or             (not(./SubletOrMiscAmount03 = 0) and not(string(normalize-space(./SubletOrMiscDescription03))))"  printMessage_4="Sublet / Miscellaneous #4 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription04)) and ./SubletOrMiscAmount04 = 0) or             (not(./SubletOrMiscAmount04 = 0) and not(string(normalize-space(./SubletOrMiscDescription04))))"  printMessage_5="Sublet / Miscellaneous #5 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription05)) and ./SubletOrMiscAmount05 = 0) or             (not(./SubletOrMiscAmount05 = 0) and not(string(normalize-space(./SubletOrMiscDescription05))))"  printMessage_6="Sublet / Miscellaneous #6 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription06)) and ./SubletOrMiscAmount06 = 0) or             (not(./SubletOrMiscAmount06 = 0) and not(string(normalize-space(./SubletOrMiscDescription06))))"  printMessage_7="Sublet / Miscellaneous #7 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription07)) and ./SubletOrMiscAmount07 = 0) or             (not(./SubletOrMiscAmount07 = 0) and not(string(normalize-space(./SubletOrMiscDescription07))))"  printMessage_8="Sublet / Miscellaneous #8 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription08)) and ./SubletOrMiscAmount08 = 0) or             (not(./SubletOrMiscAmount08 = 0) and not(string(normalize-space(./SubletOrMiscDescription08))))"  printMessage_9="Sublet / Miscellaneous #9 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription09)) and ./SubletOrMiscAmount09 = 0) or             (not(./SubletOrMiscAmount09 = 0) and not(string(normalize-space(./SubletOrMiscDescription09))))"  printMessage_10="Sublet / Miscellaneous #10 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription10)) and ./SubletOrMiscAmount10 = 0) or             (not(./SubletOrMiscAmount10 = 0) and not(string(normalize-space(./SubletOrMiscDescription10))))"  printMessage_11="Sublet / Miscellaneous Descriptions and Amounts must start at number 1 and be sent in order without skipping numbers.?             (string(normalize-space(./SubletOrMiscDescription02)) and not(string(normalize-space(./SubletOrMiscDescription01)))) or             (string(normalize-space(./SubletOrMiscDescription03)) and not(string(normalize-space(./SubletOrMiscDescription02)))) or             (string(normalize-space(./SubletOrMiscDescription04)) and not(string(normalize-space(./SubletOrMiscDescription03)))) or             (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription04)))) or             (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription05)))) or             (string(normalize-space(./SubletOrMiscDescription07)) and not(string(normalize-space(./SubletOrMiscDescription06)))) or             (string(normalize-space(./SubletOrMiscDescription08)) and not(string(normalize-space(./SubletOrMiscDescription07)))) or             (string(normalize-space(./SubletOrMiscDescription09)) and not(string(normalize-space(./SubletOrMiscDescription08)))) or             (string(normalize-space(./SubletOrMiscDescription10)) and not(string(normalize-space(./SubletOrMiscDescription09))))"  makeRepeatable="//ERROR/RepairOrderService"  makeOptional_13="true" >
+<as:Attribute name="awaID" makeOptional_1="true" />
+<as:Attribute name="bundledlaborID" makeOptional_1="true" />
+<as:Attribute name="menupriceID" makeOptional_1="true" />
+<as:Attribute name="espwarrantydeductible" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="SequenceNumber" makeMandatory="true" />
+<as:Element name="RepairTypeCode" makeMandatory="true" />
+<as:Element name="FILECONTROL17-2" makeMandatory="true" />
+<as:Element name="ServicingDepartmentCode" makeMandatory="true" />
+<as:Element name="LaborOperationCode" makeMandatory="true" />
+<as:Element name="LaborChargeAmount" makeMandatory="true" />
+<as:Element name="BilledHours" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription01" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription02" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription03" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription04" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription05" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription06" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription07" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription08" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription09" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription10" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount01" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount02" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount03" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount04" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount05" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount06" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount07" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount08" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount09" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount10" makeMandatory="true" />
+<as:Element name="LaborDescription" makeMandatory="true" >
+<as:Element name="IsAWASplit" makeMandatory="true" />
+<as:Element name="AWAFordPercentage" makeNillable_1="true" />
+<as:Element name="AWADealerPercentage" makeNillable_1="true" />
+<as:Element name="AWACustomerPercentage" makeNillable_1="true" />
+<as:Element name="LaborDescriptionText" makeMandatory="true" />
+</as:Element>
+<as:Element name="TechnicianLocalID" makeMandatory="true" />
+<as:Element name="TechnicianNationalID" makeMandatory="true" />
+<as:Element name="FILECONTROL16-3" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderPart" makeOptional_1="true"  makeRepeatable="//ERROR/RepairOrderPart" >
+<as:Attribute name="awaID" makeOptional_1="true" />
+<as:Attribute name="bundledlaborID" makeOptional_1="true" />
+<as:Attribute name="partcoresaleID" makeOptional_1="true" />
+<as:Attribute name="partsreturn" makeOptional_1="true" />
+<as:Attribute name="partskitID" makeOptional_1="true" />
+<as:Attribute name="menupriceID" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="Quantity" makeMandatory="true" />
+<as:Element name="SaleAmount" makeMandatory="true" />
+<as:Element name="DealerCostAmount" makeMandatory="true" />
+<as:Element name="Description" makeMandatory="true" >
+<as:Element name="IsAWASplit" makeMandatory="true" />
+<as:Element name="AWAFordPercentage" makeNillable_1="true"  makeOptional_2="true" />
+<as:Element name="AWADealerPercentage" makeOptional_1="true"  makeNillable_2="true" />
+<as:Element name="AWACustomerPercentage" makeOptional_1="true"  makeNillable_2="true" />
+<as:Element name="DescriptionText" makeMandatory="true" />
+</as:Element>
+<as:Element name="CausalCode" makeMandatory="true" />
+<as:Element name="FILECONTROL17-3" makeMandatory="true" />
+<as:Element name="CounterPersonLocalID" makeMandatory="true" />
+<as:Element name="CounterPersonNationalID" makeMandatory="true" />
+<as:Element name="FILECONTROL16-4" makeMandatory="true" />
+</as:Element>
+<as:Element name="OTCPartInvoiceHeader" makeOptional_1="true"  makeRepeatable="//ERROR/OTCPartInvoiceHeader" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="InvoiceNumber" makeMandatory="true" />
+<as:Element name="InvoiceDate" makeMandatory="true" >
+<as:Attribute name="truncInvoiceDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="CustomerTypeCode" makeMandatory="true" />
+<as:Element name="CustomerTaxID" makeMandatory="true" />
+<as:Element name="TaxAmount" makeMandatory="true" />
+<as:Element name="FILECONTROL17-4" makeMandatory="true" />
+<as:Element name="CounterPersonLocalID" makeMandatory="true" />
+<as:Element name="CounterPersonNationalID" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerEmail" makeMandatory="true" />
+<as:Element name="DiscountAmount" makeMandatory="true" />
+<as:Element name="ShippingAmount" makeMandatory="true" />
+<as:Element name="FILECONTROL16-5" makeMandatory="true" />
+</as:Element>
+<as:Element name="OTCPartsInvoicePart" makeOptional_1="true"  makeRepeatable="//ERROR/OTCPartsInvoicePart" >
+<as:Attribute name="partcoresaleID" makeOptional_1="true" />
+<as:Attribute name="partsreturn" makeOptional_1="true" />
+<as:Attribute name="partskitID" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="Quantity" makeMandatory="true" />
+<as:Element name="SaleAmount" makeMandatory="true" />
+<as:Element name="DealerCostAmount" makeMandatory="true" />
+<as:Element name="Description" makeMandatory="true" />
+<as:Element name="FILECONTROL16-6" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartsInventoryQOHDaily" makeOptional_1="true"  makeRepeatable="//ERROR/PartsInventoryQOHDaily" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="InventoryDate" makeMandatory="true" >
+<as:Attribute name="truncInventoryDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="QuantityOnHand" makeMandatory="true" />
+<as:Element name="FILECONTROL16-7" makeMandatory="true" />
+</as:Element>
+<as:Element name="UsedVehicleSales" makeMandatory="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="UsedVehicleInvoiceNumber" makeMandatory="true" />
+<as:Element name="SaleDate" makeMandatory="true" />
+<as:Element name="SaleType" makeMandatory="true" />
+<as:Element name="FILECONTROL17-5" makeMandatory="true" />
+<as:Element name="SalesPersonLocalID" makeMandatory="true" />
+<as:Element name="SalesPersonNationalID" makeMandatory="true" />
+<as:Element name="SoldVIN" makeMandatory="true" />
+<as:Element name="SoldOdometerReading" makeMandatory="true" />
+<as:Element name="SoldOdometerIndicator" makeMandatory="true" />
+<as:Element name="TradeInVIN" makeMandatory="true" />
+<as:Element name="TradeInOdometerReading" makeMandatory="true" />
+<as:Element name="TradeInOdometerIndicator" makeMandatory="true" />
+<as:Element name="CustomerNumber" makeMandatory="true" />
+<as:Element name="CustomerContactFlag" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="CustomerEmail1" makeMandatory="true" />
+<as:Element name="CustomerEmail2" makeMandatory="true" />
+<as:Element name="ContractType" makeMandatory="true" />
+<as:Element name="SaleTypeDescription" makeMandatory="true" />
+<as:Element name="InventoryType" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="FILECONTROL16-10" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartsInitialQuantity" makeMandatory="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="QuantityDate" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="QuantityOnHand" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-0" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-1" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-2" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-3" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-4" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-5" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-6" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-7" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-8" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-9" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-10" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-11" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-12" makeMandatory="true" />
+<as:Element name="FILECONTROL16-9" makeMandatory="true" />
+</as:Element>
+<as:Element name="FileTrailer" makeRepeatable="//ERROR/FileTrailer"  makeOptional_2="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="FILECONTROL18" makeMandatory="true" />
+<as:Element name="PACode" makeMandatory="true" />
+<as:Element name="SubDealerPACode" makeMandatory="true" />
+<as:Element name="GeographicSalesAreaCode" makeMandatory="true" />
+<as:Element name="FileDate" makeMandatory="true" />
+<as:Element name="FileNumber" makeMandatory="true" />
+<as:Element name="RecordCount" makeMandatory="true" />
+<as:Element name="FileTypeFlag" makeMandatory="true" />
+<as:Element name="FILECONTROL16-8" makeMandatory="true" />
+</as:Element>
+</as:Element>
+<as:Element name="FileHeader" makeOptional_1="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PACode" makeMandatory="true" />
+<as:Element name="FILECONTROL01" makeMandatory="true" />
+<as:Element name="FILECONTROL02" makeMandatory="true" />
+<as:Element name="FILECONTROL03" makeMandatory="true" />
+<as:Element name="FILECONTROL04" makeMandatory="true" />
+<as:Element name="FileDate" makeMandatory="true" />
+<as:Element name="FileNumber" makeMandatory="true" />
+<as:Element name="FILECONTROL05" makeMandatory="true" />
+<as:Element name="FILECONTROL06" makeMandatory="true" />
+<as:Element name="FILECONTROL05-2" makeMandatory="true" />
+<as:Element name="FILECONTROL07" makeMandatory="true" />
+<as:Element name="FILECONTROL08" makeMandatory="true" />
+<as:Element name="FileDate-2" makeMandatory="true" />
+<as:Element name="FileNumber-2" makeMandatory="true" />
+<as:Element name="RecordCount" makeMandatory="true" />
+<as:Element name="SubDealerPACode" makeMandatory="true" />
+<as:Element name="FILECONTROL09" makeMandatory="true" />
+<as:Element name="FILECONTROL10" makeMandatory="true" />
+<as:Element name="FILECONTROL11" makeMandatory="true" />
+<as:Element name="GeographicSalesAreaCode" makeMandatory="true" />
+<as:Element name="FranchiseCode" makeMandatory="true" />
+<as:Element name="DSPSoftwareReleaseVersion" makeMandatory="true" />
+<as:Element name="FILECONTROL12" makeMandatory="true" />
+<as:Element name="FILECONTROL13" makeMandatory="true" />
+<as:Element name="FILECONTROL14" makeMandatory="true" />
+<as:Element name="FILECONTROL02-2" makeMandatory="true" />
+<as:Element name="FILECONTROL15" makeMandatory="true" />
+<as:Element name="VendorID" makeMandatory="true" />
+<as:Element name="FileTypeFlag" makeMandatory="true" />
+<as:Element name="FILECONTROL16" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderHeader" makeRepeatable="//UDBFile/RepairOrderHeader"  makeOptional_2="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="VIN" makeMandatory="true" />
+<as:Element name="RONumber" makeMandatory="true" />
+<as:Element name="ROXRef" makeMandatory="true" />
+<as:Element name="FILECONTROL17" makeMandatory="true" />
+<as:Element name="ROOpenDate" makeMandatory="true" >
+<as:Attribute name="truncROOpenDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="ROCloseDate" makeMandatory="true" >
+<as:Attribute name="truncROCloseDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="OdometerReading" makeMandatory="true" />
+<as:Element name="OdometerIndicator" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="NetCustomerPaidAmount" makeMandatory="true" />
+<as:Element name="TaxAmount" makeMandatory="true" />
+<as:Element name="LicensePlateNumber" makeMandatory="true" />
+<as:Element name="RepairOrderOpenTime" makeMandatory="true" />
+<as:Element name="RepairOrderCloseTime" makeMandatory="true" />
+<as:Element name="AppointmentTypeCode" makeMandatory="true" />
+<as:Element name="AppointmentInitiatedDate" makeMandatory="true" >
+<as:Attribute name="truncApptInitDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="ServiceCustomerTypeCode" makeMandatory="true" />
+<as:Element name="ServiceWriterLocalID" makeMandatory="true" />
+<as:Element name="ServiceWriterNationalID" makeMandatory="true" />
+<as:Element name="CustomerEmail" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="FILECONTROL16-2" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderService" printMessage_1="Sublet / Miscellaneous #1 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription01)) and ./SubletOrMiscAmount01 = 0) or             (not(./SubletOrMiscAmount01 = 0) and not(string(normalize-space(./SubletOrMiscDescription01))))"  printMessage_2="Sublet / Miscellaneous #2 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription02)) and ./SubletOrMiscAmount02 = 0) or             (not(./SubletOrMiscAmount02 = 0) and not(string(normalize-space(./SubletOrMiscDescription02))))"  printMessage_3="Sublet / Miscellaneous #3 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription03)) and ./SubletOrMiscAmount03 = 0) or             (not(./SubletOrMiscAmount03 = 0) and not(string(normalize-space(./SubletOrMiscDescription03))))"  printMessage_4="Sublet / Miscellaneous #4 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription04)) and ./SubletOrMiscAmount04 = 0) or             (not(./SubletOrMiscAmount04 = 0) and not(string(normalize-space(./SubletOrMiscDescription04))))"  printMessage_5="Sublet / Miscellaneous #5 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription05)) and ./SubletOrMiscAmount05 = 0) or             (not(./SubletOrMiscAmount05 = 0) and not(string(normalize-space(./SubletOrMiscDescription05))))"  printMessage_6="Sublet / Miscellaneous #6 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription06)) and ./SubletOrMiscAmount06 = 0) or             (not(./SubletOrMiscAmount06 = 0) and not(string(normalize-space(./SubletOrMiscDescription06))))"  printMessage_7="Sublet / Miscellaneous #7 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription07)) and ./SubletOrMiscAmount07 = 0) or             (not(./SubletOrMiscAmount07 = 0) and not(string(normalize-space(./SubletOrMiscDescription07))))"  printMessage_8="Sublet / Miscellaneous #8 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription08)) and ./SubletOrMiscAmount08 = 0) or             (not(./SubletOrMiscAmount08 = 0) and not(string(normalize-space(./SubletOrMiscDescription08))))"  printMessage_9="Sublet / Miscellaneous #9 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription09)) and ./SubletOrMiscAmount09 = 0) or             (not(./SubletOrMiscAmount09 = 0) and not(string(normalize-space(./SubletOrMiscDescription09))))"  printMessage_10="Sublet / Miscellaneous #10 must have both a Description and an Amount.?             (string(normalize-space(./SubletOrMiscDescription10)) and ./SubletOrMiscAmount10 = 0) or             (not(./SubletOrMiscAmount10 = 0) and not(string(normalize-space(./SubletOrMiscDescription10))))"  printMessage_11="Sublet / Miscellaneous Descriptions and Amounts must start at number 1 and be sent in order without skipping numbers.?             (string(normalize-space(./SubletOrMiscDescription02)) and not(string(normalize-space(./SubletOrMiscDescription01)))) or             (string(normalize-space(./SubletOrMiscDescription03)) and not(string(normalize-space(./SubletOrMiscDescription02)))) or             (string(normalize-space(./SubletOrMiscDescription04)) and not(string(normalize-space(./SubletOrMiscDescription03)))) or             (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription04)))) or             (string(normalize-space(./SubletOrMiscDescription05)) and not(string(normalize-space(./SubletOrMiscDescription05)))) or             (string(normalize-space(./SubletOrMiscDescription07)) and not(string(normalize-space(./SubletOrMiscDescription06)))) or             (string(normalize-space(./SubletOrMiscDescription08)) and not(string(normalize-space(./SubletOrMiscDescription07)))) or             (string(normalize-space(./SubletOrMiscDescription09)) and not(string(normalize-space(./SubletOrMiscDescription08)))) or             (string(normalize-space(./SubletOrMiscDescription10)) and not(string(normalize-space(./SubletOrMiscDescription09))))"  makeRepeatable="//UDBFile/RepairOrderService"  makeOptional_13="true" >
+<as:Attribute name="awaID" makeOptional_1="true" />
+<as:Attribute name="bundledlaborID" makeOptional_1="true" />
+<as:Attribute name="menupriceID" makeOptional_1="true" />
+<as:Attribute name="espwarrantydeductible" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="SequenceNumber" makeMandatory="true" />
+<as:Element name="RepairTypeCode" makeMandatory="true" />
+<as:Element name="FILECONTROL17-2" makeMandatory="true" />
+<as:Element name="ServicingDepartmentCode" makeMandatory="true" />
+<as:Element name="LaborOperationCode" makeMandatory="true" />
+<as:Element name="LaborChargeAmount" makeMandatory="true" />
+<as:Element name="BilledHours" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription01" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription02" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription03" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription04" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription05" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription06" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription07" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription08" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription09" makeMandatory="true" />
+<as:Element name="SubletOrMiscDescription10" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount01" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount02" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount03" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount04" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount05" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount06" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount07" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount08" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount09" makeMandatory="true" />
+<as:Element name="SubletOrMiscAmount10" makeMandatory="true" />
+<as:Element name="LaborDescription" makeMandatory="true" >
+<as:Element name="IsAWASplit" makeMandatory="true" />
+<as:Element name="AWAFordPercentage" makeNillable_1="true" />
+<as:Element name="AWADealerPercentage" makeNillable_1="true" />
+<as:Element name="AWACustomerPercentage" makeNillable_1="true" />
+<as:Element name="LaborDescriptionText" makeMandatory="true" />
+</as:Element>
+<as:Element name="TechnicianLocalID" makeMandatory="true" />
+<as:Element name="TechnicianNationalID" makeMandatory="true" />
+<as:Element name="FILECONTROL16-3" makeMandatory="true" />
+</as:Element>
+<as:Element name="RepairOrderPart" makeRepeatable="//UDBFile/RepairOrderPart"  makeOptional_2="true" >
+<as:Attribute name="awaID" makeOptional_1="true" />
+<as:Attribute name="bundledlaborID" makeOptional_1="true" />
+<as:Attribute name="partcoresaleID" makeOptional_1="true" />
+<as:Attribute name="partsreturn" makeOptional_1="true" />
+<as:Attribute name="partskitID" makeOptional_1="true" />
+<as:Attribute name="menupriceID" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="Quantity" makeMandatory="true" />
+<as:Element name="SaleAmount" makeMandatory="true" />
+<as:Element name="DealerCostAmount" makeMandatory="true" />
+<as:Element name="Description" makeMandatory="true" >
+<as:Element name="IsAWASplit" makeMandatory="true" />
+<as:Element name="AWAFordPercentage" makeNillable_1="true"  makeOptional_2="true" />
+<as:Element name="AWADealerPercentage" makeOptional_1="true"  makeNillable_2="true" />
+<as:Element name="AWACustomerPercentage" makeOptional_1="true"  makeNillable_2="true" />
+<as:Element name="DescriptionText" makeMandatory="true" />
+</as:Element>
+<as:Element name="CausalCode" makeMandatory="true" />
+<as:Element name="FILECONTROL17-3" makeMandatory="true" />
+<as:Element name="CounterPersonLocalID" makeMandatory="true" />
+<as:Element name="CounterPersonNationalID" makeMandatory="true" />
+<as:Element name="FILECONTROL16-4" makeMandatory="true" />
+</as:Element>
+<as:Element name="OTCPartInvoiceHeader" makeRepeatable="//UDBFile/OTCPartInvoiceHeader"  makeOptional_2="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="InvoiceNumber" makeMandatory="true" />
+<as:Element name="InvoiceDate" makeMandatory="true" >
+<as:Attribute name="truncInvoiceDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="CustomerTypeCode" makeMandatory="true" />
+<as:Element name="CustomerTaxID" makeMandatory="true" />
+<as:Element name="TaxAmount" makeMandatory="true" />
+<as:Element name="FILECONTROL17-4" makeMandatory="true" />
+<as:Element name="CounterPersonLocalID" makeMandatory="true" />
+<as:Element name="CounterPersonNationalID" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerEmail" makeMandatory="true" />
+<as:Element name="DiscountAmount" makeMandatory="true" />
+<as:Element name="ShippingAmount" makeMandatory="true" />
+<as:Element name="FILECONTROL16-5" makeMandatory="true" />
+</as:Element>
+<as:Element name="OTCPartsInvoicePart" makeRepeatable="//UDBFile/OTCPartsInvoicePart"  makeOptional_2="true" >
+<as:Attribute name="partcoresaleID" makeOptional_1="true" />
+<as:Attribute name="partsreturn" makeOptional_1="true" />
+<as:Attribute name="partskitID" makeOptional_1="true" />
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="Quantity" makeMandatory="true" />
+<as:Element name="SaleAmount" makeMandatory="true" />
+<as:Element name="DealerCostAmount" makeMandatory="true" />
+<as:Element name="Description" makeMandatory="true" />
+<as:Element name="FILECONTROL16-6" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartsInventoryQOHDaily" makeOptional_1="true"  makeRepeatable="//UDBFile/PartsInventoryQOHDaily" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="InventoryDate" makeMandatory="true" >
+<as:Attribute name="truncInventoryDate" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="QuantityOnHand" makeMandatory="true" />
+<as:Element name="FILECONTROL16-7" makeMandatory="true" />
+</as:Element>
+<as:Element name="UsedVehicleSales" makeMandatory="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="UsedVehicleInvoiceNumber" makeMandatory="true" />
+<as:Element name="SaleDate" makeMandatory="true" />
+<as:Element name="SaleType" makeMandatory="true" />
+<as:Element name="FILECONTROL17-5" makeMandatory="true" />
+<as:Element name="SalesPersonLocalID" makeMandatory="true" />
+<as:Element name="SalesPersonNationalID" makeMandatory="true" />
+<as:Element name="SoldVIN" makeMandatory="true" />
+<as:Element name="SoldOdometerReading" makeMandatory="true" />
+<as:Element name="SoldOdometerIndicator" makeMandatory="true" />
+<as:Element name="TradeInVIN" makeMandatory="true" />
+<as:Element name="TradeInOdometerReading" makeMandatory="true" />
+<as:Element name="TradeInOdometerIndicator" makeMandatory="true" />
+<as:Element name="CustomerNumber" makeMandatory="true" />
+<as:Element name="CustomerContactFlag" makeMandatory="true" />
+<as:Element name="FirstName" makeMandatory="true" />
+<as:Element name="MiddleInitial" makeMandatory="true" />
+<as:Element name="LastName" makeMandatory="true" />
+<as:Element name="Title" makeMandatory="true" />
+<as:Element name="AddressLine1" makeMandatory="true" />
+<as:Element name="AddressLine2" makeMandatory="true" />
+<as:Element name="City" makeMandatory="true" />
+<as:Element name="StateOrProvince" makeMandatory="true" />
+<as:Element name="ZipOrPostalCode" makeMandatory="true" />
+<as:Element name="HomePhone" makeMandatory="true" />
+<as:Element name="WorkPhone" makeMandatory="true" />
+<as:Element name="CustomerEmail1" makeMandatory="true" />
+<as:Element name="CustomerEmail2" makeMandatory="true" />
+<as:Element name="ContractType" makeMandatory="true" />
+<as:Element name="SaleTypeDescription" makeMandatory="true" />
+<as:Element name="InventoryType" makeMandatory="true" />
+<as:Element name="CellPhone" makeMandatory="true" />
+<as:Element name="CustomerCountryCode" makeMandatory="true" />
+<as:Element name="FILECONTROL16-10" makeMandatory="true" />
+</as:Element>
+<as:Element name="PartsInitialQuantity" makeMandatory="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Attribute name="currentFileDate" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="QuantityDate" makeMandatory="true" />
+<as:Element name="PartNumberPrefix" makeMandatory="true" />
+<as:Element name="PartNumberBase" makeMandatory="true" />
+<as:Element name="PartNumberSuffix" makeMandatory="true" />
+<as:Element name="QuantityOnHand" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-0" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-1" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-2" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-3" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-4" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-5" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-6" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-7" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-8" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-9" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-10" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-11" makeMandatory="true" />
+<as:Element name="SaleQuantitiyCurrentMonth-12" makeMandatory="true" />
+<as:Element name="FILECONTROL16-9" makeMandatory="true" />
+</as:Element>
+<as:Element name="FileTrailer" makeOptional_1="true" >
+<as:Attribute name="lineNumber" makeMandatory="true" />
+<as:Attribute name="lineLength" makeMandatory="true" />
+<as:Element name="RecordType" makeMandatory="true" />
+<as:Element name="FILECONTROL18" makeMandatory="true" />
+<as:Element name="PACode" makeMandatory="true" />
+<as:Element name="SubDealerPACode" makeMandatory="true" />
+<as:Element name="GeographicSalesAreaCode" makeMandatory="true" />
+<as:Element name="FileDate" makeMandatory="true" />
+<as:Element name="FileNumber" makeMandatory="true" />
+<as:Element name="RecordCount" makeMandatory="true" />
+<as:Element name="FileTypeFlag" makeMandatory="true" />
+<as:Element name="FILECONTROL16-8" makeMandatory="true" />
+</as:Element>
+</as:Element>
+</as:Structure>
+</as:AssemblyStructure>
+</as:CAM>

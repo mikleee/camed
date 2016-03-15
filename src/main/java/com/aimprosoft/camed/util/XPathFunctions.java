@@ -311,10 +311,14 @@ public class XPathFunctions {
     }
 
     public static boolean isChildSpecifiedXpathCorrect(Element element, String xPath, String root) {
-        if (xPath.startsWith(root + "[")) {
-            String childQualifier = getChildSpecifiedXpath(xPath, root);
-            return doesChildExist(element, childQualifier.split("/"), 0);
-        } else {
+        try {
+            if (xPath.startsWith(root + "[")) {
+                String childQualifier = getChildSpecifiedXpath(xPath, root);
+                return doesChildExist(element, childQualifier.split("/"), 0);
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }

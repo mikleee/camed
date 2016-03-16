@@ -36,10 +36,9 @@ public class XPathFunctions {
 
                     list.add("/" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName());
                     list.add("/" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName() + "/*");
-                    for (int i = 1; i < 4; i++) {
+                    for (int i = 1; i < 5; i++) {
                         list.add(xpathToParent(element, i));
                     }
-                    list.add("//" + element.getParentElement().getQualifiedName() + "/" + element.getQualifiedName() + "/*");
 
                     list.add("/" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element));
                     list.add("/" + xpathWithPosition(element.getParentElement()) + "/" + xpathWithPosition(element) + "/*");

@@ -8,10 +8,7 @@ import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Stack;
-import java.util.TreeSet;
+import java.util.*;
 
 
 public class OutputEngine implements Cloneable {
@@ -451,11 +448,13 @@ public class OutputEngine implements Cloneable {
 //                Namespace additional = (Namespace)list.get(i);
 //                printNamespace(out, additional, namespaces);
 //            }
-            TreeSet<Namespace> sorted = new TreeSet<Namespace>(new NamespaceComparator());
+//            TreeSet<Namespace> sorted = new TreeSet<Namespace>(new NamespaceComparator());
+            List<Namespace> sorted = new ArrayList<Namespace>();
             for (Object aList : list) {
                 Namespace ns = (Namespace) aList;
                 sorted.add(ns);
             }
+            Collections.sort(sorted, new NamespaceComparator());
             for (Namespace additional : sorted) {
                 printNamespace(out, additional, namespaces);
             }

@@ -33,8 +33,9 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
         return new Namespaces(map);
     }
 
-    private Set<Namespace> retrieveNamespaces() {
-        Set<Namespace> result = new HashSet<Namespace>();
+    private List<Namespace> retrieveNamespaces() {
+//        Set<Namespace> result = new HashSet<Namespace>();
+        ArrayList<Namespace> result = new ArrayList<Namespace>();
         result.add(CamConstants.XML_NAMESPACE);
         populateNamespaceList(element, result);
         return result;

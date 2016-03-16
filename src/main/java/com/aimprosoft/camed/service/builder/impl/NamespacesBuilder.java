@@ -34,7 +34,7 @@ public class NamespacesBuilder implements ElementBuilder<Compilable> {
     }
 
     private List<Namespace> retrieveNamespaces() {
-        ArrayList<Namespace> result = new ArrayList<Namespace>();
+        List<Namespace> result = new ArrayList<Namespace>();
         result.add(CamConstants.XML_NAMESPACE);
         populateNamespaceList(element, result);
         return result;

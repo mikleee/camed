@@ -444,11 +444,6 @@ public class OutputEngine implements Cloneable {
     private void printAdditionalNamespaces(Writer out, Element element, NamespaceStack namespaces) throws IOException {
         List<?> list = element.getAdditionalNamespaces();
         if (list != null) {
-//            for (int i = 0; i < list.size(); i++) {
-//                Namespace additional = (Namespace)list.get(i);
-//                printNamespace(out, additional, namespaces);
-//            }
-//            TreeSet<Namespace> sorted = new TreeSet<Namespace>(new NamespaceComparator());
             List<Namespace> sorted = new ArrayList<Namespace>();
             for (Object aList : list) {
                 Namespace ns = (Namespace) aList;
